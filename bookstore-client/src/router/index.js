@@ -1,5 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AdminView from '../views/AdminView.vue'
+import EditBooksView from '../views/EditBooksView.vue'
+// import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
+
 
 // “/” 
 // “/login/”
@@ -28,41 +33,41 @@ const routes = [
     // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     component: AdminView
   },
-  {
-    path: '/admin/requests',
-    name: 'requests',
-    component: RequestsView
-  },
-  {
-    path: '/admin/edit-users',
-    name: 'edit-users',
-    component: EditUsersView
-  },
+  // {
+  //   path: '/admin/requests',
+  //   name: 'requests',
+  //   component: RequestsView
+  // },
+  // {
+  //   path: '/admin/edit-users',
+  //   name: 'edit-users',
+  //   component: EditUsersView
+  // },
   {
     path: '/admin/edit-books',
     name: 'edit-books',
     component: EditBooksView
   },
-  {
-    path: '/admin/add-user',
-    name: 'add-user',
-    component: AddUserView
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginView
-  },
-  {
-    path: '/mybooks',
-    name: 'mybooks',
-    component: MyBooksView
-  },
-  {
-    path: '/contact',
-    name: 'contact',
-    component: ContactView
-  },
+  // {
+  //   path: '/admin/add-user',
+  //   name: 'add-user',
+  //   component: AddUserView
+  // },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: LoginView
+  // },
+  // {
+  //   path: '/mybooks',
+  //   name: 'mybooks',
+  //   component: MyBooksView
+  // },
+  // {
+  //   path: '/contact',
+  //   name: 'contact',
+  //   component: ContactView
+  // },
 ]
 
 const router = createRouter({
