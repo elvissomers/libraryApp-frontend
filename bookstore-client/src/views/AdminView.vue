@@ -13,7 +13,7 @@
 import SideBar from '@/components/SideBar.vue';
 
 export default {
-  name: 'AboutView',
+  name: 'AdminView',
   components: {
     SideBar
 }
