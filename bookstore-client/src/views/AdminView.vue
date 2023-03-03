@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="admin">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld/> -->
     <SideBar></SideBar>
