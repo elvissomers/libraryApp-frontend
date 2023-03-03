@@ -68,7 +68,7 @@
     </script>
 
     <script>
-        function createLoan() {
+      function createLoan() {
         const form = document.getElementById("loan-form");
         const loanData = {
             startDate: form.elements.start_date.value,
@@ -77,9 +77,10 @@
             copyId: form.elements.copy_id.value,
             reservationId: form.elements.reservation_id.value,
         };
-        const requestBody = JSON.stringify(loanData);
+        if (loanData.copyId != "", loanData.endDate != "", loanData.startDate != "",
+            loanData.reservationId != "", loanData.userId != ""){
+            const requestBody = JSON.stringify(loanData);
         
-        console.log(requestBody)
         fetch("http://localhost:8080/loan/create", {
             method: "POST",
             headers: {
@@ -91,6 +92,8 @@
             .then((data) => console.log(data))
             .catch((error) => console.error(error));
         }
+      }
+
     </script>
 
   </body>
