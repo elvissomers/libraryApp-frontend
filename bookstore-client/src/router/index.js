@@ -2,10 +2,14 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/AdminView.vue'
 import EditBooksView from '../views/EditBooksView.vue'
-// import HomeView from '../views/HomeView.vue'
-// import HomeView from '../views/HomeView.vue'
+import RequestsView from '../views/RequestsView.vue'
+import EditUsersView from '../views/EditUsersView.vue'
+import AddUserView from '../views/AddUserView.vue'
+import LoginView from '../views/LoginView.vue'
+import MyBooksView from '../views/MyBooksView.vue'
+import ContactView from '../views/ContactView.vue'
 
-
+// Endpoints
 // “/” 
 // “/login/”
 // “/mybooks/
@@ -16,8 +20,6 @@ import EditBooksView from '../views/EditBooksView.vue'
 // “/admin/edit-books”
 // “/admin/add-user”
 
-
-
 const routes = [
   {
     path: '/',
@@ -27,47 +29,43 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     component: AdminView
   },
-  // {
-  //   path: '/admin/requests',
-  //   name: 'requests',
-  //   component: RequestsView
-  // },
-  // {
-  //   path: '/admin/edit-users',
-  //   name: 'edit-users',
-  //   component: EditUsersView
-  // },
+  {
+    path: '/admin/requests',
+    name: 'requests',
+    component: RequestsView
+  },
+  {
+    path: '/admin/edit-users',
+    name: 'edit-users',
+    component: EditUsersView
+  },
   {
     path: '/admin/edit-books',
     name: 'edit-books',
     component: EditBooksView
   },
-  // {
-  //   path: '/admin/add-user',
-  //   name: 'add-user',
-  //   component: AddUserView
-  // },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: LoginView
-  // },
-  // {
-  //   path: '/mybooks',
-  //   name: 'mybooks',
-  //   component: MyBooksView
-  // },
-  // {
-  //   path: '/contact',
-  //   name: 'contact',
-  //   component: ContactView
-  // },
+  {
+    path: '/admin/add-user',
+    name: 'add-user',
+    component: AddUserView
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  },
+  {
+    path: '/mybooks',
+    name: 'mybooks',
+    component: MyBooksView
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: ContactView
+  },
 ]
 
 const router = createRouter({

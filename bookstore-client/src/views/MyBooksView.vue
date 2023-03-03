@@ -1,7 +1,8 @@
 <template>
     <div class="MyBooks">
-  
+        My books page
         <LoginCard></LoginCard>
+
 
 
     </div>

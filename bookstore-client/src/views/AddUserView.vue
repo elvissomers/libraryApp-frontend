@@ -1,19 +1,18 @@
 <template>
     <div class="AddUser">
-      <SideBar></SideBar>
-  
-  
+      <AddUser></AddUser>
+      test
     </div>
   </template>
   
   <script>
   // @ is an alias to /src
-  import SideBar from '@/components/SideBar.vue';
+  import AddUser from '@/components/admin-panel/AddUser.vue';
   
   export default {
     name: 'AddUserView',
     components: {
-      SideBar
-  }
+    AddUser
+}
   }
   </script>
