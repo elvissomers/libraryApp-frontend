@@ -1,7 +1,7 @@
 <template>
     <div class="MyBooks">
         My books page
-        <h1 id="test">total vue packages: {{totalVuePackages}}</h1>
+        <h1 id="test">Books: {{bookList}}</h1>
         <MyBooksTest></MyBooksTest>
 
     </div>
@@ -29,9 +29,9 @@ export default {
         axios.get("http://localhost:8080/book")
       .then(response => {
         var data = response['data']
-        console.log(data)
         for(var i = 0; i in data; i++){
-            console.log(data[0])
+            var title = data[i].title
+            this.bookList.push(title)
         }
       })
     }
