@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-model="idToDelete">
+    <input class="bg-blue-500" type="text" v-model="idToDelete">
     <button @click="deleteData()">Delete</button>
   </div>
 </template>
