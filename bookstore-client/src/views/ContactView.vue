@@ -1,10 +1,10 @@
 <template>
-    <div class="Contact">
-      <SideBar></SideBar>
+  <div class="Contact">
+    <SideBar></SideBar>
   
   
-    </div>
-  </template>
+  </div>
+</template>
   
   <script>
   // @ is an alias to /src
