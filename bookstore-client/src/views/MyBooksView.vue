@@ -1,40 +1,36 @@
 <template>
-    <div class="MyBooks">
-        My books page
-        <h1 id="test">Books: {{bookList}}</h1>
-        <MyBooksTest></MyBooksTest>
-
+    <div>
+      <h1>Book List:</h1>
+      <br>
+      <ul>
+        <li v-for="book in books" :key="book.id">{{ book.title }}</li>
+      </ul>
     </div>
-</template>
+  </template>
 
-<script>
-// @ is an alias to /src
-import MyBooksTest from '@/components/lelijke-htmls/MyBooksTest.vue'
-import axios from 'axios'
+  <script>
+  import axios from 'axios';
 
-export default {
-  name: 'MyBooksView',
-  components: {
-    MyBooksTest,
-    },
-
+  export default {
+    name: 'BookList',
     data() {
-        return {
-            totalVuePackages: null,
-            bookList: []
-            };
+      return {
+        books: [],
+      };
     },
-
-    created(){
-        axios.get("http://localhost:8080/book")
-      .then(response => {
-        var data = response['data']
-        for(var i = 0; i in data; i++){
-            var title = data[i].title
-            this.bookList.push(title)
-        }
-      })
-    }
-}
-
-</script>
+    mounted() {
+      this.getBooks();
+    },
+    methods: {
+      getBooks() {
+        axios.get('http://localhost:8080/book')
+          .then(response => {
+            this.books = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+    },
+  };
+  </script>
