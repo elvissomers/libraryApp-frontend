@@ -1,8 +1,8 @@
 <template>
     <div class="AddUser">
       <SideBar></SideBar>
+      <h1>add user:</h1>
       <AddUser></AddUser>
-
     </div>
   </template>
   
