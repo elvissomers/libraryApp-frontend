@@ -2,7 +2,7 @@
     <div class="MyBooks">
         My books page
         <LoginCard></LoginCard>
-
+        <ElvisLelijkeHtml></ElvisLelijkeHtml>
 
 
     </div>
@@ -10,12 +10,12 @@
 
 <script>
 // @ is an alias to /src
-import LoginCard from '@/components/LoginCard.vue';
+import ElvisLelijkeHtml from '@/components/lelijke-htmls/ElvisLelijkeHtml.vue';
 
 export default {
   name: 'MyBooksView',
   components: {
-    LoginCard
+    ElvisLelijkeHtml
 }
 }
 </script>
