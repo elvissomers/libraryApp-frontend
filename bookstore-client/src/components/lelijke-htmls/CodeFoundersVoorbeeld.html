@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My Application</h1>
+
+    <table>
+        <tr>
+            <td>Klaas</td>
+            <td>81</td>
+        </tr>
+    </table>
+
+    <input type="text" id="name">
+    <input type="number" id="age">
+    <button type="button" onclick = "createPerson()">
+        Save Person
+    </button>
+
+    <input type="text" id="name_c">
+    <input type="text" id="ceoName">
+    <input type="number" id="revenue">
+    <input type="number" id="stockPrice">
+    <input type="checkbox" id="bankrupt">
+    <button type="button" onclick = "createCompany()">
+        Save Company
+    </button>
+
+    <table id="persons-table">
+
+    </table>
+
+    <table id="company-table">
+
+    </table>
+
+    <script>
+        alert('Hello world!')
+
+        var a = 6
+
+        function doSomething(i){
+            alert(a+'DO SOMETHING '+i)
+            
+        }
+
+        function getAllPersons(){
+            fetch('http://localhost:8080/persons')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+
+                    // Step 1: Iterate over persons
+                    // for (let index = 0; index < data.length; index++) {
+                    //     const person = data[index] }
+
+
+                    data.forEach(person => { // "Quicker for loop" - see loop above
+                        // Step 2: Expand table for each person
+                        document.getElementById('persons-table').innerHTML += `
+                            <tr>
+                                <td>${person.name}</td>
+                                <td>${person.age}</td>
+                            </tr>        
+                        `
+                    });
+                    
+                })
+        }
+
+        function getAllCompanies(){
+            fetch('http://localhost:8080/companies')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+
+                    data.forEach(company => {
+                        document.getElementById('company-table').innerHTML += `
+                        <tr>
+                            <td>${company.name}</td>
+                            <td>${company.ceoName}</td>
+                            <td>${company.revenue}</td>
+                            <td>${company.stockPrice}</td>
+                            <td>${company.bankrupt}</td>
+                        <tr>
+                    `
+                    })
+                })
+        }
+
+    function createPerson() {
+    // Formulier uitlezen
+        let nameInvoer = document.getElementById('name').value;
+        let ageInvoer = document.getElementById('age').value;
+
+        let newPerson = {
+            name: nameInvoer,
+            age: ageInvoer
+        }
+
+        fetch("http://localhost:8080/person/create", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newPerson)
+        })
+        .then(response => {
+            alert('Is goedgegaan');
+        })
+        .catch(error => {
+            alert('Er is iets fouts gegaan');
+    });
+
+    }
+
+    function createCompany() {
+    // Formulier uitlezen
+        let nameInvoer = document.getElementById('name_c').value;
+        let ceoNameInvoer = document.getElementById('ceoName').value;
+        let revenueInvoer = document.getElementById('revenue').value;
+        let stockPriceInvoer = document.getElementById('stockPrice').value;
+        let bankruptInvoer = document.getElementById('bankrupt').checked;
+
+
+        let newCompany = {
+            name: nameInvoer,
+            ceoName: ceoNameInvoer,
+            revenue: revenueInvoer,
+            stockPrice: stockPriceInvoer,
+            bankrupt: bankruptInvoer
+        }
+
+        fetch("http://localhost:8080/company/create", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCompany)
+        })
+        .then(response => {
+            alert('Is goedgegaan');
+        })
+        .catch(error => {
+            alert('Er is iets fouts gegaan');
+        });
+    }
+
+        doSomething()
+        getAllPersons()
+        getAllCompanies()
+
+    </script>
+
+</body>
+</html>
