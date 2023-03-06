@@ -28,12 +28,10 @@ export default {
     created(){
         axios.get("http://localhost:8080/book")
       .then(response => {
-        for(var title in response['data']){
-            for (var book in title){
-                console.log(book)
-                this.bookList.push(book)
-                this.totalVuePackages = book
-            }
+        var data = response['data']
+        console.log(data)
+        for(var i = 0; i in data; i++){
+            console.log(data[0])
         }
       })
     }
