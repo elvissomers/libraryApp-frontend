@@ -6,20 +6,20 @@
                     <h2>Creëer nieuwe gebruiker</h2>
                     <div class="inputbox">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
+                        <input type="email" required id="email">
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
+                        <input type="text" required id="name">
                         <label for="">Voornaam</label>
                     </div>
-                    <div class="inputbox">
+                    <!-- <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input type="text" required>
                         <label for="">Achternaam</label>
-                    </div>
-                    <button>Registreer</button>
+                    </div> -->
+                    <button v-on:click = "createUser">Registreer</button>
                     <!-- <div class="register">
                         <p>Don't have a account <a href="#">Register</a></p>
                     </div> -->
@@ -170,3 +170,13 @@
     }
 </style>
 
+<script>
+    import { createUser } from './adduser.js'
+
+    export default {
+        name: 'AddUser',
+        components: {
+            createUser
+        }
+    }
+</script>

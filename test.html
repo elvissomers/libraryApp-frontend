@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fetch API voorbeeld</title>
+  </head>
+  <body>
+    <table id="loan-table">
+        <thead>
+          <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>User Name</th>
+            <th>Copy Name</th>
+            <th>Reservation ID</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+    <form id="loan-form" onsubmit="return false" >
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date"><br>
+  
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date"><br>
+  
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id"><br>
+  
+        <label for="copy_id">Copy ID:</label>
+        <input type="text" id="copy_id" name="copy_id"><br>
+  
+        <label for="reservation_id">Reservation ID:</label>
+        <input type="text" id="reservation_id" name="reservation_id"><br>
+  
+        <input type="submit" value="Create Loan" onclick="createLoan()">
+      </form>
+
+    <script>
+    fetch("http://localhost:8080/loan")
+        .then((response) => response.json())
+        .then((data) => {
+        const tbody = document.querySelector("#loan-table tbody");
+        data.forEach((loan) => {
+            const row = document.createElement("tr");
+            const startDateCell = document.createElement("td");
+            const endDateCell = document.createElement("td");
+            const userNameCell = document.createElement("td");
+            const copyNameCell = document.createElement("td");
+            const reservationIdCell = document.createElement("td");
+
+            startDateCell.textContent = loan.startDate;
+            endDateCell.textContent = loan.endDate;
+            userNameCell.textContent = loan.userName;
+            copyNameCell.textContent = loan.copyName;
+            reservationIdCell.textContent = loan.reservationId;
+
+            row.appendChild(startDateCell);
+            row.appendChild(endDateCell);
+            row.appendChild(userNameCell);
+            row.appendChild(copyNameCell);
+            row.appendChild(reservationIdCell);
+
+            tbody.appendChild(row);
+        });
+        })
+        .catch((error) => console.error(error));
+    </script>
+
+    <script>
+      function createLoan() {
+        const form = document.getElementById("loan-form");
+        const loanData = {
+            startDate: form.elements.start_date.value,
+            endDate: form.elements.end_date.value,
+            userId: form.elements.user_id.value,
+            copyId: form.elements.copy_id.value,
+            reservationId: form.elements.reservation_id.value,
+        };
+        if (loanData.copyId != "", loanData.endDate != "", loanData.startDate != "",
+            loanData.reservationId != "", loanData.userId != ""){
+            const requestBody = JSON.stringify(loanData);
+        
+        fetch("http://localhost:8080/loan/create", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: requestBody,
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error));
+        }
+      }
+
+    </script>
+
+  </body>
+</html>
