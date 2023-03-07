@@ -25,6 +25,7 @@
       };
     },
     methods: {
+        
       createBook() {
         axios.post('http://localhost:8080/book/create', this.book)
           .then(response => {
@@ -32,7 +33,8 @@
           })
           .catch(error => {
             console.log(error);
-          });
+          })
+          .then(() => this.getBooks());
       },
     },
   };
