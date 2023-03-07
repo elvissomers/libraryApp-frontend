@@ -7,9 +7,6 @@
       </ul>
     </div>
 
-
-
-    
   </template>
   
   <script>

@@ -8,6 +8,7 @@ import AddUserView from '../views/admin-panel/AddUserView.vue'
 import LoginView from '../views/LoginView.vue'
 import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
+import MyTestView from '../views/MyTestView.vue'
 
 // Endpoints
 // “/” 
@@ -65,6 +66,11 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: ContactView
+  },
+  {
+    path: '/mytestpage',
+    name: 'mytestpage',
+    component: MyTestView
   },
 ]
 
