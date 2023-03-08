@@ -9,7 +9,7 @@
             <ul>
                 <li v-for="book in books" :key="book.id">
                 {{ book.title }} by {{ book.author }}
-                - {{ book.id }}
+                - {{ book.id }} - {{ book.isbn }}
                 <button class="bg-black text-slate-50" 
                 @click="deleteBook(book.id)">Delete</button>
                 </li>

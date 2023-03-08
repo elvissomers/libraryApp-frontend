@@ -5,6 +5,8 @@ import EditBooksView from '../views/admin-panel/EditBooksView.vue'
 import RequestsView from '../views/admin-panel/RequestsView.vue'
 import EditUsersView from '../views/admin-panel/EditUsersView.vue'
 import AddUserView from '../views/admin-panel/AddUserView.vue'
+import AddBookView from '../views/admin-panel/AddBookView.vue'
+import AddCopyView from '../views/admin-panel/AddCopyView.vue'
 import LoginView from '../views/LoginView.vue'
 import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
@@ -52,6 +54,16 @@ const routes = [
     path: '/admin/add-user',
     name: 'add-user',
     component: AddUserView
+  },
+  {
+    path: '/admin/add-book',
+    name: 'add-book',
+    component: AddBookView
+  },
+  {
+    path: '/admin/add-copy',
+    name: 'add-copy',
+    component: AddCopyView
   },
   {
     path: '/login',

@@ -3,9 +3,11 @@
       <h1>Add a Book</h1>
       <form @submit.prevent="createBook">
         <label for="title">Title:</label>
-        <input type="text" id="title" v-model="book.title">
+        <input class="bg-slate-200" type="text" id="title" v-model="book.title">
         <label for="author">Author:</label>
-        <input type="text" id="author" v-model="book.author">
+        <input class="bg-slate-200" type="text" id="author" v-model="book.author">
+        <label for="author">isbn:</label>
+        <input class="bg-slate-200" type="text" id="author" v-model="book.isbn">
         <button class="border-slate-900 outline-2 bg-yellow-500" type="submit">Create Book</button>
       </form>
     </div>
@@ -21,6 +23,7 @@
         book: {
           title: '',
           author: '',
+          isbn: '',
         },
       };
     },

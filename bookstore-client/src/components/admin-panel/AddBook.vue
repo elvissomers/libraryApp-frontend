@@ -2,53 +2,59 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="">
-
-                    <div>
-                    <h1>Add a Book</h1>
-                    <form @submit.prevent="createBook">
-                        <label for="title">Title:</label>
-                        <input class="bg-slate-200" type="text" id="title" v-model="book.title">
-                        <label for="author">Author:</label>
-                        <input class="bg-slate-200" type="text" id="author" v-model="book.author">
-                        <label for="author">isbn:</label>
-                        <input class="bg-slate-200" type="text" id="author" v-model="book.isbn">
-                        <button class="border-slate-900 outline-2 bg-yellow-500" type="submit">Create Book</button>
-                    </form>
-                    </div>
-
-
-
-
-
-                    <h1>Creëer nieuwe gebruiker</h1>
+                <form @submit.prevent="createBook">
+                    <h2>Voeg een boek toe</h2>
                     <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
-                        <label for="">Email</label>
+                        <!-- <ion-icon name="mail-outline"></ion-icon> -->
+                        <input type="text" id="title" v-model="book.title" required>
+                        <label for="">Titel</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
-                        <label for="">Voornaam</label>
+                        <input type="text" id="author" v-model="book.author" required>
+                        <label for="">Auteur</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
-                        <label for="">Achternaam</label>
+                        <input type="text" id="isbn" v-model="book.isbn" required>
+                        <label for="">isbn</label>
                     </div>
-                    <button>Registreer</button>
-                    <!-- <div class="register">
-                        <p>Don't have a account <a href="#">Register</a></p>
-                    </div> -->
+                    <button class="submit-btn">Voeg toe</button>
                 </form>
             </div>
         </div>
     </section>
-    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
-
 </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'AddBook',
+  data() {
+    return {
+      book: {
+        title: '',
+        author: '',
+        isbn: '',
+      },
+    };
+  },
+  methods: {
+      
+    createBook() {
+      axios.post('http://localhost:8080/book/create', this.book)
+        .then(response => {
+          console.log('Book created:', response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => alert("Boek toevoegen succesvol"));
+    },
+  },
+};
+</script>
 
 
 <style scoped>
@@ -165,6 +171,18 @@
         height: 40px;
         border-radius: 40px;
         background: #000000;;
+        color: rgb(255, 255, 255);
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+    }
+    button:hover{
+        width: 100%;
+        height: 40px;
+        border-radius: 40px;
+        background: #757575;;
         color: rgb(255, 255, 255);
         border: none;
         outline: none;
