@@ -1,5 +1,5 @@
 <template>
-    <div class="AddUser">
+    <div class="AddCopy">
       <SideBar></SideBar>
       <AddCopy></AddCopy>
     </div>

@@ -1,13 +1,17 @@
 <template>
     <div class="MyBooks">
-
+      <SideBar></SideBar>
+        Loaned books:
         <div class="flex flex-row flex-wrap justify-center">
-            <BookCard 
-            v-for="book in books" :key="book.id"
-            v-bind:title="book.title" 
-            v-bind:author="book.author" 
-            v-bind:isbn="book.isbn">
-            </BookCard>
+            <LoanRow
+            v-for="loan in loans" :key="loan.id"
+            v-bind:id="loan.id" 
+            v-bind:endDate="loan.endDate" 
+            v-bind:startDate="loan.startDate" 
+            v-bind:userFirstName="loan.userFirstName"
+            v-bind:userLastName="loan.userLastName"
+            v-bind:bookTitle="loan.bookTitle">
+            </LoanRow>
         </div>
 
     </div>
@@ -16,26 +20,29 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import BookCard from '@/components/BookCard.vue'
+import LoanRow from '@/components/admin-panel/LoanRow.vue';
+import SideBar from '@/components/SideBar.vue';
+
 
 export default {
   name: 'MyBooksView',
   components: {
-    BookCard
+    LoanRow,
+    SideBar
 },
   data() {
     return {
-      books: [],
+      loans: [],
     };
   },
   mounted() {
-    this.getBooks();
+    this.getLoans();
   },
   methods: {
-    getBooks() {
-      axios.get('http://localhost:8080/book')
+    getLoans() {
+      axios.get('http://localhost:8080/loan')
         .then(response => {
-          this.books = response.data;
+          this.loans = response.data;
         })
         .catch(error => {
           console.log(error);
@@ -44,4 +51,13 @@ export default {
   },
 }
 </script>
+
+
+<style>
+.MyBooks {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+</style>
 

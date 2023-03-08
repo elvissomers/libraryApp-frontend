@@ -1,5 +1,5 @@
 <template>
-    <div class="AddUser">
+    <div class="AddBook">
       <SideBar></SideBar>
       <AddBook></AddBook>
     </div>
