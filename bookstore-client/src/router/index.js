@@ -12,6 +12,7 @@ import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
 import MyTestView from '../views/MyTestView.vue'
 import MyAccountView from '../views/MyAccountView.vue'
+import CreateLoanFromReservation from '../components/admin-panel/CreateLoanFromReservation'
 
 // Endpoints
 // “/” 
@@ -64,6 +65,11 @@ const routes = [
     path: '/admin/add-copy',
     name: 'add-copy',
     component: AddCopyView
+  },
+  {
+    path: '/admin/createLoan',
+    name: 'create-loan',
+    component: CreateLoanFromReservation
   },
   {
     path: '/login',

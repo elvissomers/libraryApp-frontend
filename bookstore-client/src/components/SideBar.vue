@@ -42,7 +42,13 @@
             </a>
             <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-cart"></i></span>
-                <span>Reservaties</span>
+                <span>Reserveringen</span>
+            </a>
+            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
+                <router-link to="/admin/createLoan">
+                <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                <span>Creëer lening van Reservering</span>
+                </router-link>
             </a>
 
             <!-- <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
