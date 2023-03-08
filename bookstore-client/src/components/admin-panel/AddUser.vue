@@ -2,36 +2,67 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="">
+                <form @submit.prevent="createUser">
                     <h2>Creëer nieuwe gebruiker</h2>
                     <div class="inputbox">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
+                        <input type="email" required v-model="emailAddress">
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
+                        <input type="text" required v-model="firstName">
                         <label for="">Voornaam</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
+                        <input type="text" required v-model="lastName">
                         <label for="">Achternaam</label>
                     </div>
-                    <button>Registreer</button>
-                    <!-- <div class="register">
-                        <p>Don't have a account <a href="#">Register</a></p>
-                    </div> -->
+                    <div>
+                        <label for="">Admin:</label>
+                        <input type="checkbox" v-model="admin">
+                        </div>
+                    <button type="submit">Registreer</button>
                 </form>
             </div>
         </div>
     </section>
-    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
 
 </template>
 
+<script>
+import axios from 'axios';
+export default {
+    data() {
+      return {
+        firstName: '',
+        lastName: '',
+        adminRole: false,
+        emailAddress: ''
+      };
+    },
+
+  methods: {
+    createUser() {
+      const userData = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        eMailAddress: this.emailAddress
+      };
+
+      axios.post('http://localhost:8080/user/create', userData)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+};
+
+</script>
 
 <style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');

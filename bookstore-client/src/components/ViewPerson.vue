@@ -1,15 +1,18 @@
 <template>
     <div>
       <h1>User Details</h1>
-      <div v-if="user">
-        <p><strong>ID:</strong> {{ user.id }}</p>
-        <p><strong>Admin:</strong> {{ user.admin }}</p>
-        <p><strong>Email:</strong> {{ user.eMailAddress }}</p>
-        <p><strong>First Name:</strong> {{ user.firstName }}</p>
-        <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+      <input class="bg-blue-500" type="text" v-model="viewPersonId">
+      <button @click="getUserDetails()">get data</button>
+      <br>
+      <div v-if="personDetails">
+        <p><strong>ID:</strong> {{ personDetails.id }}</p>
+        <p><strong>Admin:</strong> {{ personDetails.admin }}</p>
+        <p><strong>Email:</strong> {{ personDetails.eMailAddress }}</p>
+        <p><strong>First Name:</strong> {{ personDetails.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ personDetails.lastName }}</p>
       </div>
       <div v-else>
-        <p>Loading user details...</p>
+        <p>Loading user details unsuccessful...</p>
       </div>
     </div>
   </template>
@@ -20,19 +23,20 @@
   export default {
     data() {
       return {
-        user: null
+        viewPersonId: '',
+        personDetails: []
       };
     },
-    mounted() {
-      const id = 1;
-      axios.get(`http://localhost:8080/user/${id}`)
+    methods: {
+      getUserDetails(){
+        axios.get(`http://localhost:8080/user/${this.viewPersonId}`)
         .then(response => {
-          this.user = response.data;
-          console.log(this.user)
+          this.personDetails = response.data;
         })
         .catch(error => {
           console.error(error);
         });
+      }
     }
   };
   </script>
