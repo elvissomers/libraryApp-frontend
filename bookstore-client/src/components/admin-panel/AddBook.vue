@@ -2,64 +2,60 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createUser">
-                    <h1>Creëer nieuwe gebruiker</h1>
+                <form @submit.prevent="createBook">
+                    <h2>Voeg een boek toe</h2>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <input type="email" id="email" v-model="user.eMailAddress" required>
-                        <label for="">Email</label>
+                        <input type="text" id="title" v-model="book.title" required>
+                        <label for="">Titel</label>
                     </div>
                     <div class="inputbox">
-                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
-                        <input type="text" id="firstname" v-model="user.firstName" required>
-                        <label for="">Voornaam</label>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="text" id="author" v-model="book.author" required>
+                        <label for="">Auteur</label>
                     </div>
                     <div class="inputbox">
-                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
-                        <input type="text" id="lastname" v-model="user.lastName" required>
-                        <label for="">Achternaam</label>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="text" id="isbn" v-model="book.isbn" required>
+                        <label for="">isbn</label>
                     </div>
-                    <div>
-                        <label for="">Admin:</label>
-                        <input type="checkbox" v-model="admin">
-                        </div>
-                    <button type="submit">Registreer</button>
+                    <button class="submit-btn">Voeg toe</button>
                 </form>
             </div>
         </div>
     </section>
-
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  name: 'AddUser',
+  name: 'AddBook',
   data() {
     return {
-      user: {
-        eMailAddress: '',
-        firstName: '',
-        lastName: '',
+      book: {
+        title: '',
+        author: '',
+        isbn: '',
       },
     };
   },
   methods: {
       
-    createUser() {
-      axios.post('http://localhost:8080/user/create', this.user)
+    createBook() {
+      axios.post('http://localhost:8080/book/create', this.book)
         .then(response => {
-          console.log('User created:', response.data);
+          console.log('Book created:', response.data);
         })
         .catch(error => {
           console.log(error);
         })
-        .then(() => alert("Gebruiker toevoegen succesvol!"));
+        .then(() => alert("Boek toevoegen succesvol"));
     },
   },
 };
 </script>
+
 
 <style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -174,7 +170,7 @@ export default {
         width: 100%;
         height: 40px;
         border-radius: 40px;
-        background: #000000;;
+        background: #000000;
         color: rgb(255, 255, 255);
         border: none;
         outline: none;

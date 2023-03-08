@@ -1,6 +1,6 @@
 <template>
     <!-- removed: place-items-center flex flex-wrap h-screen-->
-    <div class="">
+    <div class="mb-20">
         <section class="relative mx-auto my-auto">
             <!-- navbar -->
             <nav class="flex justify-between bg-zinc-900 text-white w-screen">
@@ -12,7 +12,7 @@
                 <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                     <li><a class="hover:text-gray-200" href="#"><router-link to="/">Home</router-link></a></li>
                     <li><a class="hover:text-gray-200" href="#"><router-link to="/mybooks">My Books</router-link></a></li>
-                    <li><a class="hover:text-gray-200" href="#"><router-link to="/admin/add-user">Admin panel</router-link></a></li>
+                    <li><a class="hover:text-gray-200" href="#"><router-link to="/admin/edit-users">Admin panel</router-link></a></li>
                 </ul>
                 <!-- Account -->
                 <div class="hidden xl:flex items-center space-x-5 items-center">
