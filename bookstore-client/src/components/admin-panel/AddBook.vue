@@ -170,7 +170,7 @@ export default {
         width: 100%;
         height: 40px;
         border-radius: 40px;
-        background: #000000;;
+        background: #000000;
         color: rgb(255, 255, 255);
         border: none;
         outline: none;
@@ -179,16 +179,7 @@ export default {
         font-weight: 600;
     }
     button:hover{
-        width: 100%;
-        height: 40px;
-        border-radius: 40px;
-        background: #757575;;
-        color: rgb(255, 255, 255);
-        border: none;
-        outline: none;
-        cursor: pointer;
-        font-size: 1em;
-        font-weight: 600;
+        background: #757575;
     }
     .register{
         font-size: .9em;

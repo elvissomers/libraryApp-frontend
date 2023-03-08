@@ -2,39 +2,21 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="">
-
-                    <div>
-                    <h1>Add a Book</h1>
-                    <form @submit.prevent="createBook">
-                        <label for="title">Title:</label>
-                        <input class="bg-slate-200" type="text" id="title" v-model="book.title">
-                        <label for="author">Author:</label>
-                        <input class="bg-slate-200" type="text" id="author" v-model="book.author">
-                        <label for="author">isbn:</label>
-                        <input class="bg-slate-200" type="text" id="author" v-model="book.isbn">
-                        <button class="border-slate-900 outline-2 bg-yellow-500" type="submit">Create Book</button>
-                    </form>
-                    </div>
-
-
-
-
-
+                <form @submit.prevent="createUser">
                     <h1>Creëer nieuwe gebruiker</h1>
                     <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
+                        <!-- <ion-icon name="mail-outline"></ion-icon> -->
+                        <input type="email" id="email" v-model="user.eMailAddress" required>
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="text" id="firstname" v-model="user.firstName" required>
                         <label for="">Voornaam</label>
                     </div>
                     <div class="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" required>
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
                     <button>Registreer</button>
@@ -50,6 +32,35 @@
 
 </template>
 
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'AddUser',
+  data() {
+    return {
+      user: {
+        eMailAddress: '',
+        firstName: '',
+        lastName: '',
+      },
+    };
+  },
+  methods: {
+      
+    createUser() {
+      axios.post('http://localhost:8080/user/create', this.user)
+        .then(response => {
+          console.log('User created:', response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => alert("Gebruiker toevoegen succesvol!"));
+    },
+  },
+};
+</script>
 
 <style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -171,6 +182,9 @@
         cursor: pointer;
         font-size: 1em;
         font-weight: 600;
+    }
+    button:hover{
+        background: #757575;
     }
     .register{
         font-size: .9em;
