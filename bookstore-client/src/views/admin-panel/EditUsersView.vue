@@ -14,7 +14,7 @@
             </UserRow>
         </div>
 
-      <EditUserButton></EditUserButton>
+      <AddUserButton></AddUserButton>
 
     
 
@@ -23,7 +23,7 @@
 
 <script>
 // @ is an alias to /src
-import EditUserButton from '@/components/admin-panel/EditUserButton.vue';
+import AddUserButton from '@/components/admin-panel/AddUserButton.vue';
 import UserRow from '@/components/admin-panel/UserRow.vue';
 import SideBar from '@/components/SideBar.vue';
 import axios from 'axios'
@@ -33,7 +33,7 @@ export default {
   components: {
     SideBar,
     UserRow,
-    EditUserButton
+    AddUserButton
 }, 
   data() {
     return {

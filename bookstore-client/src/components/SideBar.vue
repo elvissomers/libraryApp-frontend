@@ -1,72 +1,46 @@
 <template>
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <!-- page -->
 <!-- removed: min-h-screen w-full -->
 <main class=" bg-gray-100 text-gray-700" x-data="layout">
 
     <div class="flex">
         <!-- aside -->
-        <!-- removed: -->
         <aside class=" flex w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2" style="height: 100vh"
         x-show="asideOpen">
-            <router-link to="/admin/edit-users" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600"> 
-                <span class="text-2xl"><i class="bx bx-home"></i></span>
+            <router-link to="/admin/edit-users" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
+                <span class="material-symbols-outlined">group</span>
                 <span>Gebruikers beheren</span>
             </router-link>
 
             <router-link to="/admin/edit-books" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                <!-- <span class="material-symbols-outlined">library_books</span> -->
+                <span class="material-symbols-outlined">menu_book</span>
                 <span>Boeken beheren</span>
             </router-link>
 
             <router-link to="/admin/requests" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                <span class="material-symbols-outlined">thumbs_up_down</span>
                 <span>Leenverzoeken</span>
             </router-link>
 
             <router-link to="/admin/loans" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                <span class="material-symbols-outlined">collections_bookmark</span>
                 <span>Uitgeleende boeken</span>
             </router-link>
-            
+
             <router-link to="/admin/reservations" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                <span class="material-symbols-outlined">pending_actions</span>
                 <span>Reservaties</span>
             </router-link>
-
-            <!-- <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-shopping-bag"></i></span>
-                <span>Creeer nieuwe gebruiker</span>
-            </a> -->
-
-            <!-- <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-heart"></i></span>
-                <span>My Favourite</span>
-            </a>
-
-            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <span class="text-2xl"><i class="bx bx-user"></i></span>
-                <span>Profile</span>
-            </a> -->
         </aside>
-
-        <!-- main content page -->
-        <!-- <div class="w-full p-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita quam odit officiis
-            magni doloribus ipsa dolore, dolores nihil accusantium labore, incidunt autem iure quae vitae voluptate,
-            esse asperiores aliquam repellat. Harum aliquid non officiis porro at cumque eaque inventore iure. Modi sunt
-            optio mollitia repellat sed ab quibusdam quos harum!
-        </div> -->
     </div>
 </main>
-
-
 </template>
 
 
 
 <script>
-
-
 </script>
 
 <style scoped>
