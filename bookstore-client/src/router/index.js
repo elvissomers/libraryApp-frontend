@@ -7,11 +7,14 @@ import EditUsersView from '../views/admin-panel/EditUsersView.vue'
 import AddUserView from '../views/admin-panel/AddUserView.vue'
 import AddBookView from '../views/admin-panel/AddBookView.vue'
 import AddCopyView from '../views/admin-panel/AddCopyView.vue'
+import LoanedBooksView from '../views/admin-panel/LoanedBooksView.vue'
+import ReservationsView from '../views/admin-panel/ReservationsView.vue'
 import LoginView from '../views/LoginView.vue'
 import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
 import MyTestView from '../views/MyTestView.vue'
 import MyAccountView from '../views/MyAccountView.vue'
+
 
 // Endpoints
 // “/” 
@@ -84,6 +87,16 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: ContactView
+  },
+  {
+    path: '/admin/loans',
+    name: 'loans',
+    component: LoanedBooksView
+  },
+  {
+    path: '/admin/reservations',
+    name: 'reservations',
+    component: ReservationsView
   },
   {
     path: '/mytestpage',

@@ -9,41 +9,30 @@
         <!-- removed: -->
         <aside class=" flex w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2" style="height: 100vh"
         x-show="asideOpen">
-            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <router-link to="/admin/edit-users">
+            <router-link to="/admin/edit-users" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600"> 
                 <span class="text-2xl"><i class="bx bx-home"></i></span>
                 <span>Gebruikers beheren</span>
-                </router-link>
-            </a>
+            </router-link>
 
-            <!-- <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                    <li><a class="hover:text-gray-200" href="#"><router-link to="/">Home</router-link></a></li>
-                    <li><a class="hover:text-gray-200" href="#"><router-link to="/mybooks">My Books</router-link></a></li>
-                    <li><a class="hover:text-gray-200" href="#"><router-link to="/admin/add-user">Admin panel</router-link></a></li>
-                </ul> -->
-
-            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <router-link to="/admin/edit-books">
+            <router-link to="/admin/edit-books" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-cart"></i></span>
                 <span>Boeken beheren</span>
-                </router-link>
-            </a>
+            </router-link>
 
-            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <router-link to="/admin/requests">
+            <router-link to="/admin/requests" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-cart"></i></span>
                 <span>Leenverzoeken</span>
-                </router-link>
-            </a>
-            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                <!-- <router-link to="/admin/edit-users"></router-link> -->
+            </router-link>
+
+            <router-link to="/admin/loans" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-cart"></i></span>
                 <span>Uitgeleende boeken</span>
-            </a>
-            <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
+            </router-link>
+            
+            <router-link to="/admin/reservations" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-cart"></i></span>
                 <span>Reservaties</span>
-            </a>
+            </router-link>
 
             <!-- <a href="#" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-shopping-bag"></i></span>
