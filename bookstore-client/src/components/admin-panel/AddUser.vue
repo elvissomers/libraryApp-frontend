@@ -19,16 +19,15 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
-                    <button>Registreer</button>
-                    <!-- <div class="register">
-                        <p>Don't have a account <a href="#">Register</a></p>
-                    </div> -->
+                    <div>
+                        <label for="">Admin:</label>
+                        <input type="checkbox" v-model="admin">
+                        </div>
+                    <button type="submit">Registreer</button>
                 </form>
             </div>
         </div>
     </section>
-    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
 
 </template>
 
