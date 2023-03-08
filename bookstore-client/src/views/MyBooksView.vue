@@ -1,11 +1,12 @@
 <template>
     <div class="MyBooks">
 
-        <div class="flex flex-row">
+        <div class="flex flex-row flex-wrap justify-center">
             <BookCard 
             v-for="book in books" :key="book.id"
-            v-bind:title="book.title"
-            v-bind:author="book.author">
+            v-bind:title="book.title" 
+            v-bind:author="book.author" 
+            v-bind:isbn="book.isbn">
             </BookCard>
         </div>
 
