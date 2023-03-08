@@ -6,16 +6,16 @@ def fill_book_table():
     url_book = 'http://localhost:8080/book/create'
     headers = {"Content-Type": "application/json"}
     book_data = [
-        {"ISBN": "9789044633660", "title": "De acht bergen", "author": "Paolo Cognetti"},
-        {"ISBN": "9789044620073", "title": "Grand Hotel Europa", "author": "Ilja Leonard Pfeijffer"},
-        {"ISBN": "9789403132318", "title": "De meeste mensen deugen", "author": "Rutger Bregman"},
-        {"ISBN": "9789026349551", "title": "De avond is ongemak", "author": "Marieke Lucas Rijneveld"},
-        {"ISBN": "9789403187905", "title": "De cursus 'Omgaan met teleurstellingen' gaat wederom niet door", "author": "Herman Finkers"},
-        {"ISBN": "9789044646646", "title": "De antwoorden op de grote vragen", "author": "Stephen Hawking"},
-        {"ISBN": "9789026339798", "title": "Wees onzichtbaar", "author": "Murat Isik"},
-        {"ISBN": "9789025906411", "title": "Het smelt", "author": "Lize Spit"},
-        {"ISBN": "9789023495703", "title": "Alleen maar nette mensen", "author": "Robert Vuijsje"},
-        {"ISBN": "9789045025214", "title": "Sapiens", "author": "Yuval Noah Harari"}
+        {"isbn": "9789044633660", "title": "De acht bergen", "author": "Paolo Cognetti"},
+        {"isbn": "9789044620073", "title": "Grand Hotel Europa", "author": "Ilja Leonard Pfeijffer"},
+        {"isbn": "9789403132318", "title": "De meeste mensen deugen", "author": "Rutger Bregman"},
+        {"isbn": "9789026349551", "title": "De avond is ongemak", "author": "Marieke Lucas Rijneveld"},
+        {"isbn": "9789403187905", "title": "De cursus 'Omgaan met teleurstellingen' gaat wederom niet door", "author": "Herman Finkers"},
+        {"isbn": "9789044646646", "title": "De antwoorden op de grote vragen", "author": "Stephen Hawking"},
+        {"isbn": "9789026339798", "title": "Wees onzichtbaar", "author": "Murat Isik"},
+        {"isbn": "9789025906411", "title": "Het smelt", "author": "Lize Spit"},
+        {"isbn": "9789023495703", "title": "Alleen maar nette mensen", "author": "Robert Vuijsje"},
+        {"isbn": "9789045025214", "title": "Sapiens", "author": "Yuval Noah Harari"}
     ]
     for book in book_data:
         response = requests.post(url_book, json=book, headers=headers)
@@ -26,9 +26,9 @@ def fill_user_table():
     url_user = 'http://localhost:8080/user/create'
     headers = {"Content-Type": "application/json"}
     user_data = [
-        {'name': 'John Doe', 'eMailAddress': 'john.doe@example.com', 'admin': True},
-        {'name': 'Jane Doe', 'eMailAddress': 'jane.doe@example.com', 'admin': False},
-        {'name': 'Bob Smith', 'eMailAddress': 'bob.smith@example.com', 'admin': False}
+        {'firstName': 'John', 'lastName': 'Doe', 'eMailAddress': 'john.doe@example.com', 'admin': True},
+        {'firstName': 'Jane', 'lastName': 'Doe', 'eMailAddress': 'jane.doe@example.com', 'admin': False},
+        {'firstName': 'Bob', 'lastName': 'Smith', 'eMailAddress': 'bob.smith@example.com', 'admin': False}
     ]
     for user in user_data:
         response = requests.post(url_user, json=user, headers=headers)
@@ -39,9 +39,9 @@ def fill_reservation_table():
     url_reservation = 'http://localhost:8080/reservation/create'
     headers = {"Content-Type": "application/json"}
     reservation_data = [
-        {"bookId": 1, "userid": 1, "date": "2023-03-01"},
-        {"bookId": 2, "userid": 2, "date": "2023-03-02"},
-        {"bookId": 3, "userid": 3, "date": "2023-03-03"}
+        {"bookId": 1, "userId": 1, "date": "2023-03-01"},
+        {"bookId": 2, "userId": 2, "date": "2023-03-02"},
+        {"bookId": 3, "userId": 3, "date": "2023-03-03"}
     ]
 
     for data in reservation_data:
@@ -87,4 +87,4 @@ def fill_db():
     fill_loan_table()
     fill_reservation_table()
 
-fill_book_table()
+fill_db()
