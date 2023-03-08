@@ -1,6 +1,7 @@
 <template>
     {{ id }} - {{ date }} - {{  userFirstName }} - {{ userLastName }} - {{ bookTitle }}
     
+    
 </template>
     
     
