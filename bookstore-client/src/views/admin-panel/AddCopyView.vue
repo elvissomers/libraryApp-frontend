@@ -1,26 +1,26 @@
 <template>
-    <div class="AddUser">
+    <div class="AddCopy">
       <SideBar></SideBar>
-      <AddUser></AddUser>
+      <AddCopy></AddCopy>
     </div>
   </template>
   
   <script>
   // @ is an alias to /src
-  import AddUser from '@/components/admin-panel/AddUser.vue';
+  import AddCopy from '@/components/admin-panel/AddCopy.vue';
   import SideBar from '@/components/SideBar.vue';
   
   export default {
     name: 'AddUserView',
     components: {
-    AddUser,
-    SideBar
+    SideBar,
+    AddCopy
 }
   }
   </script>
 
 <style>
-.AddUser {
+.AddCopy {
   display: flex;
   flex-wrap: nowrap;
 

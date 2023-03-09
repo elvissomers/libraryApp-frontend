@@ -1,11 +1,12 @@
 <template>
     <div class="MyBooks">
 
-        <div class="flex flex-row">
+        <div class="flex flex-row flex-wrap justify-center">
             <BookCard 
             v-for="book in books" :key="book.id"
-            v-bind:title="book.title"
-            v-bind:author="book.author">
+            v-bind:title="book.title" 
+            v-bind:author="book.author" 
+            v-bind:isbn="book.isbn">
             </BookCard>
         </div>
 
@@ -13,7 +14,6 @@
   </template>
 
 <script>
-// @ is an alias to /src
 import axios from 'axios';
 import BookCard from '@/components/BookCard.vue'
 
@@ -28,7 +28,8 @@ export default {
     };
   },
   mounted() {
-    this.getBooks();
+    // this.books = getBooks();
+    this.getBooks()
   },
   methods: {
     getBooks() {
