@@ -7,7 +7,7 @@
       <div v-if="personDetails">
         <p><strong>ID:</strong> {{ personDetails.id }}</p>
         <p><strong>Admin:</strong> {{ personDetails.admin }}</p>
-        <p><strong>Email:</strong> {{ personDetails.eMailAddress }}</p>
+        <p><strong>Email:</strong> {{ personDetails.emailAddress }}</p>
         <p><strong>First Name:</strong> {{ personDetails.firstName }}</p>
         <p><strong>Last Name:</strong> {{ personDetails.lastName }}</p>
       </div>
