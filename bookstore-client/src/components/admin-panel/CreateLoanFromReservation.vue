@@ -7,9 +7,9 @@
                     <div class="inputbox">
                         <label for="">Reservation</label>
 
-                        <select v-model="reservation.date">
+                        <select v-model="reservation">
 
-                            <option v-for="reservation in reservations" :value="reservation.date" :key="reservation.date">
+                            <option v-for="reservation in reservations" :value="reservation" :key="reservation">
                                 {{ reservation.date }} - {{ reservation.userFirstName }} - {{ reservation.userLastName }} - {{ reservation.bookTitle }}
                             </option>
 
