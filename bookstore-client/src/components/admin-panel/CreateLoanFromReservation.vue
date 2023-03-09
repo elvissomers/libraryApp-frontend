@@ -3,19 +3,20 @@
         <div class="form-box">
             <div class="form-value">
                 <form @submit.prevent="createLoan">
-                    <h2>Creëer een lening:</h2>
+                    <div><h2>Creëer een lening</h2></div>
+                    <div><h2>Verwijder een reservering</h2></div>
                     <div class="inputbox">
                         <label for="">Reservation</label>
 
                         <select v-model="reservation">
 
                             <option v-for="reservation in reservations" :value="reservation" :key="reservation">
-                                {{ reservation.date }} - {{ reservation.userFirstName }} - {{ reservation.userLastName }} - {{ reservation.bookTitle }}
+                                (ids: {{reservation.id}} {{ reservation.userId }} {{ reservation.bookId }}) - {{ reservation.date }} - {{ reservation.userFirstName }} - {{ reservation.userLastName }} - {{ reservation.bookTitle }}
                             </option>
 
                         </select>
                     </div>
-                    <button class="submit-btn">Voeg toe</button>
+                    <button class="submit-btn">Keur reservering toe en verwijder reservering</button>
                 </form>
             </div>
         </div>
@@ -30,6 +31,7 @@ export default {
   data() {
     return {
       reservation: {
+        id: '',
         date: '',
         userId: '',
         bookId: ''
@@ -46,12 +48,17 @@ export default {
         .then(response => {
             console.log(response)
             console.log('Copy added:', response.data);
+            alert("Exemplaar succesvol toegevoegd")
         })
         .catch(error => {
           console.log(error);
         })
-        // alleen als successvol nog niet werkend
-        .then(() => alert("Examplaar toevoegen succesvol"));
+        axios.delete(`http://localhost:8080/reservation/${this.reservation.id}`)
+        .then(response => {
+            console.log(response)
+            console.log('reservation deleted')
+            alert('reservation deleted')
+        })
     },
     getReservation() {
       axios.get('http://localhost:8080/reservation')
