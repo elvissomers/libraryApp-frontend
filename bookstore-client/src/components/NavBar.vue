@@ -11,6 +11,7 @@
                 <!-- Nav Links -->
                 <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                     <li><a class="hover:text-gray-200" href="#"><router-link to="/">Home</router-link></a></li>
+                    <li><a class="hover:text-gray-200" href="#"><router-link to="/catalogue">Catalogue</router-link></a></li>
                     <li><a class="hover:text-gray-200" href="#"><router-link to="/mybooks">My Books</router-link></a></li>
                     <li><a class="hover:text-gray-200" href="#"><router-link to="/admin/add-user">Admin panel</router-link></a></li>
                 </ul>
