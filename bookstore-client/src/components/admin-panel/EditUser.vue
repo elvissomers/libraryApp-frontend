@@ -2,77 +2,64 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createCopy">
-                    <h2>Voeg een examplaar toe</h2>
+                <form @submit.prevent="createUser">
+                    <h1>Creëer nieuwe gebruiker</h1>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <!-- <input type="text" id="title" v-model="copy.book_id" required> -->
-                        <label for="">Boek</label>
-                        <!-- <select id="book_id" name="book_id" v-model="copy.book_id" required></select> -->
-
-                        <select v-model="copy.bookId">
-
-                            <option v-for="book in books" :value="book.id" :key="book.id">
-                                {{ book.title }} - {{ book.author }}
-                            </option>
-
-                        </select>
-
-                        <!-- <div>Selected: {{ copy.book_id }}</div> -->
-
-
+                        <input type="email" id="email" v-model="user.emailAddress" required>
+                        <label for="">Email</label>
                     </div>
-                    <button class="submit-btn">Voeg toe</button>
-
-                    
-
+                    <div class="inputbox">
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="text" id="firstname" v-model="user.firstName" required>
+                        <label for="">Voornaam</label>
+                    </div>
+                    <div class="inputbox">
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="text" id="lastname" v-model="user.lastName" required>
+                        <label for="">Achternaam</label>
+                    </div>
+                    <div>
+                        <label for="">Admin:</label>
+                        <input type="checkbox" v-model="admin">
+                        </div>
+                    <button type="submit">Registreer</button>
                 </form>
             </div>
         </div>
     </section>
+
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  name: 'AddCopy',
+  name: 'AddUser',
   data() {
     return {
-      copy: {
-        bookId: '',
+      user: {
+        emailAddress: '',
+        firstName: '',
+        lastName: '',
       },
-      books: [],
     };
   },
-  mounted() {
-    this.getBooks();
-  },
   methods: {
-    createCopy() {
-      axios.post('http://localhost:8080/copy/create', this.copy)
+      
+    createUser() {
+      axios.post('http://localhost:8080/user/create', this.user)
         .then(response => {
-          console.log('Copy added:', response.data);
+          console.log('User created:', response.data);
         })
         .catch(error => {
           console.log(error);
         })
-        // alleen als successvol nog niet werkend
-        .then(() => this.$router.push('edit-books'));
-    },
-    getBooks() {
-      axios.get('http://localhost:8080/book')
-        .then(response => {
-          this.books = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        .then(() => alert("Gebruiker toevoegen succesvol!"));
     },
   },
 };
 </script>
-
 
 <style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -187,7 +174,7 @@ export default {
         width: 100%;
         height: 40px;
         border-radius: 40px;
-        background: #000000;
+        background: #000000;;
         color: rgb(255, 255, 255);
         border: none;
         outline: none;

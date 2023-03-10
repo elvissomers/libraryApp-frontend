@@ -50,7 +50,7 @@ export default {
         .catch(error => {
           console.log(error);
         })
-        .then(() => alert("Boek toevoegen succesvol"));
+        .then(() => this.$router.push('edit-books'));
     },
   },
 };

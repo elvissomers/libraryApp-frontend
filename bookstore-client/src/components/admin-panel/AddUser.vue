@@ -6,7 +6,7 @@
                     <h1>Creëer nieuwe gebruiker</h1>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <input type="email" id="email" v-model="user.eMailAddress" required>
+                        <input type="email" id="email" v-model="user.emailAddress" required>
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       user: {
-        eMailAddress: '',
+        emailAddress: '',
         firstName: '',
         lastName: '',
       },
@@ -55,7 +55,7 @@ export default {
         .catch(error => {
           console.log(error);
         })
-        .then(() => alert("Gebruiker toevoegen succesvol!"));
+        .then(() => this.$router.push('edit-users'));
     },
   },
 };

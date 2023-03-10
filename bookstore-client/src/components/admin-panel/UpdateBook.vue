@@ -2,30 +2,26 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createCopy">
-                    <h2>Voeg een examplaar toe</h2>
+                <form>
+                    <h2>Wijzig boek: {{ book.title }}</h2>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <!-- <input type="text" id="title" v-model="copy.book_id" required> -->
-                        <label for="">Boek</label>
-                        <!-- <select id="book_id" name="book_id" v-model="copy.book_id" required></select> -->
-
-                        <select v-model="copy.bookId">
-
-                            <option v-for="book in books" :value="book.id" :key="book.id">
-                                {{ book.title }} - {{ book.author }}
-                            </option>
-
-                        </select>
-
-                        <!-- <div>Selected: {{ copy.book_id }}</div> -->
-
-
+                        <input type="text" id="title" v-model="updatedBook.title" required>
+                        
+                        <label for="">Titel</label>
                     </div>
-                    <button class="submit-btn">Voeg toe</button>
-
-                    
-
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="text" id="author" v-model="updatedBook.author" required>
+                        
+                        <label for="">Auteur</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="text" id="isbn" v-model="updatedBook.isbn" required>
+                        <label for="">isbn</label>
+                    </div>
+                    <button v-on:click="updateBook" class="submit-btn">Wijzig</button>
                 </form>
             </div>
         </div>
@@ -36,41 +32,47 @@
 import axios from 'axios';
 
 export default {
-  name: 'AddCopy',
+  name: 'UpdateBooks',
   data() {
     return {
-      copy: {
-        bookId: '',
+      book: [],
+      updatedBook: {
+        // title: this.book.title,
+        // author: this.book.author,
+        // isbn: this.book.isbn,
+        title: '',
+        author: '',
+        isbn: '',
       },
-      books: [],
     };
   },
   mounted() {
-    this.getBooks();
+    this.getBook()
   },
   methods: {
-    createCopy() {
-      axios.post('http://localhost:8080/copy/create', this.copy)
+    getBook() {
+      axios.get('http://localhost:8080/book/' + this.$route.params.id)
         .then(response => {
-          console.log('Copy added:', response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        // alleen als successvol nog niet werkend
-        .then(() => this.$router.push('edit-books'));
-    },
-    getBooks() {
-      axios.get('http://localhost:8080/book')
-        .then(response => {
-          this.books = response.data;
+          this.book = response.data;
         })
         .catch(error => {
           console.log(error);
         });
     },
+    async updateBook() {
+        console.warn(this.updatedBook)
+      axios.put('http://localhost:8080/book/' + this.$route.params.id, this.updatedBook)
+        .then(response => {
+            console.log('Book updated:', response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => this.$router.push('edit-books'));
+        // if (response.status==200) { this.$router.push('edit-books')) }
+    },
   },
-};
+}
 </script>
 
 

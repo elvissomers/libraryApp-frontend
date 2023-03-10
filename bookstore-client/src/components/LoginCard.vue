@@ -2,26 +2,26 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="">
+                <form @submit.prevent="loginUser">
                     <h2>Login</h2>
                     <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
+                        <!-- <span class="material-symbols-outlined">alternate_email</span> -->
+                        <input type="email" id="username" v-model="user.username" required>
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" required>
+                        <!-- <span class="material-symbols-outlined">lock</span> -->
+                        <input type="password" id="password" v-model="user.password" required>
                         <label for="">Wachtwoord</label>
                     </div>
-                    <div >
+                    <!-- <div >
                         <label for="" class="forgot">
                             <div class="remember">
                                 <input type="checkbox" class="checkbox">Remember Me
                             </div>
                             <a class="forgot-pass" href="#">Forgot Password</a>
                         </label>
-                    </div>
+                    </div> -->
                     <button>Log in</button>
                     <!-- <div class="register">
                         <p>Don't have a account <a href="#">Register</a></p>
@@ -30,10 +30,40 @@
             </div>
         </div>
     </section>
-    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
-
 </template>
+
+<script>
+import axios from 'axios';
+  
+  export default {
+    name: 'LoginCard',
+    data() {
+      return {
+        user: {
+          username: '',
+          password: '',
+        },
+      };
+    },
+    methods: {
+        loginUser() {
+        axios.post('http://localhost:8080/api/user/login', this.user)
+          .then(response => {
+            console.log('User logged in:', response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          })
+          .then(() => this.$router.push('home'));
+      }
+    }
+}
+    
+</script>
+
+
+
+
 
 
 <style scoped>
@@ -156,6 +186,9 @@
         cursor: pointer;
         font-size: 1em;
         font-weight: 600;
+    }
+    button:hover{
+        background: #757575;
     }
     .register{
         font-size: .9em;
