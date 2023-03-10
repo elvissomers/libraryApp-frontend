@@ -3,6 +3,7 @@
       <SearchBar @doSearch="startSearch($event)" />
         <!--<div class="flex flex-row flex-wrap justify-center">-->
       <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>
+      
       <BookCardSearchContainer
        v-if="this.search"
        :searchTerm="searchTermParent">

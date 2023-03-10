@@ -115,7 +115,7 @@ const routes = [
     path: '/catalogue',
     name: 'catalogue',
     component: CatalogueView
-  }
+  },
   {
     path: '/book/:id',
     name: 'book-detail',
