@@ -8,30 +8,17 @@
             <h1 class="font-bold">Book List Delete</h1>
             <ul>
                 <li v-for="book in books" :key="book.id">
-                {{ book.title }} by {{ book.author }}
-                - {{ book.id }} - {{ book.isbn }}
+                  <router-link :to="{ name: 'book-detail', params: { id: book.id }}" class="hover:text-gray-200">
+
+                    {{ book.title }} by {{ book.author }}
+                    - {{ book.id }} - {{ book.isbn }}
+                  </router-link>
+
                 <button class="bg-black text-slate-50" 
                 @click="deleteBook(book.id)">Delete</button>
                 </li>
             </ul>
          </div>
-
-
-         
-
-        <div class="flex flex-row">
-            <BookCard 
-            v-for="book in books" :key="book.id"
-            v-bind:title="book.title"
-            v-bind:author="book.author">
-            </BookCard>
-        </div>
-
-        
-
-
-
-
     </div>
   </template>
 
@@ -40,7 +27,6 @@
 import axios from 'axios';
 import JimTest from '@/components/lelijke-htmls/JimTest.vue';
 import PostTest from '@/components/lelijke-htmls/PostTest.vue';
-import BookCard from '@/components/BookCard.vue'
 // import DeleteTest from '@/components/lelijke-htmls/DeleteTest.vue';
 
 
@@ -63,7 +49,6 @@ export default {
     name: 'MyBooksView',
     components: {
     JimTest,
-    BookCard,
     PostTest,
     // DeleteTest
 },
@@ -96,7 +81,7 @@ export default {
           })
           .catch(error => {
             console.log(error);
-          });
+          })
       },
       updateBook(id) {
         axios.put(`http://localhost:8080/book/${id}`)

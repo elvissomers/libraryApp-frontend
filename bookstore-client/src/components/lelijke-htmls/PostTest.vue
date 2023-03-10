@@ -7,7 +7,7 @@
         <label for="author">Author:</label>
         <input class="bg-slate-200" type="text" id="author" v-model="book.author">
         <label for="author">isbn:</label>
-        <input class="bg-slate-200" type="text" id="author" v-model="book.isbn">
+        <input class="bg-slate-200" type="text" id="isbn" v-model="book.isbn">
         <button class="border-slate-900 outline-2 bg-yellow-500" type="submit">Create Book</button>
       </form>
     </div>

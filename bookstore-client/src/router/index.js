@@ -14,6 +14,8 @@ import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
 import MyTestView from '../views/MyTestView.vue'
 import MyAccountView from '../views/MyAccountView.vue'
+import BookDetailView from '../views/BookDetailView.vue'
+import UpdateBookView from '../views/admin-panel/UpdateBookView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/CreateLoanFromReservation'
 
 
@@ -109,6 +111,17 @@ const routes = [
     name: 'mytestpage',
     component: MyTestView
   },
+  {
+    path: '/book/:id',
+    name: 'book-detail',
+    component: BookDetailView,
+  },
+  {
+    path: '/book/:id/update',
+    name: 'update-book',
+    component: UpdateBookView,
+  },
+  
 ]
 
 const router = createRouter({

@@ -11,6 +11,7 @@
                     <li><router-link to="/" class="hover:text-gray-200">Home</router-link></li>
                     <li><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
                     <li><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
+                    <li><router-link to="/mytestpage" class="hover:text-gray-200">Jims test page</router-link></li>
                 </ul>
                 <!-- Account -->
                 <div class="hidden xl:flex items-center space-x-5 items-center">
