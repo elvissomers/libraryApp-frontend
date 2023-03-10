@@ -14,7 +14,6 @@
   </template>
 
 <script>
-// @ is an alias to /src
 import axios from 'axios';
 import BookCard from '@/components/BookCard.vue'
 
@@ -29,7 +28,8 @@ export default {
     };
   },
   mounted() {
-    this.getBooks();
+    // this.books = getBooks();
+    this.getBooks()
   },
   methods: {
     getBooks() {

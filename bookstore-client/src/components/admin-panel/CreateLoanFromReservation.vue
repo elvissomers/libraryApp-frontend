@@ -2,64 +2,78 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createUser">
-                    <h1>Creëer nieuwe gebruiker</h1>
+                <form @submit.prevent="createLoan">
+                    <div><h2>Creëer een lening</h2></div>
+                    <div><h2>Verwijder een reservering</h2></div>
                     <div class="inputbox">
-                        <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <input type="email" id="email" v-model="user.eMailAddress" required>
-                        <label for="">Email</label>
+                        <label for="">Reservation</label>
+
+                        <select v-model="reservation">
+
+                            <option v-for="reservation in reservations" :value="reservation" :key="reservation">
+                                (ids: {{reservation.id}} {{ reservation.userId }} {{ reservation.bookId }}) - {{ reservation.date }} - {{ reservation.userFirstName }} - {{ reservation.userLastName }} - {{ reservation.bookTitle }}
+                            </option>
+
+                        </select>
                     </div>
-                    <div class="inputbox">
-                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
-                        <input type="text" id="firstname" v-model="user.firstName" required>
-                        <label for="">Voornaam</label>
-                    </div>
-                    <div class="inputbox">
-                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
-                        <input type="text" id="lastname" v-model="user.lastName" required>
-                        <label for="">Achternaam</label>
-                    </div>
-                    <div>
-                        <label for="">Admin:</label>
-                        <input type="checkbox" v-model="admin">
-                        </div>
-                    <button type="submit">Registreer</button>
+                    <button class="submit-btn">Keur reservering toe en verwijder reservering</button>
                 </form>
             </div>
         </div>
     </section>
-
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  name: 'AddUser',
+  name: 'CreateLoan',
   data() {
     return {
-      user: {
-        eMailAddress: '',
-        firstName: '',
-        lastName: '',
+      reservation: {
+        id: '',
+        date: '',
+        userId: '',
+        bookId: ''
       },
+      reservations: [],
     };
   },
+  mounted() {
+    this.getReservation();
+  },
   methods: {
-      
-    createUser() {
-      axios.post('http://localhost:8080/user/create', this.user)
+    createLoan() {
+        axios.post('http://localhost:8080/loan/create/fromreservation', this.reservation)
         .then(response => {
-          console.log('User created:', response.data);
+            console.log(response)
+            console.log('Copy added:', response.data);
+            alert("Exemplaar succesvol toegevoegd")
         })
         .catch(error => {
           console.log(error);
         })
-        .then(() => alert("Gebruiker toevoegen succesvol!"));
+        axios.delete(`http://localhost:8080/reservation/${this.reservation.id}`)
+        .then(response => {
+            console.log(response)
+            console.log('reservation deleted')
+            alert('reservation deleted')
+        })
+    },
+    getReservation() {
+      axios.get('http://localhost:8080/reservation')
+        .then(response => {
+          this.reservations = response.data;
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
   },
 };
 </script>
+
 
 <style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -174,7 +188,7 @@ export default {
         width: 100%;
         height: 40px;
         border-radius: 40px;
-        background: #000000;;
+        background: #000000;
         color: rgb(255, 255, 255);
         border: none;
         outline: none;
