@@ -14,10 +14,10 @@ import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
 import MyTestView from '../views/MyTestView.vue'
 import MyAccountView from '../views/MyAccountView.vue'
+import CatalogueView from '../views/CatalogueView.vue'
 import BookDetailView from '../views/BookDetailView.vue'
 import UpdateBookView from '../views/admin-panel/UpdateBookView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/CreateLoanFromReservation'
-
 
 // Endpoints
 // “/” 
@@ -111,6 +111,11 @@ const routes = [
     name: 'mytestpage',
     component: MyTestView
   },
+  {
+    path: '/catalogue',
+    name: 'catalogue',
+    component: CatalogueView
+  }
   {
     path: '/book/:id',
     name: 'book-detail',
