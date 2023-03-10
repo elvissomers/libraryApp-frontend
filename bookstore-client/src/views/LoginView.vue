@@ -12,9 +12,9 @@
 import LoginCard from '@/components/LoginCard.vue';
 
 export default {
-  name: 'LoginView',
-  components: {
-    LoginCard
-}
+    name: 'LoginView',
+    components: {
+        LoginCard
+    },
 }
 </script>

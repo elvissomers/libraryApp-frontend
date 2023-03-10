@@ -1,6 +1,25 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AdminView from '../views/admin-panel/AdminView.vue'
+import EditBooksView from '../views/admin-panel/EditBooksView.vue'
+import RequestsView from '../views/admin-panel/RequestsView.vue'
+import EditUsersView from '../views/admin-panel/EditUsersView.vue'
+import AddUserView from '../views/admin-panel/AddUserView.vue'
+import AddBookView from '../views/admin-panel/AddBookView.vue'
+import AddCopyView from '../views/admin-panel/AddCopyView.vue'
+import LoanedBooksView from '../views/admin-panel/LoanedBooksView.vue'
+import ReservationsView from '../views/admin-panel/ReservationsView.vue'
+import LoginView from '../views/LoginView.vue'
+import MyBooksView from '../views/MyBooksView.vue'
+import ContactView from '../views/ContactView.vue'
+import MyTestView from '../views/MyTestView.vue'
+import MyAccountView from '../views/MyAccountView.vue'
+import CatalogueView from '../views/CatalogueView.vue'
+import BookDetailView from '../views/BookDetailView.vue'
+import UpdateBookView from '../views/admin-panel/UpdateBookView.vue'
+import CreateLoanFromReservation from '../components/admin-panel/CreateLoanFromReservation'
 
+// Endpoints
 // “/” 
 // “/login/”
 // “/mybooks/
@@ -11,8 +30,6 @@ import HomeView from '../views/HomeView.vue'
 // “/admin/edit-books”
 // “/admin/add-user”
 
-
-
 const routes = [
   {
     path: '/',
@@ -22,10 +39,6 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     component: AdminView
   },
   {
@@ -49,6 +62,21 @@ const routes = [
     component: AddUserView
   },
   {
+    path: '/admin/add-book',
+    name: 'add-book',
+    component: AddBookView
+  },
+  {
+    path: '/admin/add-copy',
+    name: 'add-copy',
+    component: AddCopyView
+  },
+  {
+    path: '/admin/createLoan',
+    name: 'create-loan',
+    component: CreateLoanFromReservation
+  },
+  {
     path: '/login',
     name: 'login',
     component: LoginView
@@ -59,10 +87,46 @@ const routes = [
     component: MyBooksView
   },
   {
+    path: '/myaccount',
+    name: 'myaccount',
+    component: MyAccountView
+  },
+  {
     path: '/contact',
     name: 'contact',
     component: ContactView
   },
+  {
+    path: '/admin/loans',
+    name: 'loans',
+    component: LoanedBooksView
+  },
+  {
+    path: '/admin/reservations',
+    name: 'reservations',
+    component: ReservationsView
+  },
+  {
+    path: '/mytestpage',
+    name: 'mytestpage',
+    component: MyTestView
+  },
+  {
+    path: '/catalogue',
+    name: 'catalogue',
+    component: CatalogueView
+  },
+  {
+    path: '/book/:id',
+    name: 'book-detail',
+    component: BookDetailView,
+  },
+  {
+    path: '/book/:id/update',
+    name: 'update-book',
+    component: UpdateBookView,
+  },
+  
 ]
 
 const router = createRouter({
