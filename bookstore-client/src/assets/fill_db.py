@@ -26,9 +26,9 @@ def fill_user_table():
     url_user = 'http://localhost:8080/user/create'
     headers = {"Content-Type": "application/json"}
     user_data = [
-        {'firstName': 'John','lastName' : 'Doe', 'eMailAddress': 'john.doe@example.com', 'admin': True},
-        {'firstName': 'Jane','lastName' : 'Doe', 'eMailAddress': 'jane.doe@example.com', 'admin': False},
-        {'firstName': 'Bob','lastName' : 'Smith', 'eMailAddress': 'bob.smith@example.com', 'admin': False}
+        {'firstName': 'John','lastName' : 'Doe', 'emailAddress': 'john.doe@example.com', 'admin': True, 'password':'aaa'},
+        {'firstName': 'Jane','lastName' : 'Doe', 'emailAddress': 'jane.doe@example.com', 'admin': False, 'password':'bbb'},
+        {'firstName': 'Bob','lastName' : 'Smith', 'emailAddress': 'bob.smith@example.com', 'admin': False, 'password':'ccc'}
     ]
     for user in user_data:
         response = requests.post(url_user, json=user, headers=headers)
