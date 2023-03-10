@@ -14,8 +14,8 @@ import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/ContactView.vue'
 import MyTestView from '../views/MyTestView.vue'
 import MyAccountView from '../views/MyAccountView.vue'
+import CatalogueView from '../views/CatalogueView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/CreateLoanFromReservation'
-
 
 // Endpoints
 // “/” 
@@ -109,6 +109,11 @@ const routes = [
     name: 'mytestpage',
     component: MyTestView
   },
+  {
+    path: '/catalogue',
+    name: 'catalogue',
+    component: CatalogueView
+  }
 ]
 
 const router = createRouter({
