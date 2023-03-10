@@ -148,42 +148,7 @@ export default {
         font-size: 1.2em;
         top: 20px;
     }
-
-    /* .forgot-pass {
-        display: flex;
-
-    } */
-
-    .remember {
-        display: flex;
-        
-    }
-
-    .checkbox {
-        margin-right: 6px;
-        margin-left: 1px;
-    }
-
-    .forgot{
-        margin: -15px 0 15px ;
-        font-size: .9em;
-        color: #000000;;
-        display: flex;
-        justify-content: space-between;  
-        /* gap: 100px; */
-    }
-
-    .forgot label input{
-        margin-right: 3px;
-        
-    }
-    .forgot label a{
-        color: #000000;;
-        text-decoration: none;
-    }
-    .forgot label a:hover{
-        text-decoration: underline;
-    }
+    
     button{
         width: 100%;
         height: 40px;
@@ -198,20 +163,6 @@ export default {
     }
     button:hover{
         background: #757575;
-    }
-    .register{
-        font-size: .9em;
-        color: #000000;;
-        text-align: center;
-        margin: 25px 0 10px;
-    }
-    .register p a{
-        text-decoration: none;
-        color: #000000;;
-        font-weight: 600;
-    }
-    .register p a:hover{
-        text-decoration: underline;
     }
 </style>
 
