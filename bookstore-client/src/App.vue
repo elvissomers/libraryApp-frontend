@@ -1,4 +1,7 @@
 <template>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
   <NavBar></NavBar>
 
   <router-view/>
@@ -10,6 +13,9 @@
 
 <style>
 
+#app {
+  background: #f4f4f4;
+}
 
 
 /* #app {
@@ -36,8 +42,8 @@ nav a.router-link-exact-active {
 
 <script>
 // @ is an alias to /src
-import NavBar from '@/components/NavBar.vue'
-import FooterComponent from './components/FooterComponent.vue';
+import NavBar from '@/components/reusable-components/NavBar.vue'
+import FooterComponent from './components/reusable-components/FooterComponent.vue';
 
 export default {
   name: 'TemplateView',
