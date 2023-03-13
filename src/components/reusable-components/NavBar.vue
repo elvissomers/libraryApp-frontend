@@ -1,6 +1,6 @@
 <template>
-    <!-- removed: place-items-center flex flex-wrap h-screen-->
-    <div class="mb-20">
+    <!-- removed: place-items-center flex flex-wrap h-screen mb-20-->
+    <div class="">
         <section class="relative mx-auto my-auto">
             <!-- navbar -->
             <nav class="flex justify-between bg-zinc-900 text-white w-screen">
