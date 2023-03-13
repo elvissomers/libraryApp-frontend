@@ -17,8 +17,9 @@ import MyAccountView from '../views/general-pages/MyAccountView.vue'
 import CatalogueView from '../views/CatalogueView.vue'
 import BookDetailView from '../views/detail-pages/BookDetailView.vue'
 import UpdateBookView from '../views/admin-panel/book/UpdateBookView.vue'
-import CreateLoanFromReservation from '../components/admin-panel/reservation-overview/CreateLoanFromReservation'
-import PageNotFoundView from '../views/general-pages/PageNotFoundView'
+import CreateLoanFromReservation from '../components/admin-panel/reservation-overview/CreateLoanFromReservation.vue'
+import PageNotFoundView from '../views/general-pages/PageNotFoundView.vue'
+import UserDetailView from '../views/detail-pages/UserDetailView.vue'
 
 const routes = [
   // {
@@ -115,6 +116,11 @@ const routes = [
     path: '/book/:id/update',
     name: 'update-book',
     component: UpdateBookView,
+  },
+  {
+    path: '/user/:id',
+    name: 'user-detail',
+    component: UserDetailView,
   },
   {
     path: '/notfound',
