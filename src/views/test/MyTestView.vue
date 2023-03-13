@@ -25,8 +25,8 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import JimTest from '@/components/lelijke-htmls/JimTest.vue';
-import PostTest from '@/components/lelijke-htmls/PostTest.vue';
+import JimTest from '@/lelijke-htmls/JimTest.vue';
+import PostTest from '@/lelijke-htmls/PostTest.vue';
 // import DeleteTest from '@/components/lelijke-htmls/DeleteTest.vue';
 
 
