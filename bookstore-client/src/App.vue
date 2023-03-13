@@ -13,6 +13,9 @@
 
 <style>
 
+#app {
+  background: #f4f4f4;
+}
 
 
 /* #app {
@@ -39,8 +42,8 @@ nav a.router-link-exact-active {
 
 <script>
 // @ is an alias to /src
-import NavBar from '@/components/NavBar.vue'
-import FooterComponent from './components/FooterComponent.vue';
+import NavBar from '@/components/reusable-components/NavBar.vue'
+import FooterComponent from './components/reusable-components/FooterComponent.vue';
 
 export default {
   name: 'TemplateView',

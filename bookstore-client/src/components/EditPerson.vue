@@ -2,8 +2,8 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createUser">
-                    <h1>Creëer nieuwe gebruiker</h1>
+                <form @submit.prevent="saveUserChanges">
+                    <h1>Wijzig gebruiker gegevens</h1>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
                         <input type="email" id="email" v-model="user.emailAddress" required>
@@ -19,11 +19,12 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
-                    <div>
-                        <label for="">Admin:</label>
-                        <input type="checkbox" v-model="admin">
-                        </div>
-                    <button type="submit">Registreer</button>
+                    <div class="inputbox">
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="password" id="password" v-model="user.password" required>
+                        <label for="">Wachtwoord</label>
+                    </div>
+                    <button type="submit">Sla wijzigingen op</button>
                 </form>
             </div>
         </div>
@@ -42,20 +43,35 @@ export default {
         emailAddress: '',
         firstName: '',
         lastName: '',
+        password: '',
       },
     };
   },
+  created() {
+    axios.get('http://localhost:8080/user/1')
+      .then(response => {
+        this.user.firstName = response.data.firstName;
+        this.user.lastName = response.data.lastName;
+        this.user.emailAddress = response.data.emailAddress;
+        this.user.password = response.data.password;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
   methods: {
       
-    createUser() {
-      axios.post('http://localhost:8080/user/create', this.user)
+    saveUserChanges() {
+      axios.put('http://localhost:8080/user/1', this.user)
         .then(response => {
-          console.log('User created:', response.data);
+            console.log('User created:', response.data);
+            alert("Gebruiker succesvol gewijzigd!");
         })
         .catch(error => {
-          console.log(error);
+            alert('Er is iets fout gegaan')
+            console.log(error);
         })
-        .then(() => this.$router.push('edit-users'));
+        
     },
   },
 };
@@ -70,8 +86,8 @@ export default {
     }
     section{
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: top;
+        align-items: top;
         min-height: 100vh;
         width: 100%;
         

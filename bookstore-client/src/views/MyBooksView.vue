@@ -15,7 +15,7 @@
 
 <script>
 import axios from 'axios';
-import BookCard from '@/components/BookCard.vue'
+import BookCard from '@/components/my-book-page/MyBookCard.vue'
 
 export default {
   name: 'MyBooksView',

@@ -20,8 +20,8 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import LoanRow from '@/components/admin-panel/LoanRow.vue';
-import SideBar from '@/components/SideBar.vue';
+import LoanRow from '@/components/admin-panel/loan-overview/LoanRow.vue';
+import SideBar from '@/components/reusable-components/SideBar.vue';
 
 
 export default {

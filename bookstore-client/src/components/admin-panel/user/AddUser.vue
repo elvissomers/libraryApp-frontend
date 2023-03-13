@@ -2,78 +2,64 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createLoan">
-                    <div><h2>Creëer een lening</h2></div>
-                    <div><h2>Verwijder een reservering</h2></div>
+                <form @submit.prevent="createUser">
+                    <h1>Creëer nieuwe gebruiker</h1>
                     <div class="inputbox">
-                        <label for="">Reservation</label>
-
-                        <select v-model="reservation">
-
-                            <option v-for="reservation in reservations" :value="reservation" :key="reservation">
-                                (ids: {{reservation.id}} {{ reservation.userId }} {{ reservation.bookId }}) - {{ reservation.date }} - {{ reservation.userFirstName }} - {{ reservation.userLastName }} - {{ reservation.bookTitle }}
-                            </option>
-
-                        </select>
+                        <!-- <ion-icon name="mail-outline"></ion-icon> -->
+                        <input type="email" id="email" v-model="user.emailAddress" required>
+                        <label for="">Email</label>
                     </div>
-                    <button class="submit-btn">Keur reservering toe en verwijder reservering</button>
+                    <div class="inputbox">
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="text" id="firstname" v-model="user.firstName" required>
+                        <label for="">Voornaam</label>
+                    </div>
+                    <div class="inputbox">
+                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                        <input type="text" id="lastname" v-model="user.lastName" required>
+                        <label for="">Achternaam</label>
+                    </div>
+                    <div>
+                        <label for="">Admin:</label>
+                        <input type="checkbox" v-model="admin">
+                        </div>
+                    <button type="submit">Registreer</button>
                 </form>
             </div>
         </div>
     </section>
+
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  name: 'CreateLoan',
+  name: 'AddUser',
   data() {
     return {
-      reservation: {
-        id: '',
-        date: '',
-        userId: '',
-        bookId: ''
+      user: {
+        emailAddress: '',
+        firstName: '',
+        lastName: '',
       },
-      reservations: [],
     };
   },
-  mounted() {
-    this.getReservation();
-  },
   methods: {
-    createLoan() {
-        axios.post('http://localhost:8080/loan/create/fromreservation', this.reservation)
+      
+    createUser() {
+      axios.post('http://localhost:8080/user/create', this.user)
         .then(response => {
-            console.log(response)
-            console.log('Copy added:', response.data);
-            alert("Exemplaar succesvol toegevoegd")
+          console.log('User created:', response.data);
         })
         .catch(error => {
           console.log(error);
         })
-        axios.delete(`http://localhost:8080/reservation/${this.reservation.id}`)
-        .then(response => {
-            console.log(response)
-            console.log('reservation deleted')
-            alert('reservation deleted')
-        })
-    },
-    getReservation() {
-      axios.get('http://localhost:8080/reservation')
-        .then(response => {
-          this.reservations = response.data;
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        .then(() => this.$router.push('edit-users'));
     },
   },
 };
 </script>
-
 
 <style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -84,13 +70,13 @@ export default {
     }
     section{
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: top left;
+        align-items: top left;
         min-height: 100vh;
         width: 100%;
         
         /* background: url('background6.jpg')no-repeat; */
-        background-position: center;
+        background-position: left;
         background-size: cover;
     }
     .form-box{
@@ -102,8 +88,8 @@ export default {
         border-radius: 20px;
         backdrop-filter: blur(15px);
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: left;
+        align-items: left;
 
     }
     h2{
@@ -188,7 +174,7 @@ export default {
         width: 100%;
         height: 40px;
         border-radius: 40px;
-        background: #000000;
+        background: #000000;;
         color: rgb(255, 255, 255);
         border: none;
         outline: none;

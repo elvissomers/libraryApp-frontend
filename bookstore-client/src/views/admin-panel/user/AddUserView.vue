@@ -7,8 +7,8 @@
   
   <script>
   // @ is an alias to /src
-  import AddUser from '@/components/admin-panel/AddUser.vue';
-  import SideBar from '@/components/SideBar.vue';
+  import AddUser from '@/components/admin-panel/user/AddUser.vue';
+  import SideBar from '@/components/reusable-components/SideBar.vue';
   
   export default {
     name: 'AddUserView',

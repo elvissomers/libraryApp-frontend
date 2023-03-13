@@ -8,7 +8,7 @@
   </template>
   
   <script>
-import BookDetail from '@/components/BookDetail.vue';
+import BookDetail from '@/components/details/BookDetail.vue';
   
   export default {
     name: 'HomeView',

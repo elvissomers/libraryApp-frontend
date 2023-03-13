@@ -8,8 +8,7 @@
                 <router-link to="/" class="text-3xl font-bold font-heading"><img src="https://www.workingtalent.nl/_nuxt/img/wt-logo-white.8cc9feb.svg" title="Logo" alt="Logo"></router-link>
                 <!-- Nav Links -->
                 <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                    <li><router-link to="/" class="hover:text-gray-200">Home</router-link></li>
-                    <li><router-link to="/catalogue" class="hover:text-gray-200">Catalogue</router-link></li>
+                    <li><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
                     <li><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
                     <li><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
                     <!-- <li><router-link to="/mytestpage" class="hover:text-gray-200">Jims test page</router-link></li> -->
