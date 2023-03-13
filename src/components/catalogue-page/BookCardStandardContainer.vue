@@ -2,7 +2,10 @@
     <div class="Catalogue">
         <!--<div class="flex flex-row flex-wrap justify-center">-->
         <div class="mx-40 my-5 grid grid-cols-4 grid-rows-3 gap-4">
-            <BookCardCatalogue v-for="book in books" :key="book.id" v-bind:title="book.title" v-bind:author="book.author"
+            <BookCardCatalogue v-for="book in books" :key="book.id" 
+                v-bind:id="book.id" 
+                v-bind:title="book.title" 
+                v-bind:author="book.author"
                 v-bind:isbn="book.isbn">
             </BookCardCatalogue>
         </div>
