@@ -2,30 +2,22 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createCopy">
+                <form @submit.prevent="createCopies">
                     <h2>Voeg een examplaar toe</h2>
                     <div class="inputbox">
-                        <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <!-- <input type="text" id="title" v-model="copy.book_id" required> -->
-                        <label for="">Boek</label>
-                        <!-- <select id="book_id" name="book_id" v-model="copy.book_id" required></select> -->
+                        <label for="" class="inline-label">Boek</label>
 
                         <select v-model="copy.bookId">
 
-                            <option v-for="book in books" :value="book.id" :key="book.id">
+                            <option class="inline-input" v-for="book in books" :value="book.id" :key="book.id">
                                 {{ book.title }} - {{ book.author }}
                             </option>
 
                         </select>
-
-                        <!-- <div>Selected: {{ copy.book_id }}</div> -->
-
-
+                        <label for="" class="inline-label">Aantal Kopieën</label>
+                        <input id='amount_copies' type="number" v-model="amount_copies" min="0" class="inline-input" required>
                     </div>
                     <button class="submit-btn">Voeg toe</button>
-
-                    
-
                 </form>
             </div>
         </div>
@@ -42,6 +34,7 @@ export default {
       copy: {
         bookId: '',
       },
+      amount_copies: 0,
       books: [],
     };
   },
@@ -49,6 +42,7 @@ export default {
     this.getBooks();
   },
   methods: {
+    // unused function
     createCopy() {
       axios.post('http://localhost:8080/copy/create', this.copy)
         .then(response => {
@@ -60,6 +54,16 @@ export default {
         // alleen als successvol nog niet werkend
         .then(() => this.$router.push('edit-books'));
     },
+
+
+    createCopies(){
+        for(let i = 0; i < this.amount_copies; i++){
+            axios.post('http://localhost:8080/copy/create', this.copy)
+        }
+        alert(this.amount_copies+ ' copies have been added for this book')
+        this.$router.push('edit-books')
+    },
+
     getBooks() {
       axios.get('http://localhost:8080/book')
         .then(response => {
@@ -80,6 +84,22 @@ export default {
         margin: 0;
         padding: 0;
         /* font-family: 'poppins',sans-serif; */
+    }
+    .inline-label {
+        display: inline-block;
+        width: 500px; /* set a width to make the labels align properly */
+        vertical-align: middle; /* align the label and input elements vertically */
+    }
+
+    .inline-input {
+        display: inline-block;
+        width: calc(100% - 100px); /* subtract the label width from the input width */
+        margin-left: 10px; /* add some margin between the label and input elements */
+        vertical-align: middle; /* align the label and input elements vertically */
+        border: 1px solid #ccc !important;
+        padding: 5px !important;
+        height: 30px !important;
+        
     }
     section{
         display: flex;
@@ -110,22 +130,6 @@ export default {
         color: #000000;
         text-align: center;
     }
-    .inputbox{
-        position: relative;
-        margin: 30px 0;
-        width: 310px;
-        border-bottom: 2px solid #000000;;
-    }
-    .inputbox label{
-        position: absolute;
-        top: 50%;
-        left: 5px;
-        transform: translateY(-50%);
-        color: #000000;
-        font-size: 1em;
-        pointer-events: none;
-        transition: .5s;
-    }
     input:focus ~ label,
     input:valid ~ label{
     top: -5px;
@@ -139,49 +143,6 @@ export default {
         font-size: 1em;
         padding:0 35px 0 5px;
         color: #000000;;
-    }
-    .inputbox ion-icon{
-        position: absolute;
-        right: 8px;
-        color: #000000;;
-        font-size: 1.2em;
-        top: 20px;
-    }
-
-    /* .forgot-pass {
-        display: flex;
-
-    } */
-
-    .remember {
-        display: flex;
-        
-    }
-
-    .checkbox {
-        margin-right: 6px;
-        margin-left: 1px;
-    }
-
-    .forgot{
-        margin: -15px 0 15px ;
-        font-size: .9em;
-        color: #000000;;
-        display: flex;
-        justify-content: space-between;  
-        /* gap: 100px; */
-    }
-
-    .forgot label input{
-        margin-right: 3px;
-        
-    }
-    .forgot label a{
-        color: #000000;;
-        text-decoration: none;
-    }
-    .forgot label a:hover{
-        text-decoration: underline;
     }
     button{
         width: 100%;
@@ -197,20 +158,6 @@ export default {
     }
     button:hover{
         background: #757575;
-    }
-    .register{
-        font-size: .9em;
-        color: #000000;;
-        text-align: center;
-        margin: 25px 0 10px;
-    }
-    .register p a{
-        text-decoration: none;
-        color: #000000;;
-        font-weight: 600;
-    }
-    .register p a:hover{
-        text-decoration: underline;
     }
 </style>
 
