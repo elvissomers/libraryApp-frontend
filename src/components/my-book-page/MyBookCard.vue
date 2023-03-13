@@ -1,7 +1,8 @@
 <template>
 <!-- component, removed: mx-auto-->
 <div class="max-w-lg p-2">
-    <div class="bg-white shadow-md rounded-lg max-w-xs dark:bg-zinc-800 dark:border-gray-700">
+    <!-- removed: dark:bg-zinc-800 dark:border-gray-700 -->
+    <div class="bg-white shadow-md rounded-lg max-w-xs">
         <!-- Image -->
         <router-link :to="{ name: 'book-detail', params: { id: id }}" class="hover:text-gray-200">
             <!-- <img class="rounded-t-lg p-8" src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp" alt="product image"> -->
@@ -9,15 +10,16 @@
         </router-link>
         
         <div class="px-5 pb-5">
+            <!-- removed: dark:text-white -->
             <!-- Title -->
             <router-link :to="{ name: 'book-detail', params: { id: id }}" class="hover:text-gray-200">
-                <h3 class="text-gray-900 font-semibold text-xl tracking-tight dark:text-white">"{{ title }}</h3>
+                <h3 class="text-gray-900 font-semibold text-xl tracking-tight">"{{ title }}</h3>
             </router-link>
             <!-- Author -->
-            <h3 class="text-gray-900 font-normal text-xl tracking-tight dark:text-white">{{ author }}</h3>
-            <h3 class="text-gray-900 font-normal text-xl tracking-tight dark:text-white">{{ isbn }}</h3>
+            <h3 class="text-gray-900 font-normal text-xl tracking-tight">{{ author }}</h3>
+            <h3 class="text-gray-900 font-normal text-xl tracking-tight">{{ isbn }}</h3>
             <!-- Start date -->
-            <h3 class="text-gray-900 font-normal text-xl tracking-tight dark:text-white">Geleend sinds: 21-02-2021</h3>
+            <h3 class="text-gray-900 font-normal text-xl tracking-tight">Geleend sinds: 21-02-2021</h3>
             <!-- End date? -->
         </div>
     </div>
