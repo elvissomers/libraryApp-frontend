@@ -5,12 +5,12 @@
         <div class="flex flex-row flex-wrap justify-center">
           All Users:
             <UserRow
-            v-for="user in users" :key="user.id"
-            v-bind:id="user.id" 
-            v-bind:firstName="user.firstName" 
-            v-bind:lastName="user.lastName" 
-            v-bind:eMailAddress="user.eMailAddress"
-            v-bind:admin="user.admin">
+              v-for="user in users" :key="user.id"
+              v-bind:id="user.id" 
+              v-bind:firstName="user.firstName" 
+              v-bind:lastName="user.lastName" 
+              v-bind:eMailAddress="user.eMailAddress"
+              v-bind:admin="user.admin">
             </UserRow>
         </div>
       <!--<ChangeAdminStatus></ChangeAdminStatus>-->

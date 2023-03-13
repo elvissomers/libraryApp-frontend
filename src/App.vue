@@ -4,7 +4,7 @@
 
   <NavBar></NavBar>
 
-  <router-view/>
+  <router-view class="my-20"/>
 
   <FooterComponent></FooterComponent>
   
