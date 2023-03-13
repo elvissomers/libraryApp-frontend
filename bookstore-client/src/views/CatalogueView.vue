@@ -1,9 +1,10 @@
 <template>
-    <div class="Catalogue">
-      <SearchBar @doSearch="startSearch($event)" />
-        <!--<div class="flex flex-row flex-wrap justify-center">-->
-      <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>
-      
+    <div class="Catalogue bg-slate-100">
+      <SearchBar 
+      @doSearch="startSearch($event)"
+      @goBack="goBackToCatalogue()" />
+
+      <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>      
       <BookCardSearchContainer
        v-if="this.search"
        :searchTerm="searchTermParent">
@@ -36,7 +37,10 @@ export default {
     startSearch(searchT) {
       this.searchTermParent = searchT
       this.search = true
-      console.log(this.searchTermParent)
+    },
+
+    goBackToCatalogue() {
+      this.search = false
     }
   }
 }
