@@ -23,10 +23,10 @@
 
 <script>
 // @ is an alias to /src
-import AddUserButton from '@/components/admin-panel/AddUserButton.vue';
-import UserRow from '@/components/admin-panel/UserRow.vue';
+import AddUserButton from '@/components/admin-panel/user/AddUserButton.vue';
+import UserRow from '@/components/admin-panel/user-overview/UserRow.vue';
 //import ChangeAdminStatus from '@/components/admin-panel/ChangeAdminStatus.vue';
-import SideBar from '@/components/SideBar.vue';
+import SideBar from '@/components/reusable-components/SideBar.vue';
 import axios from 'axios'
 
 export default {

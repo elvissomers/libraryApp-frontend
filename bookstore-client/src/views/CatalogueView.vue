@@ -1,5 +1,5 @@
 <template>
-    <div class="Catalogue bg-slate-100">
+    <div class="Catalogue">
       <SearchBar 
       @doSearch="startSearch($event)"
       @goBack="goBackToCatalogue()" />
@@ -14,9 +14,9 @@
 
 <script>
 // @ is an alias to /src
-import SearchBar from '@/components/SearchBar.vue'
-import BookCardStandardContainer from '@/components/BookCardStandardContainer.vue';
-import BookCardSearchContainer from '@/components/BookCardSearchContainer.vue';
+import SearchBar from '@/components/reusable-components/SearchBar.vue'
+import BookCardStandardContainer from '@/components/catalogue-page/BookCardStandardContainer.vue';
+import BookCardSearchContainer from '@/components/catalogue-page/BookCardSearchContainer.vue';
 
 export default {
   name: 'CatalogueView',

@@ -15,8 +15,8 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import BookCardCatalogue from '@/components/BookCardCatalogue.vue'
-import PaginationBar from '@/components/PaginationBar.vue'
+import BookCardCatalogue from '@/components/catalogue-page/BookCardCatalogue.vue'
+import PaginationBar from '@/components/reusable-components/PaginationBar.vue'
 
 export default {
     name: 'CatalogueView',

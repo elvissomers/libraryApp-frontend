@@ -22,10 +22,10 @@
 
 <script>
 // @ is an alias to /src
-import EditBooks from '@/components/admin-panel/EditBooks.vue';
-import SideBar from '@/components/SideBar.vue';
+import EditBooks from '@/components/admin-panel/book-overview/EditBooks.vue';
+import SideBar from '@/components/reusable-components/SideBar.vue';
 import axios from 'axios'
-import BookRow from '@/components/admin-panel/BookRow.vue';
+import BookRow from '@/components/admin-panel/book-overview/BookRow.vue';
 
 export default {
   name: 'EditBooksView',

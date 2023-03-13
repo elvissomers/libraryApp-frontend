@@ -2,17 +2,19 @@
     
   <div>
     
-
+    <!-- bookdetail -->
     <router-link :to="{ name: 'book-detail', params: { id: id }}" class="hover:text-gray-200">
       {{ id }}: {{ title }} - {{ author }} - {{ isbn }} 
     </router-link> 
 
+    <!-- delete book button -->
       <button class="bg-black text-slate-50" 
       @click="deleteBook(id)">Delete</button>
 
-      <router-link :to="{ name: 'update-book', params: { id: id }}" class="hover:text-gray-200">
+      <!-- edit book button -->
+    <router-link :to="{ name: 'update-book', params: { id: id }}" class="hover:text-gray-200">
       <button class="bg-black text-slate-50">Wijzig</button>
-      </router-link>
+    </router-link>
 
   </div>
 </template>

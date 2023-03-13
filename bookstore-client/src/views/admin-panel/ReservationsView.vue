@@ -20,8 +20,8 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import ReservationRow from '@/components/admin-panel/ReservationRow.vue';
-import SideBar from '@/components/SideBar.vue';
+import ReservationRow from '@/components/admin-panel/reservation-overview/ReservationRow.vue';
+import SideBar from '@/components/reusable-components/SideBar.vue';
 
 export default {
   name: 'ReservationsView',

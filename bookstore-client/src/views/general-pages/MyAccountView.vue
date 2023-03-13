@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import View_Person from '@/components/ViewPerson.vue';
+import View_Person from '@/components/details/ViewPerson.vue';
 import Edit_Person from '@/components/EditPerson.vue';
 
 export default {
