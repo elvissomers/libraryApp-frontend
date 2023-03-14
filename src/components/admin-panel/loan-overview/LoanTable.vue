@@ -2,8 +2,8 @@
     <div class="flex flex-col w-full mx-8">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
-            <div class="p-4 text-center rounded-md">All Reservations</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations($event)" @goBack="getReservations()" class="m-2">
+            <div class="p-4 text-center rounded-md">All Loans</div>
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans($event)" @goBack="getLoans()" class="m-2">
             </SearchBar>
         </div>
 
@@ -17,8 +17,8 @@
         
 
         <div class="flex flex-col flex-wrap divide-y-2">
-            <ReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">
-            </ReservationRow>
+            <LoanRow v-for="loan in loans" :key="loan.id" v-bind:loan="loan">
+            </LoanRow>
         </div>
     </div>
 </template>
@@ -26,38 +26,38 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import ReservationRow from '@/components/admin-panel/reservation-overview/ReservationRow.vue';
+import LoanRow from '@/components/admin-panel/loan-overview/LoanRow.vue';
 import SearchBar from '@/components/reusable-components/SearchBar.vue';
 
 export default {
-    name: 'ReservationsView',
+    name: 'LoanedBooksView',
     components: {
-        ReservationRow,
+        LoanRow,
         SearchBar
     },
     data() {
         return {
-            reservations: [],
+            loans: [],
             placeholder: "First or last name"
         };
     },
     mounted() {
-        this.getReservations();
+        this.getLoans();
     },
     methods: {
-        getReservations() {
-            axios.get('http://localhost:8080/reservation')
+        getLoans() {
+            axios.get('http://localhost:8080/loan')
                 .then(response => {
-                    this.reservations = response.data;
+                    this.loans = response.data;
                 })
                 .catch(error => {
                     console.log(error);
                 });
         },
-        searchReservations(searchTerm) {
-            axios.get('http://localhost:8080/reservationsearch/'+searchTerm+'/0/50')
+        searchLoans(searchTerm) {
+            axios.get('http://localhost:8080/loansearch/'+searchTerm+'/0/50')
                 .then(response => {
-                    this.reservations = response.data;
+                    this.loans = response.data;
                 })
                 .catch(error => {
                     console.log(error);

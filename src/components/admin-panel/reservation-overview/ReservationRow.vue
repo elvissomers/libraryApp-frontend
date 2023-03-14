@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-between">
+  <div class="flex flex-row justify-between hover:bg-slate-300">
     <div class="flex flex-row py-4">
       <div class="w-12 ml-8">{{ reservation.id }} </div>
       <div class="w-28">{{ reservation.date }}</div>
@@ -8,7 +8,7 @@
       <div>{{ reservation.bookTitle }}</div>
     </div>
     <button v-on:click="createLoan()"
-      class="float-right bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Goedkeuren!
+      class="text-white float-right bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Goedkeuren!
     </button>
   </div>
 </template>
