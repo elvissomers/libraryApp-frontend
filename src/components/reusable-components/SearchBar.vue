@@ -1,5 +1,6 @@
 <template>
-  <div style="max-width:700px; margin: 10px auto;">
+  <!-- removed: style="max-width:700px;" -->
+  <div>
 
     <form class="flex items-center">
       <label for="search" class="sr-only">Search</label>
@@ -16,8 +17,8 @@
         <!-- removed: dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 -->
         <input v-model="searchText" type="text" id="search"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-10 p-2.5"
-          placeholder="Titles, Authors..." required="false">
-        <button v-on:click="backToCatalogue()" type="button" class="absolute inset-y-0 right-0 flex items-center pr-3">
+          :placeholder="placeholder" required="false">
+        <button v-on:click="backToCatalogue()" type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 transition ease-in-out delay-50 hover:scale-125 duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -28,7 +29,7 @@
 
       <!-- removed: dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 -->
       <button v-on:click="sendSearchTerm()" type="submit"
-        class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-lime-500 border border-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300">
+        class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-lime-500 border border-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition ease-in-out delay-50 hover:scale-110 duration-300 rounded-md">
         <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,6 +51,8 @@ export default {
       searchText: '',
     };
   },
+
+  props: ['placeholder'],
 
   methods: {
 

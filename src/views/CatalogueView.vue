@@ -1,6 +1,6 @@
 <template>
     <div class="Catalogue">
-      <SearchBar 
+      <SearchBar class="flex justify-center " 
       @doSearch="startSearch($event)"
       @goBack="goBackToCatalogue()" />
 
