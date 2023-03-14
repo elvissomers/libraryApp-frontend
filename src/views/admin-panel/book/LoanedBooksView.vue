@@ -1,63 +1,34 @@
 <template>
-    <div class="MyBooks">
+  <div class="Reservations flex flex-row">
       <SideBar></SideBar>
-        Loaned books:
-        <div class="flex flex-row flex-wrap justify-center">
-            <LoanRow
-            v-for="loan in loans" :key="loan.id"
-            v-bind:id="loan.id" 
-            v-bind:endDate="loan.endDate" 
-            v-bind:startDate="loan.startDate" 
-            v-bind:userFirstName="loan.userFirstName"
-            v-bind:userLastName="loan.userLastName"
-            v-bind:bookTitle="loan.bookTitle">
-            </LoanRow>
-        </div>
 
-    </div>
-  </template>
+      <LoanTable></LoanTable>
+
+  </div>
+</template>
 
 <script>
 // @ is an alias to /src
-import axios from 'axios';
-import LoanRow from '@/components/admin-panel/loan-overview/LoanRow.vue';
 import SideBar from '@/components/reusable-components/SideBar.vue';
-
+import LoanTable from '@/components/admin-panel/loan-overview/LoanTable.vue';
 
 export default {
-  name: 'MyBooksView',
-  components: {
-    LoanRow,
-    SideBar
+name: 'ReservationsView',
+components: {
+  SideBar,
+  LoanTable
 },
-  data() {
-    return {
-      loans: [],
-    };
-  },
-  mounted() {
-    this.getLoans();
-  },
-  methods: {
-    getLoans() {
-      axios.get('http://localhost:8080/loan')
-        .then(response => {
-          this.loans = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-  },
+data() {
+  return {
+
+  };
+},
+mounted() {
+
+},
+methods: {
+
+},
 }
 </script>
-
-
-<style>
-.MyBooks {
-  display: flex;
-  flex-wrap: nowrap;
-
-}
-</style>
 
