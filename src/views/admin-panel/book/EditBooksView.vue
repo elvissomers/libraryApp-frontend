@@ -1,66 +1,21 @@
-
-
 <template>
-  <div class="EditBooks">
+  <div class="EditUser flex flex-ro">
     <SideBar></SideBar>
-    <!-- <div class="flex flex-row flex-wrap justify-center"> -->
-      <BookRow 
-      v-for="book in books" :key="book.id"
-      v-bind:id="book.id"
-      v-bind:title="book.title" 
-      v-bind:author="book.author" 
-      v-bind:isbn="book.isbn">
-      </BookRow>
-      
-    <!-- </div> -->
-
-
-    <EditBooks></EditBooks>
-
+    <BookTable></BookTable>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import EditBooks from '@/components/admin-panel/book-overview/EditBooks.vue';
+//import ChangeAdminStatus from '@/components/admin-panel/ChangeAdminStatus.vue';
 import SideBar from '@/components/reusable-components/SideBar.vue';
-import axios from 'axios'
-import BookRow from '@/components/admin-panel/book-overview/BookRow.vue';
+import BookTable from '@/components/admin-panel/book-overview/BookTable.vue';
 
 export default {
-  name: 'EditBooksView',
+  name: 'EditBookView',
   components: {
     SideBar,
-    EditBooks,
-    BookRow
-},
-  data() {
-    return {
-      books: [],
-    };
-  },
-  mounted() {
-    // this.books = getBooks();
-    this.getBooks()
-  },
-  methods: {
-    getBooks() {
-      axios.get('http://localhost:8080/book')
-        .then(response => {
-          this.books = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-  },
-}
+    BookTable
+    //ChangeAdminStatus
+}}
 </script>
-
-<style>
-.EditBooks {
-display: flex;
-flex-wrap: nowrap;
-
-}
-</style>

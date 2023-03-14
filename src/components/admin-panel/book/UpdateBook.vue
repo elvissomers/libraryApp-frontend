@@ -63,12 +63,13 @@ export default {
         console.warn(this.updatedBook)
       axios.put('http://localhost:8080/book/' + this.$route.params.id, this.updatedBook)
         .then(response => {
+            alert('The book has been updated!')
             console.log('Book updated:', response.data);
         })
         .catch(error => {
           console.log(error);
         })
-        .then(() => this.$router.push('edit-books'));
+        .then(() => this.$router.push('/admin/edit-books'));
         // if (response.status==200) { this.$router.push('edit-books')) }
     },
   },
