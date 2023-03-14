@@ -1,5 +1,6 @@
 <template>
-  <div style="max-width:700px;">
+  <!-- removed: style="max-width:700px;" -->
+  <div>
 
     <form class="flex items-center">
       <label for="search" class="sr-only">Search</label>
