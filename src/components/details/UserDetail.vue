@@ -80,8 +80,10 @@
             </div> -->
         </div>
 
-        <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-            <div class="w-full flex flex-col 2xl:w-1/3">
+        <!-- removed: 2xl:flex-row 2xl:space-y-0 2xl:space-x-4-->
+        <div class="my-4 flex flex-col space-y-4">
+            <!-- removed: 2xl:w-1/3 -->
+            <div class="w-full flex flex-col ">
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                     <h4 class="text-xl text-gray-900 font-bold">Persoonlijke gegevens</h4>
                     <ul class="mt-2 text-gray-700">
@@ -96,6 +98,14 @@
                         <li class="flex border-b py-2">
                             <span class="font-bold w-24">Email:</span>
                             <span class="text-gray-700">{{ user.emailAddress }}</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-24">Aantal Leningen:</span>
+                            <span class="text-gray-700">{{  }} 3</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-24">Aantal Reserveringen:</span>
+                            <span class="text-gray-700">{{  }} 3</span>
                         </li>
                         <li class="flex border-b py-2">
                             <span class="font-bold w-24">Beheerder:</span>
