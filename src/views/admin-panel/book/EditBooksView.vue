@@ -1,9 +1,16 @@
 <template>
   <div class="EditUser flex flex-ro">
     <SideBar></SideBar>
-    <BookTable></BookTable>
-    <AddBookButton></AddBookButton>
-    <AddCopyButton></AddCopyButton>
+    <div class="grid-container">
+      <div>
+        <AddBookButton></AddBookButton>
+        <AddCopyButton></AddCopyButton>
+      </div>
+      <BookTable></BookTable>
+    </div>
+    
+    
+    
   </div>
 </template>
 
