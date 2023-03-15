@@ -8,8 +8,11 @@
           <!-- <img class="rounded-t-lg p-8 w-full h-96" :src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)"
             alt="product image"> -->
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ book.author }}</h2>
-            <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ book.title }}</h1>
+            <span class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
+            <button @click="changeAuthor()">Edit</button>
+            <h1></h1>
+            <span class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
+            <button @click="changeTitle()">Edit</button>
             <div class="flex mb-4">
             </div>
             <!-- Description -->
@@ -17,15 +20,18 @@
               microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan
               poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed
               umami cardigan.</p>
+              <button>Edit</button>
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
                 <span class="mr-3">ISBN: {{ book.isbn }}</span>
+                <button @click="changeIsbn()">Edit</button>
               </div>
             </div>
             <div class="flex">
               <!-- removed: ml-auto -->
               <button @click="createReservation()"
-                class="flex text-white bg-lime-500 border-0 py-2 px-6 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
+                class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
+              
               <button @click='createCopy()'
                 class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak nieuwe kopie aan</button>
             </div>
@@ -62,16 +68,34 @@
       this.getBook()
     },
     methods: {
-    // unused function
+    // Get methods from here
+    getCurrentDate() {
+        let currentDate = new Date().toJSON().slice(0, 10);
+        // console.log(currentDate); // "2023-03-13"
+        return currentDate
+    },
+
+    getBook() {
+        axios.get('http://localhost:8080/book/' + this.$route.params.id)
+          .then(response => {
+            this.book = response.data;
+            this.copy.bookId = this.book.id;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+
+    // Create methods from here
     createCopy() {
       axios.post('http://localhost:8080/copy/create', this.copy)
         .then(response => {
           console.log('Copy added:', response.data);
+          alert("Copy was added")
         })
         .catch(error => {
           console.log(error);
         })
-        // alleen als successvol nog niet werkend
         .then(() => this.$router.push('edit-books'));
     },
 
@@ -84,16 +108,7 @@
         this.$router.push('edit-books')
     },
         
-    getBook() {
-        axios.get('http://localhost:8080/book/' + this.$route.params.id)
-          .then(response => {
-            this.book = response.data;
-            this.copy.bookId = this.book.id;
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      },
+    
     createReservation() {
         this.reservation.date = this.getCurrentDate()
         // TODO: this has to be the ID of the current user (retrieved by token!)
@@ -104,17 +119,47 @@
         axios.post('http://localhost:8080/reservation/create', this.reservation)
           .then(response => {
             console.log('Reservation created:', response.data);
+            alert("Reservation made")
           })
           .catch(error => {
             console.log(error);
           })
           .then(() => this.$router.push('mybooks'));
       },
-    getCurrentDate() {
-        let currentDate = new Date().toJSON().slice(0, 10);
-        // console.log(currentDate); // "2023-03-13"
-        return currentDate
-      }
+
+    // Change methods from here
+    changeAuthor() {
+        let newAuthor = prompt("Voer nieuwe auteur in:")
+        console.log(newAuthor)
+
+        let changeBook = this.book
+        changeBook.author = newAuthor
+        console.log(changeBook)
+
+        axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
+        console.log('Changed author name into ', newAuthor)
+         
+      },
+    
+    changeTitle() {
+        let newTitle = prompt("Voer nieuwe titel in:")
+        let changeBook = this.book
+        changeBook.title = newTitle
+
+        axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
+        console.log('Changed title into ', newTitle)
+    },
+
+    changeIsbn() {
+        let newIsbn = prompt("Voer nieuw ISBN in:")
+        let changeBook = this.book
+        changeBook.isbn = newIsbn
+
+        axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
+        console.log('Changed isbn into ', newIsbn)
+    }
+
+    
     },
   }
   </script>
