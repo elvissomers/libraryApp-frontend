@@ -1,19 +1,23 @@
 <template>
     <div class="home">
 
-        <BookDetail></BookDetail>
+        <BookDetailAdmin></BookDetailAdmin>
+        <!-- // TODO : use either bookdetail or BookDetailAdmin
+        // Depending on token! -->
   
   
     </div>
   </template>
   
   <script>
-import BookDetail from '@/components/details/BookDetail.vue';
+// import BookDetail from '@/components/details/BookDetail.vue';
+import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
   
   export default {
     name: 'HomeView',
     components: {
-    BookDetail
+    // BookDetail,
+    BookDetailAdmin
 }
   }
   </script>

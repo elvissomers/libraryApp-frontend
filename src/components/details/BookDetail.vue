@@ -65,6 +65,7 @@ export default {
     },
     createReservation() {
       this.reservation.date = this.getCurrentDate()
+      // TODO: this has to be the ID of the current user (retrieved by token!)
       this.reservation.userId = 3
       this.reservation.bookId = this.book.id
       console.log(this.reservation)

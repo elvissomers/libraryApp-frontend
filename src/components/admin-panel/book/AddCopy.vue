@@ -34,7 +34,7 @@ export default {
       copy: {
         bookId: '',
       },
-      amount_copies: 0,
+      amount_copies: 3,
       books: [],
     };
   },
