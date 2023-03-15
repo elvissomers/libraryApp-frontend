@@ -1,12 +1,7 @@
 <template>
     <div class="Reservations flex flex-row">
         <SideBar></SideBar>
-        <div class="grid-container">
-          <CreateLoanFromUser></CreateLoanFromUser>
-          <ReservationsTable></ReservationsTable>
-        </div>
-        
-
+        <ReservationsTable></ReservationsTable>
     </div>
   </template>
 
@@ -14,14 +9,14 @@
 // @ is an alias to /src
 import SideBar from '@/components/reusable-components/SideBar.vue';
 import ReservationsTable from '@/components/admin-panel/reservation-overview/ReservationsTable.vue';
-import CreateLoanFromUser from '@/components/admin-panel/reservation-overview/CreateLoanForUser.vue';
+
 
 export default {
   name: 'ReservationsView',
   components: {
     SideBar,
     ReservationsTable,
-    CreateLoanFromUser
+    
 },
   data() {
     return {
