@@ -7,7 +7,6 @@
 
 <script>
 // @ is an alias to /src
-//import ChangeAdminStatus from '@/components/admin-panel/ChangeAdminStatus.vue';
 import SideBar from '@/components/reusable-components/SideBar.vue';
 import UserTable from '@/components/admin-panel/user-overview/UserTable.vue';
 
@@ -16,6 +15,5 @@ export default {
   components: {
     SideBar,
     UserTable
-    //ChangeAdminStatus
 }}
 </script>
