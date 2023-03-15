@@ -31,7 +31,7 @@
 
             <router-link to="/admin/reservations" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:light-green">
                 <span class="material-symbols-outlined">pending_actions</span>
-                <span>Reservaties</span>
+                <span>Reserveringen</span>
             </router-link>
         </aside>
     </div>
