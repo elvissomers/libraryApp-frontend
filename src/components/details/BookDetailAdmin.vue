@@ -9,10 +9,12 @@
             alt="product image"> -->
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <span class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
-            <button @click="changeAuthor()">Edit</button>
+            <button @click="changeAuthor()"
+            class="text-white bg-grey-400 border-0 py-2 px-6 focus:outline-none hover:bg-grey-600 rounded">Edit</button>
             <h1></h1>
             <span class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
-            <button @click="changeTitle()">Edit</button>
+            <button @click="changeTitle()"
+            class="text-white bg-grey-400 border-0 py-2 px-6 focus:outline-none hover:bg-grey-600 rounded">Edit</button>
             <div class="flex mb-4">
             </div>
             <!-- Description -->
@@ -24,7 +26,8 @@
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
                 <span class="mr-3">ISBN: {{ book.isbn }}</span>
-                <button @click="changeIsbn()">Edit</button>
+                <button @click="changeIsbn()"
+                class="text-white bg-grey-400 border-0 py-2 px-6 focus:outline-none hover:bg-grey-600 rounded">Edit</button>
               </div>
             </div>
             <div class="flex">
@@ -130,11 +133,9 @@
     // Change methods from here
     changeAuthor() {
         let newAuthor = prompt("Voer nieuwe auteur in:")
-        console.log(newAuthor)
 
         let changeBook = this.book
         changeBook.author = newAuthor
-        console.log(changeBook)
 
         axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
         console.log('Changed author name into ', newAuthor)
@@ -155,8 +156,9 @@
         let changeBook = this.book
         changeBook.isbn = newIsbn
 
-        axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
-        console.log('Changed isbn into ', newIsbn)
+        alert("ISBN veranderen niet toegestaan!")
+        // axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
+        // console.log('Changed isbn into ', newIsbn)
     }
 
     
