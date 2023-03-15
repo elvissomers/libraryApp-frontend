@@ -50,7 +50,8 @@ export default {
     createUser() {
       axios.post('http://localhost:8080/user/create', this.user)
         .then(response => {
-          console.log('User created:', response.data);
+            alert("User Created")
+            console.log('User created:', response.data);
         })
         .catch(error => {
           console.log(error);

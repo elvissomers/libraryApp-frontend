@@ -36,6 +36,7 @@ export default {
           console.log(response)
           console.log('Copy added:', response.data);
           alert("Exemplaar succesvol toegevoegd")
+          window.location.reload()
         })
         .catch(error => {
           console.log(error);
@@ -45,6 +46,7 @@ export default {
           console.log(response)
           console.log('reservation deleted')
           alert('reservation deleted')
+          window.location.reload()
         })
     },
   },

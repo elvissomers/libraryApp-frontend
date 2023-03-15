@@ -41,6 +41,8 @@ export default {
         axios.delete(`http://localhost:8080/book/${id}`)
           .then(response => {
             console.log('Book deleted:', response.data);
+            alert('Book has been deleted')
+            window.location.reload()
             // Remove the deleted book from the books array
           })
           .catch(error => {
