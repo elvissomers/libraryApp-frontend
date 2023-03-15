@@ -52,7 +52,7 @@
         },
         copy: {
             // TODO: this needs to be the actual ID of the book
-            bookId: 3
+            bookId: 0
             // ?
             // bookId: this.book.id
         }
@@ -88,6 +88,7 @@
         axios.get('http://localhost:8080/book/' + this.$route.params.id)
           .then(response => {
             this.book = response.data;
+            this.copy.bookId = this.book.id;
           })
           .catch(error => {
             console.log(error);
