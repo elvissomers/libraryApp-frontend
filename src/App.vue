@@ -49,7 +49,7 @@ export default {
   name: 'TemplateView',
   components: {
     NavBar,
-    FooterComponent
-  }
+    FooterComponent,
+}
 }
 </script>

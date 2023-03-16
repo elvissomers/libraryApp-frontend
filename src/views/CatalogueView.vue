@@ -4,7 +4,10 @@
       @doSearch="startSearch($event)"
       @goBack="goBackToCatalogue()" />
 
-      <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>      
+      <BookCardStandardContainer 
+        v-if="!this.search">
+      </BookCardStandardContainer>      
+      
       <BookCardSearchContainer
        v-if="this.search"
        :searchTerm="searchTermParent">
