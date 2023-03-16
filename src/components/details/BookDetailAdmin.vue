@@ -162,7 +162,7 @@
         let changeBook = this.book
         changeBook.author = newAuthor
 
-        axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
+        axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook)
         console.log('Changed author name into ', newAuthor)
          
       },
@@ -172,7 +172,7 @@
         let changeBook = this.book
         changeBook.title = newTitle
 
-        axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
+        axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook)
         console.log('Changed title into ', newTitle)
     },
 

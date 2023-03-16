@@ -41,7 +41,7 @@ export default {
         .catch(error => {
           console.log(error);
         })
-      axios.delete(`http://localhost:8080/reservation/${this.reservation.id}`)
+      axios.delete(`http://localhost:8080/reservation/delete/${this.reservation.id}`)
         .then(response => {
           console.log(response)
           console.log('reservation deleted')

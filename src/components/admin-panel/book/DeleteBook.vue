@@ -16,7 +16,7 @@
     },
     methods: {
       deleteData() {
-        axios.delete(`http://localhost:8080/book/${this.idToDelete}`)
+        axios.delete(`http://localhost:8080/book/delete/${this.idToDelete}`)
           .then(response => {
             alert("Book Deleted")
             console.log(response.data);

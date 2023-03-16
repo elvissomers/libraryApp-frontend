@@ -23,7 +23,7 @@
     },
     methods: {
         getUsers(){
-            axios.get(`http://localhost:8080/user/1`)
+            axios.get(`http://localhost:8080/user/get/1`)
             .then( response => {
                 console.log(response.data)
                 this.user = response.data;
