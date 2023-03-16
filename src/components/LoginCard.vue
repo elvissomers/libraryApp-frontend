@@ -50,6 +50,8 @@ import axios from 'axios';
         axios.post('http://localhost:8080/api/user/login', this.user)
           .then(response => {
             console.log('User logged in:', response.data);
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('admin', response.data.admin);
           })
           .catch(error => {
             console.log(error);
