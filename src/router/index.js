@@ -20,6 +20,8 @@ import UpdateBookView from '../views/admin-panel/book/UpdateBookView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/reservation-overview/CreateLoanFromReservation.vue'
 import PageNotFoundView from '../views/general-pages/PageNotFoundView.vue'
 import UserDetailView from '../views/detail-pages/UserDetailView.vue'
+import UpdateUserView from '../components/admin-panel/user/EditUser.vue'
+import CreateLoanForUser from '../components/admin-panel/reservation-overview/CreateLoanForUser.vue'
 
 const routes = [
   // {
@@ -121,6 +123,16 @@ const routes = [
     path: '/user/:id',
     name: 'user-detail',
     component: UserDetailView,
+  },
+  {
+    path: '/user/:id/update',
+    name: 'update-user',
+    component: UpdateUserView
+  },
+  {
+    path: '/admin/loan/createForUser',
+    name: 'create-loan-user',
+    component: CreateLoanForUser
   },
   {
     path: '/notfound',

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2023 at 04:17 PM
+-- Generation Time: Mar 14, 2023 at 03:42 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -94,6 +94,15 @@ CREATE TABLE `book_keywords` (
   `keyword_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `book_keywords`
+--
+
+INSERT INTO `book_keywords` (`book_id`, `keyword_id`) VALUES
+(24, 3),
+(1, 1),
+(7, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -103,19 +112,20 @@ CREATE TABLE `book_keywords` (
 CREATE TABLE `copy` (
   `id` bigint(20) NOT NULL,
   `available` bit(1) NOT NULL,
-  `book_id` bigint(20) NOT NULL
+  `book_id` bigint(20) NOT NULL,
+  `number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `copy`
 --
 
-INSERT INTO `copy` (`id`, `available`, `book_id`) VALUES
-(1, b'1', 1),
-(2, b'1', 1),
-(3, b'1', 2),
-(4, b'1', 3),
-(5, b'1', 3);
+INSERT INTO `copy` (`id`, `available`, `book_id`, `number`) VALUES
+(1, b'1', 1, 1),
+(2, b'1', 1, 2),
+(3, b'1', 2, 1),
+(4, b'1', 3, 1),
+(5, b'1', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -127,6 +137,15 @@ CREATE TABLE `keyword` (
   `id` bigint(20) NOT NULL,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `keyword`
+--
+
+INSERT INTO `keyword` (`id`, `name`) VALUES
+(1, 'Mystery'),
+(2, 'Avontuur'),
+(3, 'Java');
 
 -- --------------------------------------------------------
 
@@ -271,7 +290,7 @@ ALTER TABLE `copy`
 -- AUTO_INCREMENT for table `keyword`
 --
 ALTER TABLE `keyword`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `loan`
