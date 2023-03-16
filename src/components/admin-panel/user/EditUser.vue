@@ -64,7 +64,7 @@ export default {
       
     editUser() {
 
-        axios.put('http://localhost:8080/user/update/' + this.$route.params.id, this.user)
+        axios.put(`http://localhost:8080/user/${this.$route.params.id}`, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")

@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getBook() {
-      axios.get('http://localhost:8080/book/' + this.$route.params.id)
+      axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
           this.book = response.data;
         })
