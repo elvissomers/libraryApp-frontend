@@ -112,6 +112,7 @@
 
     // Create methods from here
     createCopy() {
+      this.copy.amount = 1
       axios.post('http://localhost:8080/copy/create', this.copy)
         .then(response => {
           console.log('Copy added:', response.data);
