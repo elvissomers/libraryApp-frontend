@@ -54,10 +54,17 @@ export default {
         };
     },
     mounted() {
+        this.authenticate()
         this.getMyLoans()
         this.getMyReservations()
     },
     methods: {
+        authenticate() {
+            if (localStorage.getItem('token') == null ) {
+                this.$router.push('login');
+                console.log('redirecting to login')
+            }
+        },
         getMyLoans() {
             axios.get('http://localhost:8080/user/2/loans/open')
                 .then(response => {

@@ -56,7 +56,7 @@ import axios from 'axios';
           .catch(error => {
             console.log(error);
           })
-          .then(() => this.$router.push('home'));
+          .then(() => this.$router.push('/'));
       }
     }
 }

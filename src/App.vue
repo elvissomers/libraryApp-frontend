@@ -1,18 +1,15 @@
 <template>
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <NavBar></NavBar>
 
-  <router-view class="my-20"/>
+  <router-view class="my-20" />
 
   <FooterComponent></FooterComponent>
-  
-  
 </template>
 
 <style>
-
 #app {
   background: #f4f4f4;
 }
@@ -50,6 +47,32 @@ export default {
   components: {
     NavBar,
     FooterComponent,
-}
+  },
+  // data() {
+  //   return {
+  //     authenticated: false,
+  //     admin: false
+  //   };
+  // },
+  // mounted() {
+  //   this.authenticate()
+  // },
+
+  // methods: {
+  //   authenticate() {
+  //     if (localStorage.getItem('admin') == true) {
+  //       this.admin = true
+  //     }
+      
+  //     if (localStorage.getItem('token') == null) {
+        
+  //       this.$router.push('login');
+  //       console.log('redirecting to login')
+  //     }
+  //     this.authenticated = true
+
+      
+  //   }
+  // }
 }
 </script>

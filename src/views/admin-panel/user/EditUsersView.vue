@@ -19,5 +19,18 @@ export default {
     SideBar,
     UserTable,
     AddUserButton
-}}
+  },
+  mounted() {
+    this.authenticateAdmin()
+  },
+  methods: {
+    authenticateAdmin() {
+        if (localStorage.getItem('token') == null || localStorage.getItem('admin') != 'true') {
+            this.$router.push('/login');
+            console.log('redirecting to login')
+        }
+    },
+  }
+  
+}
 </script>
