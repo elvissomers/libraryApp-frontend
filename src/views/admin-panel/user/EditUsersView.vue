@@ -1,8 +1,12 @@
 <template>
   <div class="EditUser flex flex-row">
     <SideBar></SideBar>
-    <UserTable></UserTable>
-    <AddUserButton></AddUserButton>
+    <div class="grid-container">
+      <AddUserButton></AddUserButton>
+      <UserTable></UserTable>
+    </div>
+    
+    
     
   </div>
 </template>
