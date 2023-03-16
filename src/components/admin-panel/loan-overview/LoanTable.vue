@@ -2,7 +2,7 @@
     <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
-            <router-link :to="{ name: 'add-book' }">
+            <router-link :to="{ name: 'create-loan-user' }">
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening Toevoegen</button>
             </router-link>
             <div class="p-4 text-center rounded-md">All Loans</div>
@@ -51,7 +51,7 @@ export default {
     data() {
         return {
             loans: [],
-            placeholder: "First Name, Last Name, Title",
+            placeholder: "Naam of Titel",
             searchTerm: '',
             sortAscending: true,
             currentPage: 0,
