@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         getBooks(pageNumber) {
-            axios.get('http://localhost:8080/bookPage/' + pageNumber + '/12')
+            axios.get('http://localhost:8080/book/pageable/search/title/asc/' + pageNumber + '/16')
                 .then(response => {
                     if (response.data.length > 0) {
                         this.books = response.data;
