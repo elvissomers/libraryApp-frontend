@@ -1,16 +1,14 @@
 <template>
-    <div class="Catalogue">
-      <SearchBar class="flex justify-center " 
-      @doSearch="startSearch($event)"
-      @goBack="goBackToCatalogue()" />
-
-      <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>      
-      <BookCardSearchContainer
-       v-if="this.search"
-       :searchTerm="searchTermParent">
-      </BookCardSearchContainer>
+  <div class="Catalogue">
+    <div class="flex flex-row justify-center">
+      <SearchBar @doSearch="startSearch($event)" @goBack="goBackToCatalogue()" />
     </div>
-  </template>
+
+    <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>
+    <BookCardSearchContainer v-if="this.search" :searchTerm="searchTermParent">
+    </BookCardSearchContainer>
+  </div>
+</template>
 
 <script>
 // @ is an alias to /src
@@ -24,15 +22,15 @@ export default {
     SearchBar,
     BookCardStandardContainer,
     BookCardSearchContainer
-},
+  },
   data() {
     return {
       search: false,
       searchTermParent: ""
     };
   },
-  
-  methods:{
+
+  methods: {
 
     startSearch(searchT) {
       this.searchTermParent = searchT

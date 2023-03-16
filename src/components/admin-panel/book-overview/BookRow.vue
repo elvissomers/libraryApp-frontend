@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-row justify-between hover:bg-slate-300">
     <div class="flex flex-row py-4">
-      <div class="w-12 ml-8">{{ book.id }} </div>
-      <div class="w-36">{{ book.isbn }}</div>
+      <div class="w-36 ml-8">{{ book.isbn }}</div>
       <div class="w-56">{{ book.author }}</div>
       <div>{{ book.title }}</div>
     </div>
