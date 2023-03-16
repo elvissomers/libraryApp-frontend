@@ -50,7 +50,7 @@ export default {
     data() {
         return {
             users: [],
-            placeholder: "Auteur, Title, ISBN...",
+            placeholder: "Voor of Achter Naam",
             searchTerm: '',
             sortAscending: true,
             currentPage: 0,
