@@ -45,7 +45,7 @@
               <button @click="createReservation()"
                 class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
               
-              <button @click='createCopy()'
+              <button @click='createCopies()'
                 class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak nieuwe kopie aan</button>
             </div>
           </div>
@@ -71,11 +71,11 @@
         },
         copy: {
             // TODO: this needs to be the actual ID of the book
-            bookId: 0
+            bookId: 0,
+            amount: 1
             // ?
             // bookId: this.book.id
-        },
-        amount_copies: 10
+        }
       };
     },
     mounted() {
@@ -100,6 +100,16 @@
           });
       },
 
+    // async getCopyNumber() {
+    //   await axios.get('http://localhost:8080/book/getcopynumber/' + this.$route.params.id)
+    //     .then(response => {
+    //       this.copy.number = response.data.number;
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     })
+    // },
+
     // Create methods from here
     createCopy() {
       axios.post('http://localhost:8080/copy/create', this.copy)
@@ -110,18 +120,19 @@
         .catch(error => {
           console.log(error);
         })
-        .then(() => this.$router.push('edit-books'));
     },
 
-    // justPostCopy(){
-    //     axios.post('http://localhost:8080/copy/create', this.copy)
-    // },
 
     createCopies(){
-        for(let i = 0; i < this.amount_copies; i++){
-            // setTimeout(this.justPostCopy, 2000*i)
-        }
-        alert(this.amount_copies+ ' copies have been added for this book')
+        this.copy.amount = prompt("Hoeveel ?")
+        axios.post('http://localhost:8080/copy/create', this.copy)
+        .then(response => {
+          console.log('Copy added:', response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        alert(this.copy.amount + ' copies have been added for this book')
     },
         
     
