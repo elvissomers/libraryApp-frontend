@@ -19,11 +19,6 @@
                 <span>Boeken beheren</span>
             </router-link>
 
-            <router-link to="/admin/requests" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:light-green">
-                <span class="material-symbols-outlined">thumbs_up_down</span>
-                <span>Leenverzoeken</span>
-            </router-link>
-
             <router-link to="/admin/loans" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:light-green">
                 <span class="material-symbols-outlined">collections_bookmark</span>
                 <span>Uitgeleende boeken</span>
