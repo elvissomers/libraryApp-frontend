@@ -50,7 +50,7 @@ export default {
     data() {
         return {
             books: [],
-            placeholder: "Auteur, Title, ISBN...",
+            placeholder: "Auteur, Titel, ISBN...",
             searchTerm: '',
             sortAscending: true,
             currentPage: 0,

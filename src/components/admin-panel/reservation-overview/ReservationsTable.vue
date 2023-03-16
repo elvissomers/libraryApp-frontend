@@ -48,7 +48,7 @@ export default {
     data() {
         return {
             reservations: [],
-            placeholder: "First Name, Last Name, Title",
+            placeholder: "Naam of Titel",
             searchTerm: '',
             sortAscending: true,
             currentPage: 0,

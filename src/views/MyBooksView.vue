@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getBooks() {
-      axios.get('http://localhost:8080/book')
+      axios.get('http://localhost:8080/book/get')
         .then(response => {
           this.books = response.data;
         })

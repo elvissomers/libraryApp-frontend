@@ -38,7 +38,7 @@ export default {
     methods: {
       deleteBook(id) {
 
-        axios.delete(`http://localhost:8080/book/${id}`)
+        axios.delete(`http://localhost:8080/book/delete/${id}`)
           .then(response => {
             console.log('Book deleted:', response.data);
             alert('Book has been deleted')

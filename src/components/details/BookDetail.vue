@@ -65,11 +65,18 @@ export default {
     },
     createReservation() {
       this.reservation.date = this.getCurrentDate()
+      // TODO: this has to be the ID of the current user (retrieved by token!)
       this.reservation.userId = 3
       this.reservation.bookId = this.book.id
       console.log(this.reservation)
 
-      axios.post('http://localhost:8080/reservation/create', this.reservation)
+      let headers = {
+        'Authentication': localStorage.getItem('token')
+      }
+
+      axios.post('http://localhost:8080/reservation/create', this.reservation, {
+        headers: headers
+      })
         .then(response => {
           console.log('Reservation created:', response.data);
         })

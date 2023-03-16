@@ -1,5 +1,5 @@
 <template>
-  <div class="EditUser flex flex-row">
+  <div class="flex flex-row">
     <SideBar></SideBar>
     <BookTable></BookTable>
   </div>
@@ -15,7 +15,9 @@ export default {
   name: 'EditBookView',
   components: {
     SideBar,
-    BookTable
+    BookTable,
     //ChangeAdminStatus
-}}
+    
+  }
+}
 </script>

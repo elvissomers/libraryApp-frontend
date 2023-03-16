@@ -56,7 +56,7 @@ export default {
 
         searchBooks(pageNumber) {
 
-            axios.get('http://localhost:8080/book/pageable/search/' + this.searchTerm + '/' + pageNumber + '/16')
+            axios.get('http://localhost:8080/book/pageable/search/' + this.searchTerm + '/title/asc/' + pageNumber + '/16')
                 .then(response => {
                     if (response.data.length > 0) {
                         this.books = response.data;

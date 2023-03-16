@@ -2,28 +2,29 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="createUser">
-                    <h1>Creëer nieuwe gebruiker</h1>
+                <form @submit.prevent="editUser">
+                    <h2>Wijzig gebruiker</h2>
                     <div class="inputbox">
-                        <!-- <ion-icon name="mail-outline"></ion-icon> -->
                         <input type="email" id="email" v-model="user.emailAddress" required>
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
-                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
                         <input type="text" id="firstname" v-model="user.firstName" required>
                         <label for="">Voornaam</label>
                     </div>
                     <div class="inputbox">
-                        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
+                    <div class="inputbox">
+                        <input type="text" id="password" v-model="user.password" required>
+                        <label for="">Wachtwoord</label>
+                    </div>
                     <div>
                         <label for="">Admin:</label>
-                        <input type="checkbox" v-model="admin">
-                        </div>
-                    <button type="submit">Registreer</button>
+                        <input type="checkbox" v-model="user.admin" :checked="user.admin">
+                    </div>
+                    <button type="submit">Sla wijzigingen op</button>
                 </form>
             </div>
         </div>
@@ -35,27 +36,43 @@
 import axios from 'axios';
 
 export default {
-  name: 'AddUser',
+  name: 'EditUser',
   data() {
     return {
-      user: {
-        emailAddress: '',
-        firstName: '',
-        lastName: '',
-      },
+        user: {
+            emailAddress: '',
+            firstName: '',
+            lastName: '',
+            admin: false
+        },
     };
+  },
+  created() {
+    axios.get('http://localhost:8080/user/get/' + this.$route.params.id)
+      .then(response => {
+        this.user.firstName = response.data.firstName;
+        this.user.lastName = response.data.lastName;
+        this.user.emailAddress = response.data.emailAddress;
+        this.user.password = response.data.password;
+        this.user.admin = response.data.admin;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   methods: {
       
-    createUser() {
-      axios.post('http://localhost:8080/user/create', this.user)
+    editUser() {
+
+        axios.put('http://localhost:8080/user/update/' + this.$route.params.id, this.user)
         .then(response => {
-          console.log('User created:', response.data);
+          console.log('User updated:', response.status, this.user);
+          alert("Gebruiker is succesvol geupdate!")
         })
         .catch(error => {
           console.log(error);
+          alert("Er is iets foutgegaan, controleer de gegevens goed")
         })
-        .then(() => alert("Gebruiker toevoegen succesvol!"));
     },
   },
 };
@@ -135,41 +152,6 @@ export default {
         top: 20px;
     }
 
-    /* .forgot-pass {
-        display: flex;
-
-    } */
-
-    .remember {
-        display: flex;
-        
-    }
-
-    .checkbox {
-        margin-right: 6px;
-        margin-left: 1px;
-    }
-
-    .forgot{
-        margin: -15px 0 15px ;
-        font-size: .9em;
-        color: #000000;;
-        display: flex;
-        justify-content: space-between;  
-        /* gap: 100px; */
-    }
-
-    .forgot label input{
-        margin-right: 3px;
-        
-    }
-    .forgot label a{
-        color: #000000;;
-        text-decoration: none;
-    }
-    .forgot label a:hover{
-        text-decoration: underline;
-    }
     button{
         width: 100%;
         height: 40px;
@@ -184,20 +166,6 @@ export default {
     }
     button:hover{
         background: #757575;
-    }
-    .register{
-        font-size: .9em;
-        color: #000000;;
-        text-align: center;
-        margin: 25px 0 10px;
-    }
-    .register p a{
-        text-decoration: none;
-        color: #000000;;
-        font-weight: 600;
-    }
-    .register p a:hover{
-        text-decoration: underline;
     }
 </style>
 
