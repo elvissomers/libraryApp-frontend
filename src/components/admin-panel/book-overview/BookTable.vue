@@ -13,9 +13,9 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortBooks(0, 'isbn')" class="w-36 font-extrabold text-left ml-8">ISBN</button>
-            <button @click="sortBooks(0, 'author')" class="w-56 font-extrabold text-left">Author</button>
-            <button @click="sortBooks(0, 'title')" class="font-extrabold text-left">Title</button>
+            <button @click="sortBooks('isbn', sortAscending)" class="w-36 font-extrabold text-left ml-8">ISBN</button>
+            <button @click="sortBooks('author', sortAscending)" class="w-56 font-extrabold text-left">Author</button>
+            <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">Title</button>
         </div>
 
 
@@ -25,7 +25,7 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPages[this.currentFunction]" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -52,131 +52,59 @@ export default {
             books: [],
             placeholder: "Auteur, Title, ISBN...",
             searchTerm: '',
-            lastDirection: { 'title': 'desc', 'isbn': 'desc', 'author': 'desc' },
-            currentPages: { 'getBooks': 0, 'searchBooks': 0, 'sortNonSearchBooks': 0, 'sortSearchBooks': 0 },
-            currentFunction: 'getBooks',
-            lastPropertyToSortBy: '',
+            sortAscending: true,
+            currentPage: 0,
+            propertyToSortBy: 'title',
             pageableSize: 10
         };
     },
     mounted() {
-        this.getBooks(0);
+        this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending);
     },
     methods: {
 
-        getBooks(currentPageNumber) {
-            this.currentFunction = 'getBooks';
-            this.currentPages = { 'getBooks': this.currentPages['getBooks'], 'searchBooks': 0, 'sortNonSearchBooks': 0, 'sortSearchBooks': 0 }
-            this.search = false;
-            axios.get('http://localhost:8080/book/pageable/get/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.books = response.data;
-                        this.searchTerm = '';
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-
-        searchBooks(currentPageNumber, searchTerm) {
-            this.currentFunction = 'searchBooks'
-            if (this.searchTerm == searchTerm) {
-                this.currentPages = { 'getBooks': 0, 'searchBooks': this.currentPages['searchBooks'], 'sortNonSearchBooks': 0, 'sortSearchBooks': 0 }
-            }
-            console.log('used')
-            axios.get('http://localhost:8080/book/pageable/search/' + searchTerm + '/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.books = response.data;
-                        this.searchTerm = searchTerm;
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-
-        sortBooks(currentPageNumber, propertyToSortBy) {
-            const prev_direction = this.lastDirection[propertyToSortBy];
-            let directionOfSort = '';
-            this.lastPropertyToSortBy = propertyToSortBy
-            if (prev_direction == 'asc') {
-                directionOfSort = 'desc'
-                this.lastDirection[propertyToSortBy] = 'desc'
+        searchBooks(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
+            const directionOfSort = sortAscending ? "asc" : "desc";
+            let url = ''
+            if (searchTerm == '') {
+                url = 'http://localhost:8080/book/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
             }
             else {
-                directionOfSort = 'asc'
-                this.lastDirection[propertyToSortBy] = 'asc'
+                url = 'http://localhost:8080/book/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
             }
 
-            if (this.searchTerm == '') {
-                this.sortNonSearchBooks(currentPageNumber, propertyToSortBy, directionOfSort)
+            axios.get(url)
+                    .then(response => {
+                        if (response.data.length > 0) {
+                            this.books = response.data;
+                            this.searchTerm = searchTerm;
+                            this.currentPage = currentPageNumber;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+        },
+
+        sortBooks(propertyToSortBy) {
+            this.currentPage = 0;
+            if (propertyToSortBy != this.propertyToSortBy) {
+                this.sortAscending = true;
+                this.propertyToSortBy = propertyToSortBy;
             }
             else {
-                this.sortSearchBooks(currentPageNumber, propertyToSortBy, directionOfSort)
+                this.sortAscending = !this.sortAscending
             }
-        },
-
-        sortNonSearchBooks(currentPageNumber, propertyToSortBy, directionOfSort) {
-            this.currentFunction = 'sortNonSearchBooks'
-            this.currentPages = { 'getBooks': 0, 'searchBooks': 0, 'sortNonSearchBooks': this.currentPages['sortNonSearchBooks'], 'sortSearchBooks': 0 }
-            axios.get('http://localhost:8080/book/pageable/search/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.books = response.data;
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-
-        sortSearchBooks(currentPageNumber, propertyToSortBy, directionOfSort) {
-            this.currentFunction = 'sortSearchBooks'
-            this.currentPages = { 'getBooks': 0, 'searchBooks': 0, 'sortNonSearchBooks': 0, 'sortSearchBooks': this.currentPages['sortSearchBooks'] }
-            axios.get('http://localhost:8080/book/pageable/search/' + this.searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.books = response.data;
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
 
         changePageNumber(change) {
-            const tempPageNumber = this.currentPages[this.currentFunction] + change
-            if (this.currentFunction == 'getBooks' && tempPageNumber >= 0) {
-                this.getBooks(tempPageNumber)
-            }
-            if (this.currentFunction == 'searchBooks' && tempPageNumber >= 0) {
-                this.searchBooks(tempPageNumber, this.searchTerm)
-            }
-            if (this.currentFunction == 'sortNonSearchBooks' && tempPageNumber >= 0) {
-                this.sortNonSearchBooks(tempPageNumber, this.lastPropertyToSortBy, this.lastDirection[this.lastPropertyToSortBy])
-            }
-            if (this.currentFunction == 'sortSearchBooks' && tempPageNumber >= 0) {
-                this.sortSearchBooks(tempPageNumber, this.lastPropertyToSortBy, this.lastDirection[this.lastPropertyToSortBy])
+            const tempPageNumber = this.currentPage + change
+            if (tempPageNumber >= 0) {
+                this.searchBooks(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
             }
         },
 
-
-        getStartState() {
-            this.searchTerm = '',
-                this.lastDirection = { 'title': 'desc', 'isbn': 'desc', 'author': 'desc' },
-                this.currentPages = { 'getBooks': 0, 'searchBooks': 0, 'sortNonSearchBooks': 0, 'sortSearchBooks': 0 },
-                this.currentFunction = 'getBooks',
-                this.lastPropertyToSortBy = '',
-                this.getBooks(0)
-        },
 
     },
 }

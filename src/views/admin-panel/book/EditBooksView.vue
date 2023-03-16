@@ -1,5 +1,5 @@
 <template>
-  <div class="EditUser flex flex-ro">
+  <div class="EditUser flex flex-row">
     <SideBar></SideBar>
     <BookTable></BookTable>
   </div>

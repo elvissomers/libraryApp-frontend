@@ -13,9 +13,9 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortUsers(0, 'name')" class="w-36 font-extrabold text-left ml-8">First Name</button>
-            <button @click="sortUsers(0, 'surname')" class="w-56 font-extrabold text-left">Last Name</button>
-            <button @click="sortUsers(0, 'emailAddress')" class="font-extrabold text-left">Email Address</button>
+            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8">First Name</button>
+            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left">Last Name</button>
+            <button @click="sortUsers('emailAddress', sortAscending)" class="font-extrabold text-left">Email Address</button>
         </div>
 
 
@@ -25,7 +25,7 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPages[this.currentFunction]" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -50,133 +50,61 @@ export default {
     data() {
         return {
             users: [],
-            placeholder: "Enter first or last name",
+            placeholder: "Auteur, Title, ISBN...",
             searchTerm: '',
-            lastDirection: { 'name': 'desc', 'surname': 'desc', 'emailAddress': 'desc' },
-            currentPages: { 'getUsers': 0, 'searchUsers': 0, 'sortNonSearchUsers': 0, 'sortSearchUsers': 0 },
-            currentFunction: 'getUsers',
-            lastPropertyToSortBy: '',
-            pageableSize: 2
+            sortAscending: true,
+            currentPage: 0,
+            propertyToSortBy: 'lastName',
+            pageableSize: 10
         };
     },
     mounted() {
-        this.getUsers(0);
+        this.searchUsers(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending);
     },
     methods: {
 
-        getUsers(currentPageNumber) {
-            this.currentFunction = 'getUsers';
-            this.currentPages = { 'getUsers': this.currentPages['getUsers'], 'searchUsers': 0, 'sortNonSearchUsers': 0, 'sortSearchUsers': 0 }
-            this.search = false;
-            axios.get('http://localhost:8080/user/pageable/get/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.users = response.data;
-                        this.searchTerm = '';
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-
-        searchUsers(currentPageNumber, searchTerm) {
-            this.currentFunction = 'searchUsers'
-            if (this.searchTerm == searchTerm) {
-                this.currentPages = { 'getUsers': 0, 'searchUsers': this.currentPages['searchUsers'], 'sortNonSearchUsers': 0, 'sortSearchUsers': 0 }
-            }
-            console.log('used')
-            axios.get('http://localhost:8080/user/pageable/search/' + searchTerm + '/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.users = response.data;
-                        this.searchTerm = searchTerm;
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-
-        sortUsers(currentPageNumber, propertyToSortBy) {
-            const prev_direction = this.lastDirection[propertyToSortBy];
-            let directionOfSort = '';
-            this.lastPropertyToSortBy = propertyToSortBy
-            if (prev_direction == 'asc') {
-                directionOfSort = 'desc'
-                this.lastDirection[propertyToSortBy] = 'desc'
+        searchUsers(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
+            const directionOfSort = sortAscending ? "asc" : "desc";
+            let url = ''
+            if (searchTerm == '') {
+                url = 'http://localhost:8080/user/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
             }
             else {
-                directionOfSort = 'asc'
-                this.lastDirection[propertyToSortBy] = 'asc'
+                url = 'http://localhost:8080/user/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
             }
 
-            if (this.searchTerm == '') {
-                this.sortNonSearchUsers(currentPageNumber, propertyToSortBy, directionOfSort)
+            axios.get(url)
+                    .then(response => {
+                        if (response.data.length > 0) {
+                            this.users = response.data;
+                            this.searchTerm = searchTerm;
+                            this.currentPage = currentPageNumber;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+        },
+
+        sortUsers(propertyToSortBy) {
+            this.currentPage = 0;
+            if (propertyToSortBy != this.propertyToSortBy) {
+                this.sortAscending = true;
+                this.propertyToSortBy = propertyToSortBy;
             }
             else {
-                this.sortSearchUsers(currentPageNumber, propertyToSortBy, directionOfSort)
+                this.sortAscending = !this.sortAscending
             }
-        },
-
-        sortNonSearchUsers(currentPageNumber, propertyToSortBy, directionOfSort) {
-            this.currentFunction = 'sortNonSearchUsers'
-            this.currentPages = { 'getUsers': 0, 'searchUsers': 0, 'sortNonSearchUsers': this.currentPages['sortNonSearchUsers'], 'sortSearchUsers': 0 }
-            axios.get('http://localhost:8080/user/pageable/search/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.users = response.data;
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-
-        sortSearchUsers(currentPageNumber, propertyToSortBy, directionOfSort) {
-            this.currentFunction = 'sortSearchUsers'
-            this.currentPages = { 'getUsers': 0, 'searchUsers': 0, 'sortNonSearchUsers': 0, 'sortSearchUsers': this.currentPages['sortSearchUsers'] }
-            axios.get('http://localhost:8080/user/pageable/search/' + this.searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize)
-                .then(response => {
-                    if (response.data.length > 0) {
-                        this.users = response.data;
-                        this.currentPages[this.currentFunction] = currentPageNumber;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            this.searchUsers(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
 
         changePageNumber(change) {
-            const tempPageNumber = this.currentPages[this.currentFunction] + change
-            if (this.currentFunction == 'getUsers' && tempPageNumber >= 0) {
-                this.getUsers(tempPageNumber)
-            }
-            if (this.currentFunction == 'searchUsers' && tempPageNumber >= 0) {
-                this.searchUsers(tempPageNumber, this.searchTerm)
-            }
-            if (this.currentFunction == 'sortNonSearchUsers' && tempPageNumber >= 0) {
-                this.sortNonSearchUsers(tempPageNumber, this.lastPropertyToSortBy, this.lastDirection[this.lastPropertyToSortBy])
-            }
-            if (this.currentFunction == 'sortSearchUsers' && tempPageNumber >= 0) {
-                this.sortSearchUsers(tempPageNumber, this.lastPropertyToSortBy, this.lastDirection[this.lastPropertyToSortBy])
+            const tempPageNumber = this.currentPage + change
+            if (tempPageNumber >= 0) {
+                this.searchUsers(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
             }
         },
 
-
-        getStartState() {
-            this.searchTerm = '',
-                this.lastDirection = { 'name': 'desc', 'surname': 'desc', 'emailAddress': 'desc' },
-                this.currentPages = { 'getUsers': 0, 'searchUsers': 0, 'sortNonSearchUsers': 0, 'sortSearchUsers': 0 },
-                this.currentFunction = 'getUsers',
-                this.lastPropertyToSortBy = '',
-                this.getUsers(0)
-        },
 
     },
 }
