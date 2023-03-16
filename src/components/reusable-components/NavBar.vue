@@ -10,8 +10,8 @@
                 <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                     <li><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
                     <li><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
-                    <li><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
-                    <!-- <li><router-link to="/mytestpage" class="hover:text-gray-200">Jims test page</router-link></li> -->
+                    <li><router-link to="/contact" class="hover:text-gray-200">Contact</router-link></li>
+                    <li><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>         
                 </ul>
                 <!-- Account -->
                 <div class="hidden xl:flex items-center space-x-5 items-center">

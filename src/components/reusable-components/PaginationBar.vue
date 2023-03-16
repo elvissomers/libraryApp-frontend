@@ -28,6 +28,7 @@ export default {
   methods:{
     increasePage()
     {
+
         this.$emit('changePage', 1)
     },
     decreasePage()

@@ -1,24 +1,35 @@
 <template>
-    <div class="flex flex-col w-full mx-8">
+    <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
+            <router-link :to="{ name: 'create-loan-user' }">
+                <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening Toevoegen</button>
+            </router-link>
             <div class="p-4 text-center rounded-md">All Loans</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans($event)" @goBack="getLoans()" class="m-2">
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event)" @goBack="getStartState()"
+                class="m-2">
             </SearchBar>
         </div>
 
+
         <div class="flex flex-row py-4 border-b-2">
-            <div class="w-12 ml-8 font-extrabold">Id</div>
-            <div class="w-28 font-extrabold">Date</div>
-            <div class="w-28 font-extrabold">Name</div>
-            <div class="w-28 font-extrabold">Surname</div>
-            <div class="font-extrabold">Book Title</div>
+            <button @click="sortLoans('startDate', sortAscending)" class="w-36 font-extrabold text-left ml-8">Date</button>
+            <button @click="sortLoans('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">First Name</button>
+            <button @click="sortLoans('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Last Name</button>
+            <button @click="sortLoans('copy_Book_Title', sortAscending)" class="font-extrabold text-left">Book Title</button>
         </div>
-        
+
 
         <div class="flex flex-col flex-wrap divide-y-2">
             <LoanRow v-for="loan in loans" :key="loan.id" v-bind:loan="loan">
             </LoanRow>
+        </div>
+
+        <div>
+            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
+
+            </PaginationBar>
+
         </div>
     </div>
 </template>
@@ -28,41 +39,74 @@
 import axios from 'axios';
 import LoanRow from '@/components/admin-panel/loan-overview/LoanRow.vue';
 import SearchBar from '@/components/reusable-components/SearchBar.vue';
+import PaginationBar from '@/components/reusable-components/PaginationBar.vue';
 
 export default {
-    name: 'LoanedBooksView',
+    name: 'LoanView',
     components: {
         LoanRow,
-        SearchBar
+        SearchBar,
+        PaginationBar
     },
     data() {
         return {
             loans: [],
-            placeholder: "First or last name"
+            placeholder: "Naam of Titel",
+            searchTerm: '',
+            sortAscending: true,
+            currentPage: 0,
+            propertyToSortBy: 'startDate',
+            pageableSize: 10
         };
     },
     mounted() {
-        this.getLoans();
+        this.searchLoans(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending);
     },
     methods: {
-        getLoans() {
-            axios.get('http://localhost:8080/loan')
-                .then(response => {
-                    this.loans = response.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+
+        searchLoans(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
+            const directionOfSort = sortAscending ? "asc" : "desc";
+            let url = ''
+            if (searchTerm == '') {
+                url = 'http://localhost:8080/loan/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+            }
+            else {
+                url = 'http://localhost:8080/loan/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+            }
+
+            axios.get(url)
+                    .then(response => {
+                        if (response.data.length > 0) {
+                            this.loans = response.data;
+                            this.searchTerm = searchTerm;
+                            this.currentPage = currentPageNumber;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
         },
-        searchLoans(searchTerm) {
-            axios.get('http://localhost:8080/loansearch/'+searchTerm+'/0/50')
-                .then(response => {
-                    this.loans = response.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+
+        sortLoans(propertyToSortBy) {
+            this.currentPage = 0;
+            if (propertyToSortBy != this.propertyToSortBy) {
+                this.sortAscending = true;
+                this.propertyToSortBy = propertyToSortBy;
+            }
+            else {
+                this.sortAscending = !this.sortAscending
+            }
+            this.searchLoans(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
+
+        changePageNumber(change) {
+            const tempPageNumber = this.currentPage + change
+            if (tempPageNumber >= 0) {
+                this.searchLoans(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+            }
+        },
+
+
     },
 }
 </script>

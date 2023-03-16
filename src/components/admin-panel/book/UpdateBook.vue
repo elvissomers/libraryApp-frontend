@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getBook() {
-      axios.get('http://localhost:8080/book/' + this.$route.params.id)
+      axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
           this.book = response.data;
         })
@@ -61,7 +61,7 @@ export default {
     },
     async updateBook() {
         console.warn(this.updatedBook)
-      axios.put('http://localhost:8080/book/' + this.$route.params.id, this.updatedBook)
+      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, this.updatedBook)
         .then(response => {
             alert('The book has been updated!')
             console.log('Book updated:', response.data);
