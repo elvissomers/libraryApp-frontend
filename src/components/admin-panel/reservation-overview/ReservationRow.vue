@@ -25,18 +25,17 @@ export default {
   methods: {
     createReservation() {
       let saveReservationDto = {}
-      saveReservationDto.copyNumber = 1
-      saveReservationDto.date = new Date().getDate()
+      saveReservationDto.copyNumber = prompt("Welk copy number wil je toekennen?")
+      saveReservationDto.startDate = new Date().getDate()
       saveReservationDto.bookId = this.reservation.bookId
       saveReservationDto.userId = this.reservation.userId
       console.log(this.reservation)
 
-      axios.post('http://localhost:8080/reservation/create', saveReservationDto)
+      axios.post('http://localhost:8080/loan/create', saveReservationDto)
         .then(response => {
           console.log(response)
           console.log('Copy added:', response.data);
           alert("Exemplaar succesvol toegevoegd")
-          window.location.reload()
         })
         .catch(error => {
           console.log(error);
@@ -46,7 +45,6 @@ export default {
           console.log(response)
           console.log('reservation deleted')
           alert('reservation deleted')
-          window.location.reload()
         })
     },
   },
