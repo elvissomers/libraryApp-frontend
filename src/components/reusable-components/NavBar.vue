@@ -53,12 +53,19 @@ export default {
     name: 'NavBar',
     data() {
         return {
-            // authenticated: false
+            // token: localStorage.getItem('token')
         }
-    },
-    props: ['authenticated'],
+    },    
+    // watch: {
+    //     token(newToken) {
+    //         localStorage.setItem('token', newToken)
+    //     }
+    // },
+    // props: ['authenticated'],
     mounted() {
+        // this.token = localStorage.getItem('token')
         // this.setAuthenticated()
+
     },
     methods: {
         // setAuthenticated() {
