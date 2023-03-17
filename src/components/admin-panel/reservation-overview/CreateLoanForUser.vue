@@ -23,7 +23,6 @@ export default {
     };
   },
   methods: {
-    // unused function
     createLoan() {
         let saveLoanDto = {}
         saveLoanDto.copyNumber = 1
@@ -35,8 +34,10 @@ export default {
         axios.post('http://localhost:8080/loan/create', saveLoanDto)
             .then(response => {
             console.log('Copy added:', response.data);
+            alert("Kopie is aangewezen aan de opgegeven gebruiker")
             })
             .catch(error => {
+                alert("Er is iets misgegaan")
             console.log(error);
             })
         },

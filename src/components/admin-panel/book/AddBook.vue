@@ -46,11 +46,13 @@ export default {
       axios.post('http://localhost:8080/book/create', this.book)
         .then(response => {
           console.log('Book created:', response.data);
+          alert("Book is aangemaakt")
+          this.$router.push('edit-books');
         })
         .catch(error => {
-          console.log(error);
+            alert("Er is iets fout gegaan")
+            console.log(error);
         })
-        .then(() => this.$router.push('edit-books'));
     },
   },
 };

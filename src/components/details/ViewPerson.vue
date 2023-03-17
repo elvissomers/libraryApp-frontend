@@ -29,7 +29,7 @@
     },
     methods: {
       getUserDetails(){
-        axios.get(`http://localhost:8080/user/${this.viewPersonId}`)
+        axios.get(`http://localhost:8080/user/get/${this.viewPersonId}`)
         .then(response => {
           this.personDetails = response.data;
         })

@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getBook() {
-      axios.get('http://localhost:8080/book/' + this.$route.params.id)
+      axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
           this.book = response.data;
         })
@@ -65,6 +65,7 @@ export default {
     },
     createReservation() {
       this.reservation.date = this.getCurrentDate()
+      // TODO: this has to be the ID of the current user (retrieved by token!)
       this.reservation.userId = 3
       this.reservation.bookId = this.book.id
       console.log(this.reservation)

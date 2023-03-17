@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-row justify-between hover:bg-slate-300">
     <div class="flex flex-row py-4">
-      <div class="w-12 ml-8">{{ book.id }} </div>
-      <div class="w-36">{{ book.isbn }}</div>
+      <div class="w-36 ml-8">{{ book.isbn }}</div>
       <div class="w-56">{{ book.author }}</div>
       <div>{{ book.title }}</div>
     </div>
@@ -39,7 +38,7 @@ export default {
     methods: {
       deleteBook(id) {
 
-        axios.delete(`http://localhost:8080/book/${id}`)
+        axios.delete(`http://localhost:8080/book/delete/${id}`)
           .then(response => {
             console.log('Book deleted:', response.data);
             alert('Book has been deleted')

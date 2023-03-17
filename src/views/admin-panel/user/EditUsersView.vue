@@ -3,7 +3,6 @@
     <SideBar></SideBar>
     <UserTable></UserTable>
     <AddUserButton></AddUserButton>
-    
   </div>
 </template>
 

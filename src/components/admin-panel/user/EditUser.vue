@@ -48,7 +48,7 @@ export default {
     };
   },
   created() {
-    axios.get('http://localhost:8080/user/' + this.$route.params.id)
+    axios.get('http://localhost:8080/user/get/' + this.$route.params.id)
       .then(response => {
         this.user.firstName = response.data.firstName;
         this.user.lastName = response.data.lastName;
@@ -64,7 +64,7 @@ export default {
       
     editUser() {
 
-        axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
+        axios.put(`http://localhost:8080/user/${this.$route.params.id}`, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")
