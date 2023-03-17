@@ -49,14 +49,21 @@ import axios from 'axios';
         loginUser() {
         axios.post('http://localhost:8080/api/user/login', this.user)
           .then(response => {
+           // check if response data is null
+        if (response.data) {
             console.log('User logged in:', response.data);
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('admin', response.data.admin);
-          })
+            this.$router.push('/');
+        } else {
+            alert("Wrong username or password!")
+            this.$router.push('/login');
+
+        }
+        })
           .catch(error => {
             console.log(error);
           })
-          .then(() => this.$router.push('home'));
       }
     }
 }
