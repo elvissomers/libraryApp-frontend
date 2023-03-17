@@ -21,7 +21,8 @@ import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
     methods: {
         authenticateAdmin() {
         if (localStorage.getItem('token') == null || localStorage.getItem('admin') != 'true') {
-            this.$router.push('/book/user' + this.$route.params.id);
+          this.$router.push('/login')
+            // this.$router.push('/book/user' + this.$route.params.id);
             console.log('redirecting to login')
         }
     }
