@@ -46,22 +46,6 @@ export default {
         };
     },
     methods: {
-        // loginUser() {
-        //     axios.post('http://localhost:8080/api/user/login', this.user)
-        //         .then(response => {
-        //             if (!response.data) {
-        //                 this.$router.push('login');
-        //             }
-
-        //             console.log('User logged in:', response.data)
-        //             localStorage.setItem('token', response.data.token)
-        //             localStorage.setItem('admin', response.data.admin)
-        //         })
-        //         .catch(error => {
-        //             console.log(error);
-        //         })
-        //         .then(() => this.$router.push('/'));
-        // }
         loginUser() {
             axios.post('http://localhost:8080/api/user/login', this.user)
                 .then(response => {
