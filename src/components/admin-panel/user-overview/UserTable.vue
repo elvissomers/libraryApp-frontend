@@ -6,7 +6,7 @@
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Gebruiker Toevoegen</button>
             </router-link>
             <div class="p-4 text-center rounded-md">All Users</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchUsers(0, $event)" @goBack="getStartState()"
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchUsers(0, $event, 'lastName', 'asc')" @goBack="searchUsers(0, '', 'lastName', 'asc')"
                 class="m-2">
             </SearchBar>
         </div>
