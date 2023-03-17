@@ -8,7 +8,9 @@
     </div>
     <button v-on:click="createReservation()"
       class="text-white float-right px-4 py-2 m-2 h-fit rounded-md"
-      :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']">Goedkeuren!
+      :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
+      :disabled="!reservation.available">
+      {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
     </button>
   </div>
 </template>
