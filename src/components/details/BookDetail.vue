@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getBook() {
-      axios.get('http://localhost:8080/book/' + this.$route.params.id)
+      axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
           this.book = response.data;
         })
@@ -78,9 +78,11 @@ export default {
         headers: headers
       })
         .then(response => {
+          console.log(100)
           console.log('Reservation created:', response.data);
         })
         .catch(error => {
+          console.log(200)
           console.log(error);
         })
         .then(() => this.$router.push('mybooks'));

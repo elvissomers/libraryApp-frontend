@@ -6,19 +6,19 @@
                     <h2>Wijzig boek: {{ book.title }}</h2>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <input type="text" id="title" v-model="updatedBook.title" required>
+                        <input type="text" id="title" v-model="book.title" required>
                         
                         <label for="">Titel</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" id="author" v-model="updatedBook.author" required>
+                        <input type="text" id="author" v-model="book.author" required>
                         
                         <label for="">Auteur</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" id="isbn" v-model="updatedBook.isbn" required>
+                        <input type="text" id="isbn" v-model="book.isbn" required>
                         <label for="">isbn</label>
                     </div>
                     <button v-on:click="updateBook" class="submit-btn">Wijzig</button>
@@ -35,8 +35,7 @@ export default {
   name: 'UpdateBooks',
   data() {
     return {
-      book: [],
-      updatedBook: {
+      book: {
         // title: this.book.title,
         // author: this.book.author,
         // isbn: this.book.isbn,
@@ -49,6 +48,7 @@ export default {
   mounted() {
     this.getBook()
   },
+  
   methods: {
     getBook() {
       axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
@@ -61,7 +61,7 @@ export default {
     },
     async updateBook() {
         console.warn(this.updatedBook)
-      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, this.updatedBook)
+      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, this.book)
         .then(response => {
             alert('The book has been updated!')
             console.log('Book updated:', response.data);

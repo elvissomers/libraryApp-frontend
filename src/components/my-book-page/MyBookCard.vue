@@ -1,40 +1,32 @@
 <template>
-<!-- component, removed: mx-auto-->
-<div class="max-w-lg p-2">
-    <!-- removed: dark:bg-zinc-800 dark:border-gray-700 -->
-    <div class="bg-white shadow-md rounded-lg max-w-xs">
-        <!-- Image -->
-        <router-link :to="{ name: 'book-detail', params: { id: id }}" class="hover:text-gray-200">
-            <!-- <img class="rounded-t-lg p-8" src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp" alt="product image"> -->
-            <img class="rounded-t-lg p-8" src="https://media.npr.org/assets/img/2022/09/29/hero_custom-e3bbfda6925dc773b27ec4026ad5e8cf93019072-s1100-c50.jpg" alt="product image">
-        </router-link>
-        
-        <div class="px-5 pb-5">
-            <!-- removed: dark:text-white -->
-            <!-- Title -->
-            <router-link :to="{ name: 'book-detail', params: { id: id }}" class="hover:text-gray-200">
-                <h3 class="text-gray-900 font-semibold text-xl tracking-tight">"{{ title }}</h3>
+    <div class="max-w-sm rounded-lg overflow-hidden shadow-lg">
+        <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
+        <router-link :to="{ name: 'book-detail', params: { id: loan.bookId } }" class="hover:text-gray-200">
+                <img class="rounded-t-lg p-8"
+                    src="https://media.npr.org/assets/img/2022/09/29/hero_custom-e3bbfda6925dc773b27ec4026ad5e8cf93019072-s1100-c50.jpg"
+                    alt="product image">
             </router-link>
-            <!-- Author -->
-            <h3 class="text-gray-900 font-normal text-xl tracking-tight">{{ author }}</h3>
-            <h3 class="text-gray-900 font-normal text-xl tracking-tight">{{ isbn }}</h3>
-            <!-- Start date -->
-            <h3 class="text-gray-900 font-normal text-xl tracking-tight">Geleend sinds: 21-02-2021</h3>
-            <!-- End date? -->
+        <div class="px-6 py-4">
+            <router-link :to="{ name: 'book-detail', params: { id: loan.bookId } }" class="hover:text-gray-200">
+                <p class="font-bold text-xl mb-2">"{{ loan.bookTitle }}</p>
+            </router-link>
+            <p class="text-gray-700 text-base">{{ loan.bookAuthor }}</p>
+            <p class="text-gray-700 text-base">{{ loan.bookIsbn }}</p>
+            <p class="text-gray-700 text-base">Geleend sinds: {{ loan.startDate }}</p>
+            <p class="text-gray-700 text-base">Exemplaar: {{ loan.copyNumber }}</p>
         </div>
     </div>
-</div>
-
+    
 </template>
 
 
 <script>
 export default {
-  name: "BookCard",
-    props: ['id','title', 'author', 'isbn'] 
+    name: "BookCard",
+    // props: ['id','title', 'author', 'isbn'] 
+    props: ['loan']
 }
 </script>
 
 
-<style>
-</style>
+<style></style>
