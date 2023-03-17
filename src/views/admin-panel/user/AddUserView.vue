@@ -1,7 +1,10 @@
 <template>
   <div class="AddUser">
     <SideBar></SideBar>
-    <AddUser></AddUser>
+    <div class="mx-auto">
+      <AddUser></AddUser>
+    </div>
+    
   </div>
 </template>
   
