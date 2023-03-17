@@ -2,6 +2,9 @@
     <div class="home">
 
         <BookDetailAdmin></BookDetailAdmin>
+        <!-- // TODO : use either bookdetail or BookDetailAdmin
+        // Depending on token! -->
+        <!-- <BookDetail></BookDetail> -->
   
   
     </div>
@@ -14,7 +17,7 @@ import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
   export default {
     name: 'HomeView',
     components: {
-    // BookDetail
+    // BookDetail,
     BookDetailAdmin
 }
   }
