@@ -5,7 +5,7 @@
             <router-link :to="{ name: 'create-loan-user' }">
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening Toevoegen</button>
             </router-link>
-            <div class="p-4 text-center rounded-md">All Loans</div>
+            <div class="p-4 text-center rounded-md">Alle Uitleningen</div>
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event)" @goBack="getStartState()"
                 class="m-2">
             </SearchBar>
@@ -13,10 +13,10 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortLoans('startDate', sortAscending)" class="w-36 font-extrabold text-left ml-8">Date</button>
-            <button @click="sortLoans('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">First Name</button>
-            <button @click="sortLoans('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Last Name</button>
-            <button @click="sortLoans('copy_Book_Title', sortAscending)" class="font-extrabold text-left">Book Title</button>
+            <button @click="sortLoans('startDate', sortAscending)" class="w-36 font-extrabold text-left ml-8">Datum</button>
+            <button @click="sortLoans('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">Voor Naam</button>
+            <button @click="sortLoans('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Achter Naam</button>
+            <button @click="sortLoans('copy_Book_Title', sortAscending)" class="font-extrabold text-left">Boek Titel</button>
         </div>
 
 
