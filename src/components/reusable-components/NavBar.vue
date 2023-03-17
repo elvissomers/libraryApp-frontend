@@ -74,7 +74,7 @@ export default {
             this.$router.push('login');
         },
         emptyToken() {
-            let config = {
+            const config = {
                 headers: {
                     'Authentication': localStorage.getItem('token')
                 }
