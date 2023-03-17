@@ -39,17 +39,21 @@ export default {
 
     methods: {
       deleteBook(id) {
-
-        axios.delete(`http://localhost:8080/book/delete/${id}`)
+        if(window.confirm("Weet je zeker dat je dit boek wilt verwijderen?")){
+          axios.delete(`http://localhost:8080/book/delete/${id}`)
           .then(response => {
-            console.log('Book deleted:', response.data);
-            alert('Book has been deleted')
+            console.log('Verwijderde boek:', response.data);
+            alert('Het boek is verwijderd')
             window.location.reload()
-            // Remove the deleted book from the books array
           })
           .catch(error => {
             console.log(error);
           })
+        }
+        else{
+          alert("Het proces is geannuleerd")
+        }
+        
       },
     },
 }
