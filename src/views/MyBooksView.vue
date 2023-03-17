@@ -39,9 +39,6 @@ import axios from 'axios';
 export default {
     name: 'CatalogueView',
     components: {
-        // SearchBar,
-        // BookCardStandardContainer,
-        // BookCardSearchContainer
         MyBookCard,
         ReservationCard
     },

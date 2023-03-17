@@ -140,7 +140,7 @@
     },
     methods: {
         getUser() {
-        axios.get('http://localhost:8080/user/' + this.$route.params.id)
+        axios.get('http://localhost:8080/user/get/' + this.$route.params.id)
             .then(response => {
             this.user = response.data;
             })
