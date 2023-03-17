@@ -86,7 +86,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
     name: 'NavBar',
@@ -106,28 +106,29 @@ export default {
         //     }
         // },
         logOut() {
+            // Empty token on backend, then frontend
             this.emptyToken()
-            // localStorage.clear()
+            localStorage.clear()
 
-            // this.$router.push('login');
+            this.$router.push('login');
         },
-        // emptyToken() {
-        //     let config = {
-        //         headers: {
-        //             'Authentication': localStorage.getItem('token')
-        //         }
-        //     }
+        emptyToken() {
+            let config = {
+                headers: {
+                    'Authentication': localStorage.getItem('token')
+                }
+            }
 
-        //     axios.put('http://localhost:8080/user/logout', null, config)
-        //     .then(response => {
-        //         console.log(1)
-        //         console.log('Token deleted:', response.data);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         console.log(2)
-        //     })
-        // },
+            axios.put('http://localhost:8080/user/logout', null, config)
+            .then(response => {
+                console.log(1)
+                console.log('Token deleted:', response.data);
+            })
+            .catch(error => {
+                console.log(error);
+                console.log(2)
+            })
+        },
     }
 }
 </script>

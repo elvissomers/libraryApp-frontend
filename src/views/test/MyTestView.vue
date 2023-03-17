@@ -58,22 +58,27 @@ export default {
   },
   mounted() {
     this.getBooks();
-    let config = {
+    fetch('http://localhost:8080/user/logout', {
+      method: 'PUT',
       headers: {
-        'Authentication': '5ZFKItoKdJMcSWXxkZIzuiAteQvvcNTNkVkvpDOEHi7MvLmpcMchL1iTnCMv', // localStorage.getItem('token')
-        // 'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authentication': 'smwghWlrWObY6jIkyrBNTzVn3WpIlwZX4Ve30ddQHeu9seDdBxui755FINax'
+      },
+      body: JSON.stringify({})
+    })
+    .then(response => {
+      if (response.ok) {
+        // Handle success response
+        console.log('success');
+      } else {
+        // Handle error response
+        console.log('error');
       }
-    }
-
-    axios.put('http://localhost:8080/user/logout', null, config)
-      .then(response => {
-        console.log(1)
-        console.log('Token deleted:', response.data);
-      })
-      .catch(error => {
-        console.log(error);
-        console.log(2)
-      })
+    })
+    .catch(error => {
+      // Handle network error
+      console.log(error);
+    });
   },
   methods: {
     getBooks() {
