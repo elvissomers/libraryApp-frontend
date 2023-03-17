@@ -16,6 +16,7 @@ import MyTestView from '../views/test/MyTestView.vue'
 import MyAccountView from '../views/general-pages/MyAccountView.vue'
 import CatalogueView from '../views/CatalogueView.vue'
 import BookDetailView from '../views/detail-pages/BookDetailView.vue'
+// import BookDetailAdminView from '../views/detail-pages/BookDetailAdminView.vue'
 import UpdateBookView from '../views/admin-panel/book/UpdateBookView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/reservation-overview/CreateLoanFromReservation.vue'
 import PageNotFoundView from '../views/general-pages/PageNotFoundView.vue'
@@ -109,9 +110,14 @@ const routes = [
     name: 'catalogue',
     component: CatalogueView
   },
+  // {
+  //   path: '/book/admin/:id',
+  //   name: 'book-detail-admin',
+  //   component: BookDetailAdminView,
+  // },
   {
     path: '/book/:id',
-    name: 'book-detail',
+    name: 'book-detail-user',
     component: BookDetailView,
   },
   {
