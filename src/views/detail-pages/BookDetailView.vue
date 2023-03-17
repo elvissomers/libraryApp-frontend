@@ -11,15 +11,27 @@
   </template>
   
   <script>
-// import BookDetail from '@/components/details/BookDetail.vue';
+import BookDetail from '@/components/details/BookDetail.vue';
 import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
   
   export default {
     name: 'HomeView',
     components: {
     // BookDetail,
-    BookDetailAdmin
-}
+    BookDetailAdmin,
+    // BookDetailBoolean : this.getDetailCard()
+    },
+    // methods:{
+    //   getDetailCard(){
+    //     if (localStorage.admin){
+    //       return this.components.BookDetailAdmin
+    //     } else {
+    //       return this.components.BookDetail
+    //     }
+    //   }
+    // }
+
+
   }
   </script>
   
