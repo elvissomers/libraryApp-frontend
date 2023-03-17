@@ -6,7 +6,7 @@
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Boek Toevoegen</button>
             </router-link>
             <div class="p-4 text-center rounded-md">Alle Boeken</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchBooks(0, $event)" @goBack="getStartState()"
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchBooks(0, $event, 'title', 'asc')" @goBack="searchBooks(0, '', 'title', 'asc')"
                 class="m-2">
             </SearchBar>
         </div>
@@ -64,6 +64,7 @@ export default {
     methods: {
 
         searchBooks(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
+            console.log
             const directionOfSort = sortAscending ? "asc" : "desc";
             let url = ''
             if (searchTerm == '') {
