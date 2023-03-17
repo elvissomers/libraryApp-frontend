@@ -71,7 +71,7 @@ export default {
             this.emptyToken()
             localStorage.clear()
 
-            this.$router.push('login');
+            this.$router.push('/login');
         },
         emptyToken() {
             const config = {
