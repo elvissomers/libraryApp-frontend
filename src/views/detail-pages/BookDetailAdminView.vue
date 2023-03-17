@@ -16,7 +16,7 @@ import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
     BookDetailAdmin
     },
     mounted(){
-        // this.authenticateAdmin()
+        this.authenticateAdmin()
     },
     methods: {
         authenticateAdmin() {
