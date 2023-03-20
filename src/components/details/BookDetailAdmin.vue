@@ -130,13 +130,11 @@
         headers: headers
       })
         .then(response => {
-          console.log(100)
           console.log('Reservation created:', response.data);
           alert('Reservation created.');
           window.location.reload()
         })
         .catch(error => {
-          console.log(200)
           console.log(error);
         })
     },
