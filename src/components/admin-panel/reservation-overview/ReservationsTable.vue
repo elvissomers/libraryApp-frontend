@@ -2,8 +2,9 @@
     <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
+            <div></div>
             <div class="p-4 text-center rounded-md">All Reservations</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event)" @goBack="getStartState()"
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event, 'date', 'asc')" @goBack="searchReservations(0, '', 'date', 'asc')"
                 class="m-2">
             </SearchBar>
         </div>

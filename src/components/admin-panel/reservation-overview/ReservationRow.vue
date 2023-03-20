@@ -7,7 +7,7 @@
       <div class="">{{ reservation.bookTitle }}</div>
     </div>
     <button v-on:click="createReservation()"
-      class="text-white float-right px-4 py-2 m-2 h-fit rounded-md"
+      class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
       :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
       :disabled="!reservation.available">
       {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
@@ -27,18 +27,17 @@ export default {
   methods: {
     createReservation() {
       let saveReservationDto = {}
-      saveReservationDto.copyNumber = 1
-      saveReservationDto.date = new Date().getDate()
+      saveReservationDto.copyNumber = prompt("Welk copy number wil je toekennen?")
+      saveReservationDto.startDate = new Date().getDate()
       saveReservationDto.bookId = this.reservation.bookId
       saveReservationDto.userId = this.reservation.userId
       console.log(this.reservation)
 
-      axios.post('http://localhost:8080/reservation/create', saveReservationDto)
+      axios.post('http://localhost:8080/loan/create', saveReservationDto)
         .then(response => {
           console.log(response)
           console.log('Copy added:', response.data);
           alert("Exemplaar succesvol toegevoegd")
-          window.location.reload()
         })
         .catch(error => {
           console.log(error);
@@ -48,7 +47,6 @@ export default {
           console.log(response)
           console.log('reservation deleted')
           alert('reservation deleted')
-          window.location.reload()
         })
     },
   },

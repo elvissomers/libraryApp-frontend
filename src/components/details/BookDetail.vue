@@ -24,7 +24,7 @@
           </div>
           <div class="flex">
             <!-- removed: ml-auto -->
-            <button @click="createReservation"
+            <button @click="createReservation()"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
           </div>
         </div>
@@ -78,9 +78,12 @@ export default {
         headers: headers
       })
         .then(response => {
+          console.log(100)
           console.log('Reservation created:', response.data);
+          alert('Reservation created.');
         })
         .catch(error => {
+          console.log(200)
           console.log(error);
         })
         .then(() => this.$router.push('mybooks'));

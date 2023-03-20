@@ -100,15 +100,36 @@
           });
       },
 
-    // async getCopyNumber() {
-    //   await axios.get('http://localhost:8080/book/getcopynumber/' + this.$route.params.id)
-    //     .then(response => {
-    //       this.copy.number = response.data.number;
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     })
-    // },
+      createReservation() {
+      this.reservation.date = this.getCurrentDatey()
+      // TODO: this has to be the ID of the current user (retrieved by token!)
+      this.reservation.userId = 3
+      this.reservation.bookId = this.book.id
+      console.log(this.reservation)
+
+      let headers = {
+        'Authentication': localStorage.getItem('token')
+      }
+
+      axios.post('http://localhost:8080/reservation/create', this.reservation, {
+        headers: headers
+      })
+        .then(response => {
+          console.log(100)
+          console.log('Reservation created:', response.data);
+          alert('Reservation created.');
+        })
+        .catch(error => {
+          console.log(200)
+          console.log(error);
+        })
+        .then(() => this.$router.push('mybooks'));
+    },
+    getCurrentDatey() {
+      let currentDate = new Date().toJSON().slice(0, 10);
+      // console.log(currentDate); // "2023-03-13"
+      return currentDate
+    },
 
     // Create methods from here
     createCopy() {
@@ -137,23 +158,6 @@
     },
         
     
-    createReservation() {
-        this.reservation.date = this.getCurrentDate()
-        // TODO: this has to be the ID of the current user (retrieved by token!)
-        this.reservation.userId = 3
-        this.reservation.bookId = this.book.id
-        console.log(this.reservation)
-  
-        axios.post('http://localhost:8080/reservation/create', this.reservation)
-          .then(response => {
-            console.log('Reservation created:', response.data);
-            alert("Reservation made")
-          })
-          .catch(error => {
-            console.log(error);
-          })
-          .then(() => this.$router.push('mybooks'));
-      },
 
     // Change methods from here
     changeAuthor() {

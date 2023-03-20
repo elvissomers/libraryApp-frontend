@@ -1,7 +1,7 @@
 <template>
 
 <!-- page -->
-<!-- removed: min-h-screen w-full -->
+<!-- removed: min-h-screen w-full style="background-color: #f4f4f4"-->
 <main class=" bg-gray-100 text-gray-700" x-data="layout">
 
     <div class="flex">

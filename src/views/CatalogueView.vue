@@ -29,9 +29,17 @@ export default {
       searchTermParent: ""
     };
   },
-
-  methods: {
-
+  mounted() {
+    this.authenticate()
+  },
+  
+  methods:{
+    authenticate() {
+      if (localStorage.getItem('token') == null ) {
+          this.$router.push('login');
+          console.log('redirecting to login')
+      }
+    },
     startSearch(searchT) {
       this.searchTermParent = searchT
       this.search = true
