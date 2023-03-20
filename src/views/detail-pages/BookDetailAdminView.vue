@@ -1,7 +1,9 @@
 <template>
   <div class="home">
 
+
     <BookDetailAdmin></BookDetailAdmin>
+    <BookCopyTable></BookCopyTable>
     <BookLoanTable></BookLoanTable>
     <BookReservationTable></BookReservationTable>
 
@@ -13,6 +15,7 @@
 
   </div>
 </template>
+
   
 <script>
 import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
@@ -20,10 +23,14 @@ import BookLoanTable from '@/components/details/book-detail-page/BookLoanTable.v
 import BookReservationTable from '@/components/details/book-detail-page/BookReservationTable.vue';
 import UsersPopup from '@/components/details/book-detail-page/UsersPopup.vue'
 import CopyPopup from '@/components/details/book-detail-page/CopyPopup.vue';
+import BookCopyTable from '@/components/details/book-detail-page/BookCopyTable.vue';
 
 export default {
   name: 'HomeView',
+
+
   components: {
+    BookCopyTable,
     BookReservationTable,
     BookLoanTable,
     BookDetailAdmin,

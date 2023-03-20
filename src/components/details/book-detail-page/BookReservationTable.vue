@@ -2,7 +2,6 @@
     <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
-            <div></div>
             <div class="p-4 text-center rounded-md">Alle reserveringen van dit boek</div>
         </div>
 

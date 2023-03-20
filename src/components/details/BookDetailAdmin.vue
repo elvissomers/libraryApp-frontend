@@ -84,6 +84,7 @@
         userPopupVisible: false,
         copyPopupVisible: false,
 
+
         copy: {
             // TODO: this needs to be the actual ID of the book
             bookId: 0,
