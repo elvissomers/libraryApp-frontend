@@ -31,6 +31,7 @@
   
     methods: {
       returnCopy(){
+        // TODO: zorg ervoor dat deze knop alert en refreshed
         axios.put("http://localhost:8080/loan/update/" + this.loan.id, this.endLoan)
           .then(response => {
             console.log(response)
