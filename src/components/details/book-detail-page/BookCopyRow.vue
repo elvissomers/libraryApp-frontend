@@ -5,23 +5,23 @@
             <div class="w-36 ml-8">{{ availabilityString }}</div>
             <div class="w-36 ml-8">{{ heldSincePresent ? copy.heldSince : "-" }}</div>
             <div class="w-36 ml-8">{{ heldByUserFirstNamePresent ? copy.heldByUserFirstName : "-" }}</div>
-            <button v-on:click="createLoan()"
-        class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48"
-        :class="[copy.available ? 'bg-green-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-green-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
-        :disabled="!copy.available">
-        {{ copy.available ? 'Uitlenen' : 'Niet Beschikbaar' }}
-        </button>
+            <button v-on:click="showUsers()" class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48"
+                :class="[copy.available ? 'bg-green-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-green-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
+                :disabled="!copy.available">
+                {{ copy.available ? 'Uitlenen' : 'Niet Beschikbaar' }}
+            </button>
         </div>
-        
+
     </div>
 
     <UsersPopup class="fixed top-32 inset-x-0 mx-auto z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"
-      @closeUserPopup="userPopupVisible = false"></UsersPopup>
+        @closeUserPopup="userPopupVisible = false" @createLoanFromUser="createLoan($event)"></UsersPopup>
 </template>
       
       
 <script>
 import UsersPopup from '@/components/details/book-detail-page/UsersPopup.vue'
+import axios from 'axios'
 
 export default {
 
@@ -37,8 +37,8 @@ export default {
     },
 
     components: {
-    UsersPopup,
-  },
+        UsersPopup,
+    },
 
     mounted() {
         this.availabilityToString()
@@ -46,7 +46,7 @@ export default {
 
     methods: {
         availabilityToString() {
-            if (this.copy.available){
+            if (this.copy.available) {
                 this.availabilityString = "Beschikbaar"
             } else {
                 this.availabilityString = "Niet beschikbaar"
@@ -54,8 +54,27 @@ export default {
             console.log("Made availability into a string")
         },
 
-        createLoan(){
+        showUsers() {
             this.userPopupVisible = true
+        },
+
+        createLoan(user) {
+
+            let saveLoanDto = {}
+            saveLoanDto.copyNumber = this.copy.number
+            saveLoanDto.startDate = new Date()
+            saveLoanDto.bookId = this.$route.params.id
+            saveLoanDto.userId = user.id
+            console.log(saveLoanDto)
+
+            axios.post('http://localhost:8080/loan/create', saveLoanDto)
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            window.location.reload()
         }
     }
 
