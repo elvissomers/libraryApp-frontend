@@ -9,7 +9,8 @@
         :disabled="!reservation.available">
         {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
       </button>
-      <button @click='deleteResersvation(reservation.id)'
+
+      <button @click='deleteReservation(reservation.id)'
         class="flex text-white bg-red-500 border-0 py-2 px-6 ml-2 focus:outline-none hover:bg-red-600 rounded">Afwijzen!</button>
     </div>
 
