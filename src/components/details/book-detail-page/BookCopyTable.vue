@@ -9,6 +9,8 @@
         <div class="flex flex-row py-4 border-b-2">
             <button class="w-36 font-extrabold text-left ml-8">Nummer</button>
             <button class="w-36 font-extrabold text-left ml-8">Beschikbaar</button>
+            <button class="w-36 font-extrabold text-left ml-8">Uitgeleend sinds</button>
+            <button class="w-36 font-extrabold text-left ml-8">Uitgeleend aan</button>
         </div>
 
 
