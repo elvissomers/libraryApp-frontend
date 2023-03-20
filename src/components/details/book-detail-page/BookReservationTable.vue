@@ -2,26 +2,21 @@
     <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
-            <!-- <router-link :to="{ name: 'create-loan-user' }">
-                <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening Toevoegen</button>
-            </router-link> -->
-            <div class="p-4 text-center rounded-md">Alle Uitleningen van dit boek</div>
-            <!-- <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event, 'startDate', 'asc')" @goBack="searchLoans(0, '', 'startDate', 'asc')"
-                class="m-2">
-            </SearchBar> -->
+            <div></div>
+            <div class="p-4 text-center rounded-md">Alle reserveringen van dit boek</div>
         </div>
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button class="w-36 font-extrabold text-left ml-8">Datum</button>
-            <button class="w-36 font-extrabold text-left">Voor Naam</button>
-            <button class="w-36 font-extrabold text-left">Achter Naam</button>
+            <button class="w-36 font-extrabold text-left ml-8">Date</button>
+            <button class="w-36 font-extrabold text-left">First Name</button>
+            <button class="w-36 font-extrabold text-left">Last Name</button>
         </div>
 
 
         <div class="flex flex-col flex-wrap divide-y-2">
-            <BookLoanRow v-for="loan in loans" :key="loan.id" v-bind:loan="loan">
-            </BookLoanRow>
+            <BookReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">
+            </BookReservationRow>
         </div>
 
         <div>
@@ -36,54 +31,54 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import BookLoanRow from '@/components/details/book-detail-page/BookLoanRow.vue';
+import BookReservationRow from '@/components/details/book-detail-page/BookReservationRow.vue';
 
 export default {
-    name: 'LoanView',
+    name: 'ReservationView',
     components: {
-        BookLoanRow
+        BookReservationRow
     },
     data() {
         return {
-            loans: [],
+            reservations: []
             // placeholder: "Naam of Titel",
             // searchTerm: '',
             // sortAscending: true,
             // currentPage: 0,
-            // propertyToSortBy: 'startDate',
+            // propertyToSortBy: 'date',
             // pageableSize: 10
         };
     },
     mounted() {
-        this.searchLoans();
+        this.searchReservations();
     },
     methods: {
 
-        searchLoans(){
-            axios.get("http://localhost:8080/book/loans/" + this.$route.params.id)
+        searchReservations(){
+            axios.get("http://localhost:8080/book/reservations/" + this.$route.params.id)
                 .then(response => {
-                    this.loans = response.data;
+                    this.reservations = response.data;
                 })
                 .catch(error => {
                     console.log(error)
                 })
             }
-        },
+        
 
-        // searchLoans(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
+        // searchReservations(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
         //     const directionOfSort = sortAscending ? "asc" : "desc";
         //     let url = ''
         //     if (searchTerm == '') {
-        //         url = 'http://localhost:8080/loan/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+        //         url = 'http://localhost:8080/reservation/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
         //     }
         //     else {
-        //         url = 'http://localhost:8080/loan/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+        //         url = 'http://localhost:8080/reservation/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
         //     }
 
         //     axios.get(url)
         //             .then(response => {
         //                 if (response.data.length > 0) {
-        //                     this.loans = response.data;
+        //                     this.reservations = response.data;
         //                     this.searchTerm = searchTerm;
         //                     this.currentPage = currentPageNumber;
         //                 }
@@ -93,7 +88,7 @@ export default {
         //             });
         // },
 
-        // sortLoans(propertyToSortBy) {
+        // sortReservations(propertyToSortBy) {
         //     this.currentPage = 0;
         //     if (propertyToSortBy != this.propertyToSortBy) {
         //         this.sortAscending = true;
@@ -102,18 +97,17 @@ export default {
         //     else {
         //         this.sortAscending = !this.sortAscending
         //     }
-        //     this.searchLoans(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
-        // }
+        //     this.searchReservations(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
+        // },
 
         // changePageNumber(change) {
         //     const tempPageNumber = this.currentPage + change
         //     if (tempPageNumber >= 0) {
-        //         this.searchLoans(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+        //         this.searchReservations(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
         //     }
         // },
 
 
     }
-
-
+}
 </script>
