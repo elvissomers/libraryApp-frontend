@@ -3,6 +3,7 @@
 
         <BookDetailAdmin></BookDetailAdmin>
         <BookLoanTable></BookLoanTable>
+        <BookReservationTable></BookReservationTable>
   
   
     </div>
@@ -11,10 +12,12 @@
   <script>
 import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
 import BookLoanTable from '@/components/details/book-detail-page/BookLoanTable.vue'
+import BookReservationTable from '@/components/details/book-detail-page/BookReservationTable.vue';
   
   export default {
     name: 'HomeView',
     components: {
+    BookReservationTable,
     BookLoanTable,
     BookDetailAdmin
     },
