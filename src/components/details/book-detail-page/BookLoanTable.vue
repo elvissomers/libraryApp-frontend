@@ -8,8 +8,9 @@
 
         <div class="flex flex-row py-4 border-b-2">
             <button class="w-36 font-extrabold text-left ml-8">Datum</button>
-            <button class="w-36 font-extrabold text-left">Voor Naam</button>
-            <button class="w-36 font-extrabold text-left">Achter Naam</button>
+            <button class="w-36 font-extrabold text-left">Voornaam</button>
+            <button class="w-36 font-extrabold text-left">Achternaam</button>
+            <button class="w-36 font-extrabold text-left">Exemplaar nummer</button>
         </div>
 
 
