@@ -14,18 +14,34 @@
       
       
   <script>
+  import axios from 'axios';
   
   export default {
+    
+
     name: "LoanRow",
     props: ['loan'],
-  
-    methods: {
-      returnCopy(){
-        //TODO
+    data(){
+      return{
+        endLoan:{
+          endDate : new Date().getDate()
+        }
       }
     },
   
+    methods: {
+      returnCopy(){
+        axios.put("http://localhost:8080/loan/update/" + this.loan.id, this.endLoan)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    }
+  
   }
+}
   
   
   </script>

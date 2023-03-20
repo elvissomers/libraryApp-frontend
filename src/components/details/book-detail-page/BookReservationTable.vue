@@ -40,12 +40,6 @@ export default {
     data() {
         return {
             reservations: []
-            // placeholder: "Naam of Titel",
-            // searchTerm: '',
-            // sortAscending: true,
-            // currentPage: 0,
-            // propertyToSortBy: 'date',
-            // pageableSize: 10
         };
     },
     mounted() {
