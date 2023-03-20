@@ -14,11 +14,12 @@ import MyTestView from '../views/test/MyTestView.vue'
 import MyAccountView from '../views/general-pages/MyAccountView.vue'
 import CatalogueView from '../views/CatalogueView.vue'
 import BookDetailView from '../views/detail-pages/BookDetailView.vue'
+import BookDetailAdminView from '../views/detail-pages/BookDetailAdminView.vue'
 import UpdateBookView from '../views/admin-panel/book/UpdateBookView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/reservation-overview/CreateLoanFromReservation.vue'
 import PageNotFoundView from '../views/general-pages/PageNotFoundView.vue'
 import UserDetailView from '../views/detail-pages/UserDetailView.vue'
-import UpdateUserView from '../components/admin-panel/user/EditUser.vue'
+import UpdateUserView from '../views/admin-panel/user/UpdateUserView.vue'
 import CreateLoanForUser from '../components/admin-panel/reservation-overview/CreateLoanForUser.vue'
 
 const routes = [
@@ -101,6 +102,11 @@ const routes = [
     path: '/book/:id',
     name: 'book-detail',
     component: BookDetailView,
+  },
+  {
+    path: '/book/admin/:id',
+    name: 'book-detail-admin',
+    component: BookDetailAdminView,
   },
   {
     path: '/book/:id/update',

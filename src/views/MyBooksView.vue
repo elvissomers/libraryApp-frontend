@@ -1,15 +1,17 @@
 <template>
 
-    <div class="MyBooks">
+    <div class="MyBooks my-20">
         <h3 class="flex justify-center font-bold text-2xl mb-6">Mijn geleende boeken:</h3>
         <div class="flex flex-row flex-wrap justify-center">
             <MyBookCard v-for="loan in myLoans" :key="loan.id" v-bind:loan="loan">
             </MyBookCard>
+            <p v-if="myLoans.length === 0" class="text-gray-500">Je hebt geen boeken in bezit</p>
         </div>
         <h3 class="flex justify-center font-bold text-2xl mt-16 mb-6">Mijn gereserveerde boeken:</h3>
         <div class="flex flex-row flex-wrap justify-center">
             <ReservationCard v-for="reservation in myReservations" :key="reservation.id" v-bind:reservation="reservation">
             </ReservationCard>
+            <p v-if="myReservations.length === 0" class="text-gray-500">Je hebt geen boeken gereserveerd</p>
         </div>
     </div>
 
@@ -54,6 +56,7 @@ export default {
         this.authenticate()
         this.getMyLoans()
         this.getMyReservations()
+        console.log(this.myLoans)
     },
     methods: {
         authenticate() {

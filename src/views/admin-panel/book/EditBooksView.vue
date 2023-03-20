@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row">
     <SideBar></SideBar>
-    <BookTable></BookTable>
+    <BookTable class="my-8"></BookTable>
   </div>
 </template>
 

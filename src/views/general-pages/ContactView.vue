@@ -1,5 +1,5 @@
 <template>
-  <div class="Contact">
+  <div class="Contact my-20">
     <h1>Contactformulier voor beheerder</h1>
     <h2>Heb je feedback betreffende de website of catalogus? verstuur ze hier!</h2><br>
 

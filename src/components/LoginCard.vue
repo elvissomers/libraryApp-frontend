@@ -100,7 +100,7 @@ section {
     width: 400px;
     height: 450px;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px transparent rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(15px);
     display: flex;

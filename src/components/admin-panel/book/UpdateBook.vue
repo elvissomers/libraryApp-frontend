@@ -3,22 +3,22 @@
         <div class="form-box">
             <div class="form-value">
                 <form>
-                    <h2>Wijzig boek: {{ book.title }}</h2>
+                    <h2>Wijzig boek: {{ oldBookTitle }}</h2>
                     <div class="inputbox">
                         <!-- <ion-icon name="mail-outline"></ion-icon> -->
-                        <input type="text" id="title" v-model="book.title" required>
+                        <input type="text" id="title" v-model="book.title" v-bind:placeholder=oldBookTitle required>
                         
                         <label for="">Titel</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" id="author" v-model="book.author" required>
+                        <input type="text" id="author" v-model="book.author" v-bind:placeholder=oldBookAuthor required>
                         
                         <label for="">Auteur</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" id="isbn" v-model="book.isbn" required>
+                        <input type="text" id="isbn" v-model="book.isbn" v-bind:placeholder=oldBookIsbn required>
                         <label for="">isbn</label>
                     </div>
                     <button v-on:click="updateBook" class="submit-btn">Wijzig</button>
@@ -35,13 +35,13 @@ export default {
   name: 'UpdateBooks',
   data() {
     return {
-      book: {
-        // title: this.book.title,
-        // author: this.book.author,
-        // isbn: this.book.isbn,
-        title: '',
-        author: '',
-        isbn: '',
+        oldBookTitle: '',
+        oldBookAuthor: '',
+        oldBookIsbn: '',
+        book: {
+            title: '',
+            author: '',
+            isbn: '',
       },
     };
   },
@@ -54,6 +54,9 @@ export default {
       axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
           this.book = response.data;
+          this.oldBookTitle = response.data.title
+          this.oldBookAuthor = response.data.author
+          this.oldBookIsbn = response.data.isbn
         })
         .catch(error => {
           console.log(error);
@@ -100,7 +103,7 @@ export default {
         width: 400px;
         height: 450px;
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px transparent rgba(255,255,255,0.5);
         border-radius: 20px;
         backdrop-filter: blur(15px);
         display: flex;

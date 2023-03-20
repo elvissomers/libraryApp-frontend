@@ -16,10 +16,10 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
-                    <div class="inputbox">
+                    <!-- <div class="inputbox">
                         <input type="text" id="password" v-model="user.password" required>
                         <label for="">Wachtwoord</label>
-                    </div>
+                    </div> -->
                     <div>
                         <label for="">Admin:</label>
                         <input type="checkbox" v-model="user.admin" :checked="user.admin">
@@ -101,7 +101,7 @@ export default {
         width: 400px;
         height: 450px;
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px transparent rgba(255,255,255,0.5);
         border-radius: 20px;
         backdrop-filter: blur(15px);
         display: flex;

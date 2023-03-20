@@ -12,7 +12,6 @@
                     <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                         <li><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
                         <li><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
-                        <li><router-link to="/contact" class="hover:text-gray-200">Contact</router-link></li>
                         <li><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
                         <li><router-link to="/" @click="logOut" class="flex items-center hover:text-gray-200">
                             Log out
@@ -21,7 +20,7 @@
                     <!-- Account -->
                     <div class="hidden xl:flex items-center space-x-5 items-center">
                         <!-- Sign In / Register      -->
-                        <router-link to="/myaccount" class="flex items-center hover:text-gray-200">My Account
+                        <router-link to="/user/2" class="flex items-center hover:text-gray-200">My Account
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

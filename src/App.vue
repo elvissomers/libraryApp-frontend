@@ -4,7 +4,8 @@
 
   <NavBar></NavBar>
 
-  <router-view class="my-20" />
+  <!-- removed: class="my-20" -->
+  <router-view  />
 
   <FooterComponent></FooterComponent>
 </template>
@@ -35,6 +36,14 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 } */
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 20
+}
 </style>
 
 <script>
