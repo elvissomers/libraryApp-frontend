@@ -38,16 +38,19 @@ export default {
 
   methods: {
     Archive(){
-      axios.put("http://localhost:8080/user/archive/" + this.user.id)
+      if (confirm("Weet je zeker dat je deze user wilt archiveren? De gegevens zullen niet meer opgehaald kunnen worden.")){
+        axios.put("http://localhost:8080/user/archive/" + this.user.id)
       .then(response => {
         console.log(response.data)
         if (response.data == true){
-          alert("success")
+          alert("Gebruiker " + this.user.firstName + " is gearchiveerd")
+          window.location.reload();
         }
       })
       .catch(error => {
         console.log(error);
-      })
+        })
+      }
     }
   }
 }

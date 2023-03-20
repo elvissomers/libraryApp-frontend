@@ -55,17 +55,20 @@ export default {
         
       },
       Archive(){
-      axios.put("http://localhost:8080/book/archive/" + this.book.id)
+      if (confirm("Weet je zeker dat je deze boek wilt archiveren? Het boek kan dan niet meer uitgeleend worden.")){
+        axios.put("http://localhost:8080/book/archive/" + this.book.id)
       .then(response => {
         console.log(response.data)
         if (response.data == true){
-          alert("success")
+          alert("Boek " + this.book.title + " is gearchiveerd")
+          window.location.reload();
         }
       })
       .catch(error => {
         console.log(error);
-      })
-    }
+          })
+        }
+      }
     },
 }
 </script>
