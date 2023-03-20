@@ -13,9 +13,10 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8">First Name</button>
-            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left">Last Name</button>
-            <button @click="sortUsers('emailAddress', sortAscending)" class="font-extrabold text-left">Email Address</button>
+            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>First Name</button>
+            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Last Name</button>
+            <button @click="sortUsers('emailAddress', sortAscending)" class="font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Email Address</button>
+            <!-- <span class="material-symbols-outlined">sort</span> -->
         </div>
 
 
@@ -109,3 +110,7 @@ export default {
     },
 }
 </script>
+
+<style>
+
+</style>

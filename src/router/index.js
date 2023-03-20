@@ -21,7 +21,7 @@ import UpdateBookView from '../views/admin-panel/book/UpdateBookView.vue'
 import CreateLoanFromReservation from '../components/admin-panel/reservation-overview/CreateLoanFromReservation.vue'
 import PageNotFoundView from '../views/general-pages/PageNotFoundView.vue'
 import UserDetailView from '../views/detail-pages/UserDetailView.vue'
-import UpdateUserView from '../components/admin-panel/user/EditUser.vue'
+import UpdateUserView from '../views/admin-panel/user/UpdateUserView.vue'
 import CreateLoanForUser from '../components/admin-panel/reservation-overview/CreateLoanForUser.vue'
 
 const routes = [

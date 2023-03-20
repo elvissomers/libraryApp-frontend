@@ -1,7 +1,7 @@
 <template>
   <div class="EditUser flex flex-row">
     <SideBar></SideBar>
-    <UserTable></UserTable>
+    <UserTable class="my-8"></UserTable>
   </div>
 </template>
 

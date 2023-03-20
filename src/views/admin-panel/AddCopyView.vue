@@ -1,7 +1,7 @@
 <template>
   <div class="AddCopy">
     <SideBar></SideBar>
-    <AddCopy></AddCopy>
+    <AddCopy class="my-8"></AddCopy>
   </div>
 </template>
   

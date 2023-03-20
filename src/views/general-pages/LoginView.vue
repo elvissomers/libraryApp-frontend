@@ -1,5 +1,5 @@
 <template>
-    <div class="Login">
+    <div class="Login my-20">
   
         <LoginCard></LoginCard>
 
