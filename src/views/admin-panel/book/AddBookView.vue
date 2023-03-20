@@ -2,7 +2,7 @@
   <div class="AddBook">
     <SideBar></SideBar>
     <div class="mx-auto">
-      <AddBook></AddBook>
+      <AddBook class="my-20"></AddBook>
     </div>
     
   </div>

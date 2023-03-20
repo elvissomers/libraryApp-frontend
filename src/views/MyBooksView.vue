@@ -1,6 +1,6 @@
 <template>
 
-    <div class="MyBooks">
+    <div class="MyBooks my-20">
         <h3 class="flex justify-center font-bold text-2xl mb-6">Mijn geleende boeken:</h3>
         <div class="flex flex-row flex-wrap justify-center">
             <MyBookCard v-for="loan in myLoans" :key="loan.id" v-bind:loan="loan">

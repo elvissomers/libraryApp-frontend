@@ -2,7 +2,7 @@
   <div class="AddUser">
     <SideBar></SideBar>
     <div class="mx-auto">
-      <AddUser></AddUser>
+      <AddUser class="my-28"></AddUser>
     </div>
     
   </div>

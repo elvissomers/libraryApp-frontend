@@ -1,5 +1,5 @@
 <template>
-    <div class="ViewPerson" style="display: grid; grid-template-columns: 1fr 1fr;">
+    <div class="ViewPerson my-20" style="display: grid; grid-template-columns: 1fr 1fr;">
         <View_Person></View_Person>
         <Edit_Person></Edit_Person>
     </div>

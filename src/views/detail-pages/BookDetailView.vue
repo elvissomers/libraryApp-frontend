@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home my-20">
 
         <!-- <BookDetailAdmin></BookDetailAdmin> -->
         <!-- // TODO : use either bookdetail or BookDetailAdmin

@@ -1,7 +1,7 @@
 <template>
     <div class="Requests">
         <SideBar></SideBar>
-        <CreateLoanFromReservation></CreateLoanFromReservation>
+        <CreateLoanFromReservation class="my-8"></CreateLoanFromReservation>
 
     </div>
 </template>

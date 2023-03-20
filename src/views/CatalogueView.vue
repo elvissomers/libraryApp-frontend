@@ -1,5 +1,5 @@
 <template>
-  <div class="Catalogue">
+  <div class="Catalogue my-20">
     <div class="flex flex-row justify-center">
       <SearchBar @doSearch="startSearch($event)" @goBack="goBackToCatalogue()" />
     </div>
