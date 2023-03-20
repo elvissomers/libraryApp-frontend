@@ -133,6 +133,7 @@
           console.log(100)
           console.log('Reservation created:', response.data);
           alert('Reservation created.');
+          window.location.reload()
         })
         .catch(error => {
           console.log(200)
@@ -152,6 +153,7 @@
         .then(response => {
           console.log('Copy added:', response.data);
           alert("Copy was added")
+          window.location.reload()
         })
         .catch(error => {
           console.log(error);
