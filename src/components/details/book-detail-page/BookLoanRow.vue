@@ -35,6 +35,7 @@
         axios.put("http://localhost:8080/loan/update/" + this.loan.id, this.endLoan)
           .then(response => {
             console.log(response)
+            window.location.reload()
           })
           .catch(error => {
             console.log(error)
