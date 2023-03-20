@@ -5,7 +5,7 @@
             <router-link :to="{ name: 'add-book' }">
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Boek Toevoegen</button>
             </router-link>
-            <div class="p-4 text-center rounded-md">All Books</div>
+            <div class="p-4 text-center rounded-md">Alle Boeken</div>
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchBooks(0, $event)" @goBack="getStartState()"
                 class="m-2">
             </SearchBar>
@@ -14,8 +14,8 @@
 
         <div class="flex flex-row py-4 border-b-2">
             <button @click="sortBooks('isbn', sortAscending)" class="w-36 font-extrabold text-left ml-8">ISBN</button>
-            <button @click="sortBooks('author', sortAscending)" class="w-56 font-extrabold text-left">Author</button>
-            <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">Title</button>
+            <button @click="sortBooks('author', sortAscending)" class="w-56 font-extrabold text-left">Auteur</button>
+            <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">Titel</button>
         </div>
 
 
@@ -76,6 +76,7 @@ export default {
             axios.get(url)
                     .then(response => {
                         if (response.data.length > 0) {
+                            console.log(response)
                             this.books = response.data;
                             this.searchTerm = searchTerm;
                             this.currentPage = currentPageNumber;
@@ -95,13 +96,15 @@ export default {
             else {
                 this.sortAscending = !this.sortAscending
             }
+            console.log(this.sortAscending)
             this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
 
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
             if (tempPageNumber >= 0) {
-                this.searchBooks(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+                console.log(this.sortAscending)
+                this.searchBooks(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 
