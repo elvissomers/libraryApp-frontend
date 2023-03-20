@@ -7,9 +7,9 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button class="w-36 font-extrabold text-left ml-8">Date</button>
-            <button class="w-36 font-extrabold text-left">First Name</button>
-            <button class="w-36 font-extrabold text-left">Last Name</button>
+            <button class="w-36 font-extrabold text-left ml-8">Datum</button>
+            <button class="w-36 font-extrabold text-left">Voornaam</button>
+            <button class="w-36 font-extrabold text-left">Achternaam</button>
         </div>
 
 
