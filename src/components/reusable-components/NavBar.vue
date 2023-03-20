@@ -55,29 +55,14 @@ export default {
     name: 'NavBar',
     data() {
         return {
-            // token: localStorage.getItem('token')
             store
         }
     },    
-    // watch: {
-    //     token(newToken) {
-    //         localStorage.setItem('token', newToken)
-    //     }
-    // },
-    // props: ['authenticated'],
     mounted() {
-        // this.token = localStorage.getItem('token')
-        // this.setAuthenticated()
-
     },
     methods: {
-        // setAuthenticated() {
-        //     if (localStorage.getItem('token') != null) {
-        //         this.authenticated = true;
-        //     }
-        // },
         logOut() {
-            // Empty token on backend, then frontend
+            // Clear token on backend, then frontend
             this.emptyToken()
             localStorage.clear()
 
