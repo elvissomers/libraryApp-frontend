@@ -58,8 +58,6 @@ export default {
       axios.post('http://localhost:8080/loan/create', saveLoanDto)
         .then(response => {
           console.log(response)
-          console.log('Loan added:', response.data);
-          alert("Reservering succesvol goedgekeurd")
         })
         .catch(error => {
           console.log(error);
@@ -71,8 +69,7 @@ export default {
       axios.delete(`http://localhost:8080/reservation/delete/${id}`)
         .then(response => {
           console.log(response)
-          console.log('reservation deleted')
-          alert('reservation deleted')
+          window.location.reload()
         })
     }
   },
