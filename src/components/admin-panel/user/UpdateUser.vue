@@ -53,7 +53,6 @@ export default {
         this.user.firstName = response.data.firstName;
         this.user.lastName = response.data.lastName;
         this.user.emailAddress = response.data.emailAddress;
-        this.user.password = response.data.password;
         this.user.admin = response.data.admin;
       })
       .catch(error => {
