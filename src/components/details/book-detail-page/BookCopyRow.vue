@@ -3,8 +3,8 @@
         <div class="flex flex-row py-4">
             <div class="w-36 ml-8">{{ copy.number }}</div>
             <div class="w-36 ml-8">{{ availabilityString }}</div>
-            <div class="w-36 ml-8">{{ copy.heldSince }}</div>
-            <div class="w-36 ml-8">{{ copy.heldByUserFirstName }}</div>
+            <div class="w-36 ml-8">{{ heldSincePresent ? copy.heldSince : "-" }}</div>
+            <div class="w-36 ml-8">{{ heldByUserFirstNamePresent ? copy.heldByUserFirstName : "-" }}</div>
         </div>
         <!-- <button v-on:click="createLoan()"
         class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
@@ -24,7 +24,9 @@ export default {
     props: ['copy'],
     data() {
         return {
-            availabilityString: ''
+            availabilityString: '',
+            heldSincePresent: this.copy.heldSince !== null,
+            heldByUserFirstNamePresent: this.copy.heldByUserFirstName !== null
         }
     },
 
