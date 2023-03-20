@@ -138,7 +138,6 @@
           console.log(200)
           console.log(error);
         })
-        .then(() => this.$router.push('mybooks'));
     },
     getCurrentDatey() {
       let currentDate = new Date().toJSON().slice(0, 10);
