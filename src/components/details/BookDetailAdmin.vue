@@ -3,12 +3,14 @@
       <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
           <!-- IMAGE -->
-          <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-            src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg">
+          <!--<img v-if="!bookFetching" alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+            v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)"> -->
+          <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200"
+            v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
           <!-- <img class="rounded-t-lg p-8 w-full h-96" :src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)"
             alt="product image"> -->
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <span class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
+            <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
             <button @click="changeAuthor()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -16,7 +18,7 @@
             </button>
             
             <h1></h1>
-            <span class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
+            <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
             <button @click="changeTitle()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -32,7 +34,7 @@
               <button>Edit</button>
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
-                <span class="mr-3">ISBN: {{ book.isbn }}</span>
+                <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
                 <button @click="changeIsbn()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -63,7 +65,8 @@
     name: 'MyBooksView',
     data() {
       return {
-        book: [],
+        book: null,
+        bookFetching: true,
         reservation: {
           date: '',
           userId: '',
@@ -94,6 +97,7 @@
           .then(response => {
             this.book = response.data;
             this.copy.bookId = this.book.id;
+            this.bookFetching = false
           })
           .catch(error => {
             console.log(error);
