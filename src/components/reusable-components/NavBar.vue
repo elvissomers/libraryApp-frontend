@@ -3,7 +3,7 @@
     <div class="">
         <section class="relative mx-auto my-auto">
             <!-- navbar -->
-            <nav class="flex justify-between bg-zinc-900 text-white w-screen">
+            <nav class="flex justify-between bg-zinc-900 text-white w-full">
                 <div class="px-5 xl:px-12 py-6 flex w-full items-center">
                     <router-link to="/" class="text-3xl font-bold font-heading"><img
                             src="https://www.workingtalent.nl/_nuxt/img/wt-logo-white.8cc9feb.svg" title="Logo"

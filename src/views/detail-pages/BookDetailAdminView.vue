@@ -3,10 +3,11 @@
 
 
     <BookDetailAdmin></BookDetailAdmin>
+    <div class="w-4/5 flex flex-col mx-auto">
     <BookCopyTable></BookCopyTable>
     <BookLoanTable></BookLoanTable>
     <BookReservationTable></BookReservationTable>
-
+  </div>
 
   </div>
 </template>

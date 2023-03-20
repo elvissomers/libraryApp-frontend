@@ -1,7 +1,7 @@
 <template>
-    <section class="text-gray-700 body-font overflow-hidden bg-white">
+    <section class="text-gray-700 body-font overflow-hidden">
       <div class="container px-5 py-24 mx-auto">
-        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap justify-center">
           <!-- IMAGE -->
           <!--<img v-if="!bookFetching" alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
             v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)"> -->

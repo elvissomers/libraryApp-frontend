@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col w-full mx-8 ">
+    <div class="flex flex-col w-full">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
             <div class="p-4 text-center rounded-md">Alle reserveringen van dit boek</div>
@@ -7,9 +7,9 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button class="w-36 font-extrabold text-left ml-8">Datum</button>
-            <button class="w-36 font-extrabold text-left">Voornaam</button>
-            <button class="w-36 font-extrabold text-left">Achternaam</button>
+            <button class="w-48 font-extrabold text-left ml-8">Datum</button>
+            <button class="w-48 font-extrabold text-left">Voornaam</button>
+            <button class="w-48 font-extrabold text-left">Achternaam</button>
         </div>
 
 
