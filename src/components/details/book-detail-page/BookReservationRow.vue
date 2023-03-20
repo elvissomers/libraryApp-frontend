@@ -47,12 +47,13 @@ export default {
     },
 
     createLoan(copyNumber) {
+
       let saveLoanDto = {}
       saveLoanDto.copyNumber = copyNumber
-      saveLoanDto.startDate = new Date().getDate()
+      saveLoanDto.startDate = new Date()
       saveLoanDto.bookId = this.reservation.bookId
       saveLoanDto.userId = this.reservation.userId
-      console.log(this.reservation)
+      console.log(saveLoanDto)
 
       axios.post('http://localhost:8080/loan/create', saveLoanDto)
         .then(response => {

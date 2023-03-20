@@ -22,7 +22,7 @@
 
         <div class="flex flex-col h-80 overflow-y-auto"
 >
-            <CopyRowPopup v-for="copy in copies" :key="copy.id" v-bind:copy="copy" @createReservationFromNumber="this.$emit('createReservationFromNumber', $event)">
+            <CopyRowPopup v-for="copy in copies" :key="copy.id" v-bind:copy="copy" @createReservationFromNumber="$emit('createReservationFromNumber', $event)">
             </CopyRowPopup>
         </div>
 
