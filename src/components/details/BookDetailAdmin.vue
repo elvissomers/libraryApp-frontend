@@ -52,7 +52,6 @@
             </div>
             
             
-            <UsersPopup class="fixed top-32 z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"></UsersPopup>
 
           </div>
         </div>
@@ -64,13 +63,13 @@
   
   <script>
   import axios from 'axios';
-  import UsersPopup from '@/components/details/book-detail-page/UsersPopup.vue'
+
   
   export default {
     name: 'MyBooksView',
 
     components: {
-      UsersPopup
+
     },
 
     data() {
@@ -82,7 +81,9 @@
           userId: '',
           bookId: '',
         },
-        userPopupVisible: true,
+        userPopupVisible: false,
+        copyPopupVisible: false,
+
         copy: {
             // TODO: this needs to be the actual ID of the book
             bookId: 0,
