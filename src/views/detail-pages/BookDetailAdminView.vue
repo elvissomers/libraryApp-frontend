@@ -7,11 +7,6 @@
     <BookLoanTable></BookLoanTable>
     <BookReservationTable></BookReservationTable>
 
-    <UsersPopup class="fixed top-32 inset-x-0 mx-auto z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"
-      @closeUserPopup="userPopupVisible = false"></UsersPopup>
-
-    <CopyPopup v-bind:bookId="$route.params.id" class="fixed top-32 inset-x-0 mx-auto z-10"
-      :class="[copyPopupVisible ? 'visible' : 'invisible']" @closeCopyPopup="copyPopupVisible = false"></CopyPopup>
 
   </div>
 </template>
@@ -21,8 +16,6 @@
 import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
 import BookLoanTable from '@/components/details/book-detail-page/BookLoanTable.vue'
 import BookReservationTable from '@/components/details/book-detail-page/BookReservationTable.vue';
-import UsersPopup from '@/components/details/book-detail-page/UsersPopup.vue'
-import CopyPopup from '@/components/details/book-detail-page/CopyPopup.vue';
 import BookCopyTable from '@/components/details/book-detail-page/BookCopyTable.vue';
 
 export default {
@@ -34,14 +27,10 @@ export default {
     BookReservationTable,
     BookLoanTable,
     BookDetailAdmin,
-    UsersPopup,
-    CopyPopup
   },
 
   data() {
     return {
-      userPopupVisible: false,
-      copyPopupVisible: true,
     }
   },
 

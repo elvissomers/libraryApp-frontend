@@ -81,8 +81,6 @@
           userId: '',
           bookId: '',
         },
-        userPopupVisible: false,
-        copyPopupVisible: false,
 
 
         copy: {

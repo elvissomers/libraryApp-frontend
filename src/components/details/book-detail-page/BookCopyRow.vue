@@ -14,21 +14,31 @@
         </div>
         
     </div>
+
+    <UsersPopup class="fixed top-32 inset-x-0 mx-auto z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"
+      @closeUserPopup="userPopupVisible = false"></UsersPopup>
 </template>
       
       
 <script>
+import UsersPopup from '@/components/details/book-detail-page/UsersPopup.vue'
 
 export default {
+
     name: "CopyRow",
     props: ['copy'],
     data() {
         return {
             availabilityString: '',
             heldSincePresent: this.copy.heldSince !== null,
-            heldByUserFirstNamePresent: this.copy.heldByUserFirstName !== null
+            heldByUserFirstNamePresent: this.copy.heldByUserFirstName !== null,
+            userPopupVisible: false,
         }
     },
+
+    components: {
+    UsersPopup,
+  },
 
     mounted() {
         this.availabilityToString()
@@ -45,7 +55,7 @@ export default {
         },
 
         createLoan(){
-            //TODO
+            this.userPopupVisible = true
         }
     }
 
