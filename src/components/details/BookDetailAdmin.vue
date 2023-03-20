@@ -50,6 +50,10 @@
               <button @click='createCopies()'
                 class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak nieuwe kopie aan</button>
             </div>
+            
+            
+            <UsersPopup class="fixed top-32 z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"></UsersPopup>
+
           </div>
         </div>
       </div>
@@ -60,9 +64,15 @@
   
   <script>
   import axios from 'axios';
+  import UsersPopup from '@/components/details/book-detail-page/UsersPopup.vue'
   
   export default {
     name: 'MyBooksView',
+
+    components: {
+      UsersPopup
+    },
+
     data() {
       return {
         book: null,
@@ -72,6 +82,7 @@
           userId: '',
           bookId: '',
         },
+        userPopupVisible: true,
         copy: {
             // TODO: this needs to be the actual ID of the book
             bookId: 0,
