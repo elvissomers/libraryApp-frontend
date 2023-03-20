@@ -1,33 +1,29 @@
 <template>
-    <div class="home my-20">
+  <div class="home my-20">
 
-        <BookDetailAdmin></BookDetailAdmin>
+    <BookDetailAdmin></BookDetailAdmin>
+
+
+  </div>
+</template>
   
-  
-    </div>
-  </template>
-  
-  <script>
+<script>
 import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
-  
-  export default {
-    name: 'HomeView',
-    components: {
-    BookDetailAdmin
-    },
-    mounted(){
-        this.authenticateAdmin()
-    },
-    methods: {
-        authenticateAdmin() {
-        if (localStorage.getItem('token') == null || localStorage.getItem('admin') != 'true') {
-          this.$router.push('/login')
-            // this.$router.push('/book/user' + this.$route.params.id);
-            console.log('redirecting to login')
-        }
-    }
+import { store } from '@/store/store'
 
-  }
+export default {
+  name: 'HomeView',
+  components: {
+    BookDetailAdmin
+  },
+  data() {
+    return {
+      store
+    };
+  },
+  mounted() {
+    this.store.authenticate(this.$router)
+  },
 }
-  </script>
+</script>
   

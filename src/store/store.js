@@ -31,11 +31,11 @@ export const store = reactive({
 
         this.setAuthentication()
     },
-    authenticateAdmin() {
+    authenticateAdmin(router) {
         if (localStorage.getItem('admin') != 'true') {
             alert("You need admin rights to view the Admin panel")
-            // router.push('/');
-            // console.log('redirecting to home')
+            router.push('/');
+            console.log('redirecting to home')
         }
     }
 

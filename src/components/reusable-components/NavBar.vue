@@ -13,21 +13,25 @@
                         <li v-if="store.authenticated"><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
                         <li v-if="store.authenticated"><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
                         <li v-if="store.authenticated && store.admin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
-                        <!-- removed: v-if="store.authenticated" -->
-                        <li v-if="store.authenticated"><router-link to="/" @click="logOut" class="flex items-center hover:text-gray-200">
-                            Log out
-                        </router-link></li>       
-                        <li>Auth: {{ store.authenticated }}</li>                 
+                        <!-- <li>Auth: {{ store.authenticated }}</li>                  -->
                     </ul>
                     <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
-                    <div v-if="store.authenticated" >
+
+                    <!-- <li v-if="store.authenticated"><router-link to="/" @click="logOut" class="flex items-center hover:text-gray-200">
+                            Log out
+                        </router-link></li>        -->
+                    <div v-if="store.authenticated" class="flex-nowrap">
+                        <router-link to="/" @click="logOut" class="mx-2 align-middle hover:text-gray-200">
+                            Log out
+                        </router-link>
                         <!-- Sign In / Register removed: My Account-->
-                        <router-link to="/user/2" class="flex items-center hover:text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
+                        <router-link to="/user/2" class=" hover:text-gray-200">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+                            </svg> -->
+                            <span class="material-symbols-outlined align-middle">account_circle</span>
                         </router-link>
                     </div>
                     <!-- Responsive navbar -->

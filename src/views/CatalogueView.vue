@@ -34,7 +34,6 @@ export default {
   mounted() {
     this.store.authenticate(this.$router)
   },
-  
   methods:{
     startSearch(searchT) {
       this.searchTermParent = searchT
