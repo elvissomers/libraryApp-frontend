@@ -10,7 +10,7 @@
         :disabled="!reservation.available">
         {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
       </button>
-      <button @click='deleteResersvation(reservation.id)'
+      <button @click='deleteReservation(reservation.id)'
                 class="flex text-white bg-red-500 border-0 py-2 px-6 ml-2 focus:outline-none hover:bg-red-600 rounded">Afwijzen!</button>
       </div>
       
@@ -44,10 +44,10 @@
           .catch(error => {
             console.log(error);
           })
-        deleteResersvation(this.reservation.id)
+        this.deleteReservation(this.reservation.id)
       },
 
-      deleteResersvation(id){
+      deleteReservation(id){
         axios.delete(`http://localhost:8080/reservation/delete/${id}`)
           .then(response => {
             console.log(response)
