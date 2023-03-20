@@ -19,7 +19,7 @@
 
 
         <div class="flex flex-col flex-wrap divide-y-2">
-            <ReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">
+            <ReservationRow v-for="reservation in filteredReservations" :key="reservation.id" v-bind:reservation="reservation">
             </ReservationRow>
         </div>
 
@@ -49,6 +49,7 @@ export default {
     data() {
         return {
             reservations: [],
+            filteredReservations:  [],
             placeholder: "Naam of Titel",
             searchTerm: '',
             sortAscending: true,
@@ -78,6 +79,12 @@ export default {
                             this.reservations = response.data;
                             this.searchTerm = searchTerm;
                             this.currentPage = currentPageNumber;
+                            let length = this.reservations.length;
+                            for (var i = 0; i < length; i++){
+                                if (this.reservations[i].userFirstName != '[Archived]'){
+                                    this.filteredReservations.push(this.reservations[i])
+                                }
+                            }
                         }
                     })
                     .catch(error => {
