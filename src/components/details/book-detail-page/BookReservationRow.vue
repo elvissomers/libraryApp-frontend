@@ -4,13 +4,14 @@
         <div class="w-36 ml-8">{{ reservation.date }}</div>
         <div class="w-36">{{ reservation.userFirstName }}</div>
         <div class="w-36">{{ reservation.userLastName }}</div>
-      </div>
-      <button v-on:click="createLoan()"
-        class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
+        <button v-on:click="createLoan()"
+        class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48"
         :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
         :disabled="!reservation.available">
         {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
       </button>
+      </div>
+      
     </div>
   </template>
       
