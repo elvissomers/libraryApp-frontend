@@ -1,14 +1,16 @@
 <template>
-    <section class="text-gray-700 body-font overflow-hidden bg-white">
+    <section class="text-gray-700 body-font overflow-hidden">
       <div class="container px-5 py-24 mx-auto">
-        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap justify-center">
           <!-- IMAGE -->
-          <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-            src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg">
+          <!--<img v-if="!bookFetching" alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+            v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)"> -->
+          <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200"
+            v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
           <!-- <img class="rounded-t-lg p-8 w-full h-96" :src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)"
             alt="product image"> -->
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <span class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
+            <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
             <button @click="changeAuthor()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -16,7 +18,7 @@
             </button>
             
             <h1></h1>
-            <span class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
+            <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
             <button @click="changeTitle()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -32,7 +34,7 @@
               <button>Edit</button>
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
-                <span class="mr-3">ISBN: {{ book.isbn }}</span>
+                <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
                 <button @click="changeIsbn()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -48,6 +50,9 @@
               <button @click='createCopies()'
                 class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak nieuwe kopie aan</button>
             </div>
+            
+            
+
           </div>
         </div>
       </div>
@@ -58,17 +63,26 @@
   
   <script>
   import axios from 'axios';
+
   
   export default {
     name: 'MyBooksView',
+
+    components: {
+
+    },
+
     data() {
       return {
-        book: [],
+        book: null,
+        bookFetching: true,
         reservation: {
           date: '',
           userId: '',
           bookId: '',
         },
+
+
         copy: {
             // TODO: this needs to be the actual ID of the book
             bookId: 0,
@@ -94,6 +108,7 @@
           .then(response => {
             this.book = response.data;
             this.copy.bookId = this.book.id;
+            this.bookFetching = false
           })
           .catch(error => {
             console.log(error);
@@ -115,15 +130,13 @@
         headers: headers
       })
         .then(response => {
-          console.log(100)
           console.log('Reservation created:', response.data);
           alert('Reservation created.');
+          window.location.reload()
         })
         .catch(error => {
-          console.log(200)
           console.log(error);
         })
-        .then(() => this.$router.push('mybooks'));
     },
     getCurrentDatey() {
       let currentDate = new Date().toJSON().slice(0, 10);
@@ -138,6 +151,7 @@
         .then(response => {
           console.log('Copy added:', response.data);
           alert("Copy was added")
+          window.location.reload()
         })
         .catch(error => {
           console.log(error);
