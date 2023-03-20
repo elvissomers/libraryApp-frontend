@@ -146,15 +146,17 @@
 
 
     createCopies(){
-        this.copy.amount = prompt("Hoeveel ?")
-        axios.post('http://localhost:8080/copy/create', this.copy)
-        .then(response => {
+        this.copy.amount = prompt("Hoeveel kopieën wil je toevoegen?")
+        if (this.copy.amount > 0){
+          axios.post('http://localhost:8080/copy/create', this.copy)
+          .then(response => {
           console.log('Copy added:', response.data);
-        })
-        .catch(error => {
+          alert(this.copy.amount + ' copies have been added for this book')
+          })
+          .catch(error => {
           console.log(error);
-        })
-        alert(this.copy.amount + ' copies have been added for this book')
+          })   
+        }
     },
         
     

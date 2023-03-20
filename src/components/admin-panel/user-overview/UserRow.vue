@@ -18,6 +18,9 @@
         class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Bekijk
       </button>
     </router-link>
+    <button v-on:click="Archive()"
+        class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Archiveer
+    </button>
 
   </div>
 
@@ -27,10 +30,29 @@
     
     
 <script>
+import axios from 'axios';
 
 export default {
   name: "UserRow",
-  props: ['user']
+  props: ['user'],
+
+  methods: {
+    Archive(){
+      if (confirm("Weet je zeker dat je deze user wilt archiveren? De gegevens zullen niet meer opgehaald kunnen worden.")){
+        axios.put("http://localhost:8080/user/archive/" + this.user.id)
+      .then(response => {
+        console.log(response.data)
+        if (response.data == true){
+          alert("Gebruiker " + this.user.firstName + " is gearchiveerd")
+          window.location.reload();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        })
+      }
+    }
+  }
 }
 
 
