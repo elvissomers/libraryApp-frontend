@@ -2,13 +2,7 @@
     <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
-            <!-- <router-link :to="{ name: 'create-loan-user' }">
-                <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening Toevoegen</button>
-            </router-link> -->
             <div class="p-4 text-center rounded-md">Alle Uitleningen van dit boek</div>
-            <!-- <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event, 'startDate', 'asc')" @goBack="searchLoans(0, '', 'startDate', 'asc')"
-                class="m-2">
-            </SearchBar> -->
         </div>
 
 
