@@ -26,7 +26,7 @@
 
         <div class="flex flex-col h-80 overflow-y-auto"
 >
-            <UsersRowPopup v-for="user in users" :key="user.id" v-bind:user="user">
+            <UsersRowPopup v-for="user in users" :key="user.id" v-bind:user="user" @createLoanFromUser="$emit('createLoanFromUser', $event)">
             </UsersRowPopup>
         </div>
 
