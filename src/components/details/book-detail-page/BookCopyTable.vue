@@ -46,7 +46,7 @@ export default {
     },
     methods: {
 
-        searchCopies(){
+        searchCopies() {
             axios.get("http://localhost:8080/book/copies/" + this.$route.params.id)
                 .then(response => {
                     this.copies = response.data;
@@ -54,7 +54,7 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
-            }
+        }
 
     }
 }
