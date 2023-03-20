@@ -16,7 +16,6 @@
             <button @click="sortLoans('startDate', sortAscending)" class="w-36 font-extrabold text-left ml-8">Datum</button>
             <button @click="sortLoans('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">Voor Naam</button>
             <button @click="sortLoans('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Achter Naam</button>
-            <button @click="sortLoans('copy_Book_Title', sortAscending)" class="font-extrabold text-left">Boek Titel</button>
         </div>
 
 

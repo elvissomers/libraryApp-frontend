@@ -4,7 +4,6 @@
         <div class="w-36 ml-8">{{ loan.startDate }}</div>
         <div class="w-36">{{ loan.userFirstName }}</div>
         <div class="w-36">{{ loan.userLastName }}</div>
-        <div class="">{{ loan.bookTitle }}</div>
       </div>
     </div>
   </template>
