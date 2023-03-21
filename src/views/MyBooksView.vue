@@ -66,7 +66,7 @@ export default {
             }
         },
         getMyLoans() {
-            axios.get('http://localhost:8080/user/2/loans/open')
+            axios.get('http://localhost:8080/user/3/loans/open')
                 .then(response => {
                     this.myLoans = response.data
                 })
@@ -75,7 +75,7 @@ export default {
                 })
         },
         getMyReservations() {
-            axios.get('http://localhost:8080/user/2/reservations')
+            axios.get('http://localhost:8080/user/3/reservations')
                 .then(response => {
                     this.myReservations = response.data
                 })
