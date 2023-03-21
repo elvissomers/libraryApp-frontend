@@ -1,33 +1,37 @@
 <template>
-  <div class="home my-20">
+    <div class="home my-20">
 
-    <!-- <BookDetailAdmin></BookDetailAdmin> -->
-    <!-- // TODO : use either bookdetail or BookDetailAdmin
+        <!-- <BookDetailAdmin></BookDetailAdmin> -->
+        <!-- // TODO : use either bookdetail or BookDetailAdmin
         // Depending on token! -->
-    <BookDetail></BookDetail>
-
-
-  </div>
-</template>
+        <BookDetail></BookDetail>
   
-<script>
+  
+    </div>
+  </template>
+  
+  <script>
 import BookDetail from '@/components/details/BookDetail.vue';
-import { store } from '@/store/store'
-
-export default {
-  name: 'HomeView',
-  components: {
+// import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
+  
+  export default {
+    name: 'HomeView',
+    components: {
     // BookDetailAdmin,
     BookDetail
   },
-  data() {
-    return {
-      store
-    };
-  },
-  mounted() {
-    this.store.authenticate(this.$router)
-  },
-}
-</script>
+  mounted(){
+        this.authenticateAdmin()
+    },
+    methods: {
+        authenticateAdmin() {
+        if (localStorage.getItem('admin') == 'true') {
+          // this.$router.push('/admin/edit-users')
+            this.$router.push('/book/admin/' + this.$route.params.id);
+            console.log('redirecting to admin view')
+        }
+    }
+  }
+  }
+  </script>
   
