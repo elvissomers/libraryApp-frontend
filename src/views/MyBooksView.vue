@@ -62,9 +62,6 @@ export default {
     mounted() {
         this.authenticate()
         this.getUser()
-        // this.getMyLoans()
-        // this.getMyReservations()
-        console.log(this.myLoans)
     },
     methods: {
         authenticate() {
@@ -74,10 +71,13 @@ export default {
             }
         },
         getUser(){
-            axios.get('http://localhost:8080/user/findbytoken/' + localStorage.getItem("token"))
+            axios.get('http://localhost:8080/user/getbytoken/' + localStorage.getItem("token"))
                 .then(response => {
                     this.user = response.data
-                    console.log("found user" + response.data)
+                    console.log("found user" + this.user.id)
+                    this.getMyLoans()
+                    this.getMyReservations()
+                    console.log(this.myLoans)
                 })
                 .catch(error => {
                     console.log(error)
@@ -87,6 +87,7 @@ export default {
             axios.get('http://localhost:8080/user/loans/open/' + this.user.id)
                 .then(response => {
                     this.myLoans = response.data
+                    console.log(this.myLoans)
                 })
                 .catch(error => {
                     console.log(error)
@@ -96,6 +97,7 @@ export default {
             axios.get('http://localhost:8080/user/reservations/' + this.user.id)
                 .then(response => {
                     this.myReservations = response.data
+                    console.log(this.myReservations)
                 })
                 .catch(error => {
                     console.log(error)
