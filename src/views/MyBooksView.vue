@@ -50,12 +50,20 @@ export default {
             searchTermParent: "",
             myLoans: [],
             myReservations: [],
+            user: {
+                id: '',
+                emailAddress: '',
+                firstName: '',
+                lastName: '',
+                password: '',
+            }, 
         };
     },
     mounted() {
         this.authenticate()
-        this.getMyLoans()
-        this.getMyReservations()
+        this.getUser()
+        // this.getMyLoans()
+        // this.getMyReservations()
         console.log(this.myLoans)
     },
     methods: {
@@ -65,8 +73,18 @@ export default {
                 console.log('redirecting to login')
             }
         },
+        getUser(){
+            axios.get('http://localhost:8080/user/findbytoken/' + localStorage.getItem("token"))
+                .then(response => {
+                    this.user = response.data
+                    console.log("found user" + response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
         getMyLoans() {
-            axios.get('http://localhost:8080/user/3/loans/open')
+            axios.get('http://localhost:8080/user/loans/open/' + this.user.id)
                 .then(response => {
                     this.myLoans = response.data
                 })
@@ -75,7 +93,7 @@ export default {
                 })
         },
         getMyReservations() {
-            axios.get('http://localhost:8080/user/3/reservations')
+            axios.get('http://localhost:8080/user/reservations/' + this.user.id)
                 .then(response => {
                     this.myReservations = response.data
                 })
