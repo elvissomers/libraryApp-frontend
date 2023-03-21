@@ -13,7 +13,8 @@
                         <li v-if="store.authenticated"><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
                         <li v-if="store.authenticated"><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
                         <li v-if="store.authenticated && store.admin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
-                        <!-- <li>Auth: {{ store.authenticated }}</li>                  -->
+                        <li>Auth: {{ store.authenticated }}</li>    
+                        <li>Ad: {{ store.admin }}</li>             
                     </ul>
                     <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
 

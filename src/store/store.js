@@ -25,7 +25,7 @@ export const store = reactive({
         // Redirect to login when not authenticated
         if (localStorage.getItem('token') == null) {
             this.clearAuthentication()
-            console.log('redirecting to login')
+            console.log('Authenticate: redirecting to login')
             router.push('/login');
         }
 
@@ -34,9 +34,12 @@ export const store = reactive({
     authenticateAdmin(router) {
         if (localStorage.getItem('admin') != 'true') {
             alert("You need admin rights to view the Admin panel")
+            this.clearAdmin()
+            console.log('AuthenticateAdmin: redirecting to home')
             router.push('/');
-            console.log('redirecting to home')
         }
+
+        this.setAdmin
     }
 
 })
