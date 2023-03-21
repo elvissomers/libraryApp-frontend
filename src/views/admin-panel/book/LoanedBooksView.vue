@@ -9,6 +9,7 @@
 // @ is an alias to /src
 import SideBar from '@/components/reusable-components/SideBar.vue';
 import LoanTable from '@/components/admin-panel/loan-overview/LoanTable.vue';
+import { store } from '@/store/store'
 
 export default {
   name: 'ReservationsView',
@@ -16,17 +17,14 @@ export default {
     SideBar,
     LoanTable,
   },
-
   data() {
     return {
-
-    };
+      store
+    }
   },
   mounted() {
-
-  },
-  methods: {
-
+    this.store.authenticate(this.$router)
+    this.store.authenticateAdmin(this.$router)
   },
 }
 </script>

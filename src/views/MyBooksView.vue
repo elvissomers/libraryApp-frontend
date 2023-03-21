@@ -37,6 +37,7 @@
 import MyBookCard from '@/components/my-book-page/MyBookCard.vue';
 import ReservationCard from '@/components/my-book-page/ReservationCard.vue';
 import axios from 'axios';
+import { store } from '@/store/store'
 
 export default {
     name: 'CatalogueView',
@@ -50,21 +51,18 @@ export default {
             searchTermParent: "",
             myLoans: [],
             myReservations: [],
-        };
+            store,
+        }
     },
     mounted() {
-        this.authenticate()
+        console.log("MyBooksView - authenticated: " + this.store.authenticated)
+        this.store.authenticate(this.$router)
+        // this.authenticate()
         this.getMyLoans()
         this.getMyReservations()
         console.log(this.myLoans)
     },
     methods: {
-        authenticate() {
-            if (localStorage.getItem('token') == null ) {
-                this.$router.push('login');
-                console.log('redirecting to login')
-            }
-        },
         getMyLoans() {
             axios.get('http://localhost:8080/user/2/loans/open')
                 .then(response => {

@@ -1,6 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
-// import AdminView from '../views/admin-panel/AdminView.vue'
 import EditBooksView from '../views/admin-panel/book/EditBooksView.vue'
 import RequestsView from '../views/admin-panel/RequestsView.vue'
 import EditUsersView from '../views/admin-panel/user/EditUsersView.vue'
@@ -25,16 +23,6 @@ import UpdateUserView from '../views/admin-panel/user/UpdateUserView.vue'
 import CreateLoanForUser from '../components/admin-panel/reservation-overview/CreateLoanForUser.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/admin',
-  //   name: 'admin',
-  //   component: AdminView
-  // },
   {
     path: '/admin/requests',
     name: 'requests',
