@@ -64,7 +64,7 @@ export default {
     };
   },
   mounted() {
-    this.store.authenticate(this.$router)
+    //this.store.authenticate(this.$router)
   },
 }
 </script>
