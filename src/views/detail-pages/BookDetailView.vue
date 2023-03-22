@@ -1,12 +1,6 @@
 <template>
-  <template v-if="localstorage.getItem('admin') == true">
-    <div v-if="true">
-      <BookDetailAdmin></BookDetailAdmin>
-    </div>
-    <div v-else>
-      <BookDetail></BookDetail>
-    </div>
-  </template>
+    <BookDetailAdmin></BookDetailAdmin>
+    <BookDetail></BookDetail>
   <div class="home my-20">
     <!-- If user is admin-->
     
@@ -19,22 +13,14 @@
   
 <script>
 import BookDetail from '@/components/details/BookDetail.vue';
-import { store } from '@/store/store';
 import BookDetailAdmin from '@/views/detail-pages/BookDetailAdminView.vue';
+
 
 export default {
   name: 'HomeView',
   components: {
     BookDetailAdmin,
     BookDetail
-  },
-  data() {
-    return {
-      store
-    };
-  },
-  mounted() {
-    this.store.authenticate(this.$router)
   },
 }
 </script>

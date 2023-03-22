@@ -29,7 +29,6 @@ export default {
     };
   },
   mounted() {
-    // this.books = getBooks();
     this.getBooks()
   },
   methods: {
