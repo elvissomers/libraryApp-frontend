@@ -9,23 +9,16 @@
                             src="https://www.workingtalent.nl/_nuxt/img/wt-logo-white.8cc9feb.svg" title="Logo"
                             alt="Logo"></router-link>
                     <!-- Nav Links -->
-                    <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                        <li><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
+                    <ul v-if="store.getters.isAuthenticated" class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+                        <li ><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
                         <li ><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
-                        <li ><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
-                        <li>Auth: {{ store.getters.isAuthenticated }}</li>
-                        <li>Ad: {{ store.getters.isAdmin }}</li>
+                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
 
-                        <!-- <li>Auth: {{ this.$store.getters.isAuthenticated }}</li>    
-                        <li>Ad: {{ this.$store.getters.isAdmin }}</li>              -->
                     </ul>
-                    <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
 
-                    <!-- <li v-if="store.authenticated"><router-link to="/" @click="logOut" class="flex items-center hover:text-gray-200">
-                            Log out
-                        </router-link></li>        -->
-                    <div class="flex-nowrap">
-                        <router-link to="/" @click="store.commit('logout', this.$router)" class="mx-2 align-middle hover:text-gray-200">
+                    <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
+                    <div v-if="store.getters.isAuthenticated" class="flex-nowrap">
+                        <router-link to="/" @click="store.commit('logout')" class="mx-2 align-middle hover:text-gray-200">
                             Log out
                         </router-link>
                         <!-- Sign In / Register removed: My Account-->
@@ -56,44 +49,15 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import store from '@/store'
 
 export default {
     name: 'NavBar',
     data() {
         return {
-            store
+            store,
         }
     },    
-    mounted() {
-    },
-    methods: {
-        logOut() {
-            // Clear token on backend, then frontend
-            // this.emptyToken()
-
-            // // new logout
-            // this.$store.commit('logout')
-
-            // this.$router.push('/login');
-        },
-        emptyToken() {
-            const config = {
-                headers: {
-                    'Authentication': localStorage.getItem('token')
-                }
-            }
-            axios.put('http://localhost:8080/user/logout', null, config)
-                .then(response => {
-                    console.log(1)
-                    console.log('Token deleted:', response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                    console.log(2)
-                })
-        },
-    }
 }
 </script>
