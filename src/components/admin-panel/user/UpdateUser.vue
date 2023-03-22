@@ -54,9 +54,8 @@ export default {
         this.user.firstName = response.data.firstName;
         this.user.lastName = response.data.lastName;
         this.user.emailAddress = response.data.emailAddress;
-        this.user.password = response.data.password;
-        this.user.admin = 0
-        this.user.archived = 0
+        this.user.admin = response.data.admin;
+        this.user.archived = response.data.archived;
         console.log("created() function was run with some success")
       })
       .catch(error => {
@@ -71,6 +70,7 @@ export default {
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")
+          this.$router.push('/admin/edit-users')
         })
         .catch(error => {
           console.log("error error error")
