@@ -2,8 +2,9 @@
     <div class="flex flex-col w-full mx-8 ">
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
+            <div></div>
             <div class="p-4 text-center rounded-md">All Reservations</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event)" @goBack="getStartState()"
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event, 'date', 'asc')" @goBack="searchReservations(0, '', 'date', 'asc')"
                 class="m-2">
             </SearchBar>
         </div>
@@ -18,7 +19,7 @@
 
 
         <div class="flex flex-col flex-wrap divide-y-2">
-            <ReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">
+            <ReservationRow v-for="reservation in filteredReservations" :key="reservation.id" v-bind:reservation="reservation">
             </ReservationRow>
         </div>
 
@@ -48,6 +49,7 @@ export default {
     data() {
         return {
             reservations: [],
+            filteredReservations:  [],
             placeholder: "Naam of Titel",
             searchTerm: '',
             sortAscending: true,
@@ -77,6 +79,12 @@ export default {
                             this.reservations = response.data;
                             this.searchTerm = searchTerm;
                             this.currentPage = currentPageNumber;
+                            let length = this.reservations.length;
+                            for (var i = 0; i < length; i++){
+                                if (this.reservations[i].userFirstName != '[Archived]'){
+                                    this.filteredReservations.push(this.reservations[i])
+                                }
+                            }
                         }
                     })
                     .catch(error => {

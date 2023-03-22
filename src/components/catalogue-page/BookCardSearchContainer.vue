@@ -32,8 +32,7 @@ export default {
 
     watch: {
         searchTerm: function () {
-            this.currentPage = 0
-            this.searchBooks()
+            this.searchBooks(0)
         }
     },
 
@@ -55,7 +54,6 @@ export default {
     methods: {
 
         searchBooks(pageNumber) {
-
             axios.get('http://localhost:8080/book/pageable/search/' + this.searchTerm + '/title/asc/' + pageNumber + '/16')
                 .then(response => {
                     if (response.data.length > 0) {

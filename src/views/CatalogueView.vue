@@ -1,5 +1,5 @@
 <template>
-  <div class="Catalogue">
+  <div class="Catalogue my-20">
     <div class="flex flex-row justify-center">
       <SearchBar @doSearch="startSearch($event)" @goBack="goBackToCatalogue()" />
     </div>
@@ -15,6 +15,7 @@
 import SearchBar from '@/components/reusable-components/SearchBar.vue'
 import BookCardStandardContainer from '@/components/catalogue-page/BookCardStandardContainer.vue';
 import BookCardSearchContainer from '@/components/catalogue-page/BookCardSearchContainer.vue';
+import { store } from '@/store/store'
 
 export default {
   name: 'CatalogueView',
@@ -26,12 +27,14 @@ export default {
   data() {
     return {
       search: false,
-      searchTermParent: ""
+      searchTermParent: "",
+      store
     };
   },
-
-  methods: {
-
+  mounted() {
+    this.store.authenticate(this.$router)
+  },
+  methods:{
     startSearch(searchT) {
       this.searchTermParent = searchT
       this.search = true

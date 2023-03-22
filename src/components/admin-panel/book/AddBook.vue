@@ -46,11 +46,13 @@ export default {
       axios.post('http://localhost:8080/book/create', this.book)
         .then(response => {
           console.log('Book created:', response.data);
+          alert("Book is aangemaakt")
+          this.$router.push('edit-books');
         })
         .catch(error => {
-          console.log(error);
+            alert("Er is iets fout gegaan")
+            console.log(error);
         })
-        .then(() => this.$router.push('edit-books'));
     },
   },
 };
@@ -80,7 +82,7 @@ export default {
         width: 400px;
         height: 450px;
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px transparent rgba(255,255,255,0.5);
         border-radius: 20px;
         backdrop-filter: blur(15px);
         display: flex;

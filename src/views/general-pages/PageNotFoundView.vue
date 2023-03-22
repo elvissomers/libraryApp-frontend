@@ -1,6 +1,6 @@
 <template>
     <!-- removed: dark:bg-gray-900  -->
-    <section class="bg-white">
+    <section class="bg-gray-100 my-20">
         <div class="container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12">
             <div class="wf-ull lg:w-1/2">
                 <!-- removed: dark:text-blue-400-->
