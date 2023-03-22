@@ -1,21 +1,21 @@
 <template>
-  <div class="AddCopy">
+  <div class="UpdateUser">
     <SideBar></SideBar>
-    <AddCopy class="my-8"></AddCopy>
+    <UpdateUser></UpdateUser>
   </div>
 </template>
   
 <script>
 // @ is an alias to /src
-import AddCopy from '@/components/admin-panel/book/AddCopy.vue';
-import SideBar from '@/components/reusable-components/SideBar.vue';
+import UpdateUser from '@/components/admin-panel/user/UpdateUser.vue'
+import SideBar from '@/components/reusable-components/SideBar.vue'
 import { store } from '@/store/store'
 
 export default {
   name: 'AddUserView',
   components: {
     SideBar,
-    AddCopy
+    UpdateUser
   },
   data() {
     return {
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style>
-.AddCopy {
+.UpdateUser {
   display: flex;
   flex-wrap: nowrap;
 

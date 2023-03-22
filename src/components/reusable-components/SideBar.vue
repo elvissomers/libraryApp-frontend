@@ -6,7 +6,7 @@
 
     <div class="flex">
         <!-- aside -->
-        <aside class=" flex w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2" style="height: 100vh"
+        <aside class=" flex w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2 pt-16" style="height: 100vh"
         x-show="asideOpen">
             <router-link to="/admin/edit-users" class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:light-green">
                 <span class="material-symbols-outlined">group</span>

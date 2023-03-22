@@ -53,12 +53,8 @@
                 </div> 
                 <div class="flex flex-col w-full space-y-10 sm:w-3/5 sm:flex-row sm:space-y-0">
                     <div class="flex flex-col w-1/2 space-y-2 text-white">
-                        <div class="inline-block">
-                            <a href="/" aria-current="page" class="block w-full nuxt-link-exact-active nuxt-link-active">
-                                <span class="text-white">Home</span>
-                            </a>
-                        </div>
-                        <div class="inline-block">
+                        
+                        <!-- <div class="inline-block">
                             <a href="/over-wt" class="block w-full">
                                 <span class="text-white">Over WT</span>
                             </a>
@@ -72,23 +68,16 @@
                             <a href="/vacatures" class="block w-full">
                                 <span class="text-white">Vacatures</span>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="flex flex-col w-1/2 space-y-2 text-white">
                         <div class="inline-block">
-                            <a href="/ik-ben-talent" class="block w-full">
-                                <span class="text-white">Ik ben talent</span>
+                            <a href="/" aria-current="page" class="block w-full nuxt-link-exact-active nuxt-link-active">
+                                <span class="text-white">Home</span>
                             </a>
                         </div>
                         <div class="inline-block">
-                            <a href="/opdrachtgevers" class="block w-full">
-                                <span class="text-white">Opdrachtgevers</span>
-                            </a>
-                        </div>
-                        <div class="inline-block">
-                            <a href="/contact" class="block w-full">
-                                <span class="text-white">Contact</span>
-                            </a>
+                            <router-link to="/contact" class="hover:text-gray-200">Contact</router-link>
                         </div>
                     </div>
                 </div>
