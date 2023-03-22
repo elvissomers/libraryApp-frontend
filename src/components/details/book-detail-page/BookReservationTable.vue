@@ -3,6 +3,7 @@
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
             <div class="p-4 text-center rounded-md">Alle reserveringen van dit boek</div>
+            <div class="p-4 text-center rounded-md">Aantal Beschikbaar: {{ numberAvailable }}</div>
         </div>
 
 
@@ -13,7 +14,7 @@
         </div>
 
 
-        <div class="flex flex-col flex-wrap divide-y-2">
+        <div class="flex flex-col divide-y-2 h-96 overflow-y-auto">
             <BookReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">
             </BookReservationRow>
         </div>
@@ -39,15 +40,17 @@ export default {
     },
     data() {
         return {
-            reservations: []
+            reservations: [],
+            numberAvailable: -1
         };
     },
     mounted() {
         this.searchReservations();
+        this.countCopies();
     },
     methods: {
 
-        searchReservations(){
+        searchReservations() {
             axios.get("http://localhost:8080/book/reservations/" + this.$route.params.id)
                 .then(response => {
                     this.reservations = response.data;
@@ -55,8 +58,21 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
-            }
-        
+        },
+
+        countCopies() {
+            axios.get('http://localhost:8080/book/copies/available/' + this.$route.params.id)
+                .then(response => {
+                    if (response.data.length > 0) {
+                        this.numberAvailable = response.data.length;
+                        console.log(response.data.length)
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
 
         // searchReservations(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
         //     const directionOfSort = sortAscending ? "asc" : "desc";
