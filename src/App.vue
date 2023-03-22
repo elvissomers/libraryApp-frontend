@@ -50,6 +50,7 @@ nav a.router-link-exact-active {
 // @ is an alias to /src
 import NavBar from '@/components/reusable-components/NavBar.vue'
 import FooterComponent from './components/reusable-components/FooterComponent.vue';
+import { store } from '@/store/store'
 
 export default {
   name: 'TemplateView',
@@ -57,31 +58,13 @@ export default {
     NavBar,
     FooterComponent,
   },
-  // data() {
-  //   return {
-  //     authenticated: false,
-  //     admin: false
-  //   };
-  // },
-  // mounted() {
-  //   this.authenticate()
-  // },
-
-  // methods: {
-  //   authenticate() {
-  //     if (localStorage.getItem('admin') == true) {
-  //       this.admin = true
-  //     }
-      
-  //     if (localStorage.getItem('token') == null) {
-        
-  //       this.$router.push('login');
-  //       console.log('redirecting to login')
-  //     }
-  //     this.authenticated = true
-
-      
-  //   }
-  // }
+  data() {
+    return {
+      store
+    };
+  },
+  mounted() {
+    //this.store.authenticate(this.$router)
+  },
 }
 </script>

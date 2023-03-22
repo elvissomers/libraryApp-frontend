@@ -1,37 +1,41 @@
 <template>
-    <div class="home my-20">
-
-        <!-- <BookDetailAdmin></BookDetailAdmin> -->
-        <!-- // TODO : use either bookdetail or BookDetailAdmin
-        // Depending on token! -->
-        <BookDetail></BookDetail>
-  
-  
+  <template v-if="localstorage.getItem('admin') == true">
+    <div v-if="true">
+      <BookDetailAdmin></BookDetailAdmin>
+    </div>
+    <div v-else>
+      <BookDetail></BookDetail>
     </div>
   </template>
+  <div class="home my-20">
+    <!-- If user is admin-->
+    
+    <!-- else -->
+    
+
+
+  </div>
+</template>
   
-  <script>
+<script>
 import BookDetail from '@/components/details/BookDetail.vue';
-// import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
-  
-  export default {
-    name: 'HomeView',
-    components: {
-    // BookDetailAdmin,
+import { store } from '@/store/store';
+import BookDetailAdmin from '@/views/detail-pages/BookDetailAdminView.vue';
+
+export default {
+  name: 'HomeView',
+  components: {
+    BookDetailAdmin,
     BookDetail
   },
-  mounted(){
-        this.authenticateAdmin()
-    },
-    methods: {
-        authenticateAdmin() {
-        if (localStorage.getItem('admin') == 'true') {
-          // this.$router.push('/admin/edit-users')
-            this.$router.push('/book/admin/' + this.$route.params.id);
-            console.log('redirecting to login')
-        }
-    }
-  }
-  }
-  </script>
+  data() {
+    return {
+      store
+    };
+  },
+  mounted() {
+    this.store.authenticate(this.$router)
+  },
+}
+</script>
   
