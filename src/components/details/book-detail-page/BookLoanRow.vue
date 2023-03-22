@@ -24,7 +24,7 @@
     data(){
       return{
         endLoan:{
-          endDate : new Date().getDate()
+          endDate : new Date()
         }
       }
     },
