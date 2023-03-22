@@ -15,19 +15,7 @@ export default {
   components: {
     SideBar,
     LoanTable,
-  },
-
-  data() {
-    return {
-
-    };
-  },
-  mounted() {
-
-  },
-  methods: {
-
-  },
+  }
 }
 </script>
 <style>

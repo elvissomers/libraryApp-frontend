@@ -52,36 +52,10 @@ import NavBar from '@/components/reusable-components/NavBar.vue'
 import FooterComponent from './components/reusable-components/FooterComponent.vue';
 
 export default {
-  name: 'TemplateView',
-  components: {
+  name: 'App',
+    components: {
     NavBar,
     FooterComponent,
-  },
-  // data() {
-  //   return {
-  //     authenticated: false,
-  //     admin: false
-  //   };
-  // },
-  // mounted() {
-  //   this.authenticate()
-  // },
-
-  // methods: {
-  //   authenticate() {
-  //     if (localStorage.getItem('admin') == true) {
-  //       this.admin = true
-  //     }
-      
-  //     if (localStorage.getItem('token') == null) {
-        
-  //       this.$router.push('login');
-  //       console.log('redirecting to login')
-  //     }
-  //     this.authenticated = true
-
-      
-  //   }
-  // }
+  }
 }
 </script>

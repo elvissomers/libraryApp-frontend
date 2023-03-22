@@ -1,9 +1,8 @@
 <template>
-
-  <div class="home">
-
+  <div class="home my-20">
 
     <BookDetailAdmin></BookDetailAdmin>
+
     <div class="w-4/5 flex flex-col mx-auto">
     <BookCopyTable class="my-4 border-4"></BookCopyTable>
     <!-- <BookLoanTable></BookLoanTable> -->
@@ -22,34 +21,13 @@ import BookReservationTable from '@/components/details/book-detail-page/BookRese
 import BookCopyTable from '@/components/details/book-detail-page/BookCopyTable.vue';
 
 export default {
-  name: 'HomeView',
-
-
+  name: 'BookDetailAdminView',
   components: {
     BookCopyTable,
     BookReservationTable,
     // BookLoanTable,
     BookDetailAdmin,
   },
-
-  data() {
-    return {
-    }
-  },
-
-  mounted() {
-    this.authenticateAdmin()
-  },
-  methods: {
-    authenticateAdmin() {
-      if (localStorage.getItem('token') == null || localStorage.getItem('admin') != 'true') {
-        this.$router.push('/login')
-        // this.$router.push('/book/user' + this.$route.params.id);
-        console.log('redirecting to login')
-      }
-    }
-
-  }
 }
 </script>
   

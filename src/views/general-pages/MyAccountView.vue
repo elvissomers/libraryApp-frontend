@@ -11,10 +11,10 @@ import View_Person from '@/components/details/ViewPerson.vue';
 import Edit_Person from '@/components/EditPerson.vue';
 
 export default {
-  name: 'ViewPerson',
-  components: {
-    View_Person,
-    Edit_Person
+    name: 'ViewPerson',
+    components: {
+        View_Person,
+        Edit_Person
     }
 }
 </script>
