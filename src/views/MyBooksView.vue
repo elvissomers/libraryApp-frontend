@@ -43,7 +43,7 @@
 import MyBookCard from '@/components/my-book-page/MyBookCard.vue';
 import ReservationCard from '@/components/my-book-page/ReservationCard.vue';
 import axios from 'axios';
-import MyHistoryBookCardVue from '@/components/my-book-page/MyHistoryBookCard.vue';
+import MyHistoryBookCard from '@/components/my-book-page/MyHistoryBookCard.vue';
 
 export default {
     name: 'CatalogueView',
