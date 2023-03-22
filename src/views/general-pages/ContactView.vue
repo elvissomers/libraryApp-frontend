@@ -41,21 +41,12 @@
 
 <script>
 import ContactForm from '@/components/ContactForm.vue';
-import { store } from '@/store/store'
 
 export default {
   name: 'ContactView',
   components: {
     ContactForm
-},
-  data() {
-    return {
-      store
-    };
-  },
-  mounted() {
-    this.store.authenticate(this.$router)
-  },
+  }
 }
 
 

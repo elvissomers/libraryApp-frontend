@@ -44,7 +44,7 @@ import MyBookCard from '@/components/my-book-page/MyBookCard.vue';
 import ReservationCard from '@/components/my-book-page/ReservationCard.vue';
 import axios from 'axios';
 import MyHistoryBookCard from '@/components/my-book-page/MyHistoryBookCard.vue';
-import { store } from '@/store/store'
+
 
 
 export default {
@@ -71,16 +71,9 @@ export default {
         };
     },
     mounted() {
-        this.authenticate()
         this.getUser()
     },
     methods: {
-        authenticate() {
-            if (localStorage.getItem('token') == null ) {
-                this.$router.push('login');
-                console.log('redirecting to login')
-            }
-        },
         getUser(){
             axios.get('http://localhost:8080/user/getbytoken/' + localStorage.getItem("token"))
                 .then(response => {
@@ -95,16 +88,10 @@ export default {
                     console.log(error)
                 })
         },
-            store,
-        }
     },
     mounted() {
-        console.log("MyBooksView - authenticated: " + this.store.authenticated)
-        this.store.authenticate(this.$router)
-        // this.authenticate()
         this.getMyLoans()
         this.getMyReservations()
-        console.log(this.myLoans)
     },
     methods: {
         getMyLoans() {
