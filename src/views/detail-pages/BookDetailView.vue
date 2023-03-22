@@ -1,20 +1,13 @@
 <template>
-    <BookDetailAdmin></BookDetailAdmin>
-    <BookDetail></BookDetail>
-  <div class="home my-20">
-    <!-- If user is admin-->
-    
-    <!-- else -->
-    
+    <BookDetailAdmin v-if="store.getters.isAdmin"></BookDetailAdmin>
+    <BookDetail v-if="!store.getters.isAdmin"></BookDetail>
 
-
-  </div>
 </template>
   
 <script>
 import BookDetail from '@/components/details/BookDetail.vue';
 import BookDetailAdmin from '@/views/detail-pages/BookDetailAdminView.vue';
-
+import store from '@/store'
 
 export default {
   name: 'HomeView',
@@ -22,6 +15,11 @@ export default {
     BookDetailAdmin,
     BookDetail
   },
+  data() {
+    return {
+      store
+    }
+  }
 }
 </script>
   

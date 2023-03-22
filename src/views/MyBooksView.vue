@@ -72,6 +72,8 @@ export default {
     },
     mounted() {
         this.getUser()
+        this.getMyLoans()
+        this.getMyReservations()
     },
     methods: {
         getUser(){
@@ -88,12 +90,6 @@ export default {
                     console.log(error)
                 })
         },
-    },
-    mounted() {
-        this.getMyLoans()
-        this.getMyReservations()
-    },
-    methods: {
         getMyLoans() {
             axios.get('http://localhost:8080/user/loans/open/' + this.user.id)
                 .then(response => {
