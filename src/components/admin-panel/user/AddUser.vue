@@ -50,11 +50,12 @@ export default {
     createUser() {
       axios.post('http://localhost:8080/user/create', this.user)
         .then(response => {
-            alert("User Created")
+            alert("Gebruiker succesvol toegevoegd")
             console.log('User created:', response.data);
         })
         .catch(error => {
           console.log(error);
+          alert("Gebruiker is niet toegevoegd. Let op: voor- en achternaam mogen geen cijfers of leestekens anders dan '-' bevatten.")
         })
         .then(() => this.$router.push('edit-users'));
     },

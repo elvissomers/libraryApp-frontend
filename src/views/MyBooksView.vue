@@ -13,6 +13,12 @@
             </ReservationCard>
             <p v-if="myReservations.length === 0" class="text-gray-500">Je hebt geen boeken gereserveerd</p>
         </div>
+        <h3 class="flex justify-center font-bold text-2xl mb-6">Mijn eerder geleende boeken:</h3>
+        <div class="flex flex-row flex-wrap justify-center">
+            <MyHistoryBookCard v-for="loan in myHistory" :key="loan.id" v-bind:loan="loan">
+            </MyHistoryBookCard>
+            <p v-if="myHistory.length === 0" class="text-gray-500">Je hebt geen boeken in je geschiedenis</p>
+        </div>
     </div>
 
 
@@ -37,12 +43,16 @@
 import MyBookCard from '@/components/my-book-page/MyBookCard.vue';
 import ReservationCard from '@/components/my-book-page/ReservationCard.vue';
 import axios from 'axios';
+import MyHistoryBookCard from '@/components/my-book-page/MyHistoryBookCard.vue';
+
+
 
 export default {
     name: 'CatalogueView',
     components: {
         MyBookCard,
-        ReservationCard
+        MyHistoryBookCard,
+        ReservationCard,
     },
     data() {
         return {
@@ -50,7 +60,34 @@ export default {
             searchTermParent: "",
             myLoans: [],
             myReservations: [],
-        }
+            myHistory: [],
+            user: {
+                id: '',
+                emailAddress: '',
+                firstName: '',
+                lastName: '',
+                password: '',
+            }, 
+        };
+    },
+    mounted() {
+        this.getUser()
+    },
+    methods: {
+        getUser(){
+            axios.get('http://localhost:8080/user/getbytoken/' + localStorage.getItem("token"))
+                .then(response => {
+                    this.user = response.data
+                    console.log("found user" + this.user.id)
+                    this.getMyLoans()
+                    this.getMyReservations()
+                    this.getMyHistory()
+                    console.log(this.myLoans)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
     },
     mounted() {
         this.getMyLoans()
@@ -58,18 +95,30 @@ export default {
     },
     methods: {
         getMyLoans() {
-            axios.get('http://localhost:8080/user/2/loans/open')
+            axios.get('http://localhost:8080/user/loans/open/' + this.user.id)
                 .then(response => {
                     this.myLoans = response.data
+                    console.log(this.myLoans)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getMyHistory(){
+            axios.get('http://localhost:8080/user/loans/' + this.user.id)
+                .then(response => {
+                    this.myHistory = response.data
+                    console.log(this.myHistory)
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
         getMyReservations() {
-            axios.get('http://localhost:8080/user/2/reservations')
+            axios.get('http://localhost:8080/user/reservations/' + this.user.id)
                 .then(response => {
                     this.myReservations = response.data
+                    console.log(this.myReservations)
                 })
                 .catch(error => {
                     console.log(error)
