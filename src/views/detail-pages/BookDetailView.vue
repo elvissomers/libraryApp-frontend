@@ -1,12 +1,6 @@
 <template>
-  <template v-if="localstorage.getItem('admin') == true">
-    <div v-if="true">
-      <BookDetailAdmin></BookDetailAdmin>
-    </div>
-    <div v-else>
-      <BookDetail></BookDetail>
-    </div>
-  </template>
+    <BookDetailAdmin></BookDetailAdmin>
+    <BookDetail></BookDetail>
   <div class="home my-20">
     <!-- If user is admin-->
     
