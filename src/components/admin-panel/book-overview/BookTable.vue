@@ -55,7 +55,8 @@ export default {
             sortAscending: true,
             currentPage: 0,
             propertyToSortBy: 'title',
-            pageableSize: 10
+            pageableSize: 10,
+            archived: false
         };
     },
     mounted() {
