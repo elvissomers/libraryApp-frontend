@@ -5,7 +5,8 @@ import router from '../router'
 export default createStore({
     state: {
         admin: localStorage.getItem('admin'),
-        token: localStorage.getItem('token') || null
+        token: localStorage.getItem('token') || null,
+        userId: localStorage.getItem('userId')
     },
     getters: {
         isAdmin(state) {
@@ -17,13 +18,14 @@ export default createStore({
         }
     },
     mutations: {
-        login(state, user){
+        login(state, user) {
             // Login user 
             axios.post('http://localhost:8080/api/user/login', user)
                 .then(response => {
                     // Set token & admin
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('admin', response.data.admin);
+                    localStorage.setItem('userId', response.data.userId);
 
                     // Set state
                     if (localStorage.getItem('admin') == 'true') {
@@ -32,6 +34,7 @@ export default createStore({
                         state.admin = false
                     }
                     state.token = localStorage.getItem('token')
+                    state.userId = localStorage.getItem('userId')
 
                     router.push('/')
                 })
@@ -59,11 +62,15 @@ export default createStore({
             // Delete token & admin in localStorage, then state
             localStorage.removeItem('admin')
             localStorage.removeItem('token')
+            localStorage.removeItem('userId')
             state.admin = null
             state.token = null
+            state.userId = null
 
             router.push('/login')
         }
+
+
     }
 })
 

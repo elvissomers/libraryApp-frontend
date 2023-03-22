@@ -21,8 +21,9 @@
                         <router-link to="/" @click="store.commit('logout')" class="mx-2 align-middle hover:text-gray-200">
                             Log out
                         </router-link>
+                        <!-- <p>{{ store.state.userId }}</p> -->
                         <!-- Sign In / Register removed: My Account-->
-                        <router-link to="/user/2" class=" hover:text-gray-200">
+                        <router-link :to="{name: 'user-detail', params:{id: store.state.userId }}" class=" hover:text-gray-200">
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -51,13 +52,17 @@
 <script>
 // import axios from 'axios';
 import store from '@/store'
+// import axios from 'axios'
 
 export default {
     name: 'NavBar',
     data() {
         return {
             store,
+            user: {
+                id: 0
+            }
         }
-    },    
+    }
 }
 </script>
