@@ -1,72 +1,143 @@
 <template>
-    <div class="flex flex-col w-fit bg-slate-300 p-8 rounded-3xl">
-
-        <div class="w-full">
-        <button v-on:click="this.$emit('closeCopyPopup')" type="button" class="float-right">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
-            <div class="bg-white rounded-lg shadow-xl p-8">
-            <h3 class="text-lg font-bold mb-4">Book Popup</h3>
-            <p>This is where you would add the form to book something.</p>
-            <button class="mt-4 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded" @click="$emit('close')">Close</button>
-            </div>
+    <div class="popup">
+      <div class="popup-inner">
+        <div class="popup-header">
+          <h2>Books</h2>
+          <button class="close-btn" @click="$emit('close')">Sluit</button>
         </div>
+        <div class="popup-body">
+          <ul>
+            <li class='bookClass' v-for="book in books" :key="book.id">
+              {{ book.title }}
+            <button class="bookClass" @click="showCopy(book)">Bekijk Exemplaren</button>
+            <CopyPopup v-if="selectedBook && showCopyPopup && selectedBook.id === book.id" v-bind:bookId="book.id" 
+            @createReservationFromNumber="createLoan(book.id, $event)">
+            </CopyPopup>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
     </div>
-
-        <div class="p-4 text-center rounded-md">Alle Exemplaren</div>
-        <div class="content-center flex flex-row justify-between">
-        </div>
-
-
-        <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortReservations('number', sortAscending)" class="w-36 font-extrabold text-left ml-8">Exemplaar nummer</button>
-        </div>
-
-
-        <div class="flex flex-col h-80 overflow-y-auto">
-            <BookRowPopup v-for="book in books" :key="book.isbn" v-bind:book="book"></BookRowPopup>
-        </div>
-
-    </div>
-</template>
-
-<script>
-// @ is an alias to /src
-import axios from 'axios';
-import BookRowPopup from '@/components/details/book-detail-page/BooksRowPopup.vue';
-
-export default {
-    name: 'BookPopup',
-    components: {
-        BookRowPopup,
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  import CopyPopup from './CopyPopup.vue';
+  
+  export default {
+    components:{
+        CopyPopup
     },
-
     data() {
-        return {
-            books: [],
-
-        };
+      return {
+        books: [],
+        selectedBook: null,
+        showCopyPopup: false
+      };
     },
+
     mounted() {
-        this.searchBooks();
+      this.searchBooks();
     },
-    methods: {
 
+    methods: {
         searchBooks() {
             axios.get('http://localhost:8080/book/get')
-            .then(response => {
+            .then((response) => {
                 if (response.data.length > 0) {
-                    this.books = response.data;
+                this.books = response.data;
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
             });
         },
+
+        showCopy(book) {
+            this.selectedBook = book;
+            if(this.showCopyPopup){
+                this.showCopyPopup = false
+            }
+            else{
+                this.showCopyPopup = true;
+            }
+        },
+        createLoan(bookId, copyNumber) {
+            let saveLoanDto = {}
+            saveLoanDto.copyNumber = copyNumber
+            saveLoanDto.startDate = new Date()
+            saveLoanDto.bookId = bookId
+            saveLoanDto.userId = this.$route.params.id
+            console.log(saveLoanDto)
+
+            axios.post('http://localhost:8080/loan/create', saveLoanDto)
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+                alert("Lening is aangemaakt!")
+                window.location.reload()
+        }
     },
-}
-</script>
+  };
+  </script>
+  
+  <style>
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-inner {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .popup-body {
+    margin-top: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .bookClass {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  </style>
+  
+  
