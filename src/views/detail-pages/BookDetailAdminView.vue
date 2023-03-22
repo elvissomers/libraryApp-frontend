@@ -1,14 +1,13 @@
 <template>
-
-  <div class="home">
-
+  <div class="home my-20">
 
     <BookDetailAdmin></BookDetailAdmin>
+
     <div class="w-4/5 flex flex-col mx-auto">
-    <BookCopyTable></BookCopyTable>
-    <BookLoanTable></BookLoanTable>
-    <BookReservationTable></BookReservationTable>
-  </div>
+      <BookCopyTable></BookCopyTable>
+      <BookLoanTable></BookLoanTable>
+      <BookReservationTable></BookReservationTable>
+    </div>
 
   </div>
 </template>
@@ -20,36 +19,24 @@ import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
 import BookLoanTable from '@/components/details/book-detail-page/BookLoanTable.vue'
 import BookReservationTable from '@/components/details/book-detail-page/BookReservationTable.vue';
 import BookCopyTable from '@/components/details/book-detail-page/BookCopyTable.vue';
+import { store } from '@/store/store'
 
 export default {
-  name: 'HomeView',
-
-
+  name: 'BookDetailAdminView',
   components: {
     BookCopyTable,
     BookReservationTable,
     BookLoanTable,
     BookDetailAdmin,
   },
-
   data() {
     return {
-    }
+      store
+    };
   },
-
   mounted() {
-    this.authenticateAdmin()
+    this.store.authenticate(this.$router)
   },
-  methods: {
-    authenticateAdmin() {
-      if (localStorage.getItem('token') == null || localStorage.getItem('admin') != 'true') {
-        this.$router.push('/login')
-        // this.$router.push('/book/user' + this.$route.params.id);
-        console.log('redirecting to login')
-      }
-    }
-
-  }
 }
 </script>
   
