@@ -72,8 +72,6 @@ export default {
     },
     mounted() {
         this.getUser()
-        this.getMyLoans()
-        this.getMyReservations()
     },
     methods: {
         getUser(){
