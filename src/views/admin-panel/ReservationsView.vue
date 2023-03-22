@@ -9,23 +9,12 @@
 // @ is an alias to /src
 import SideBar from '@/components/reusable-components/SideBar.vue';
 import ReservationsTable from '@/components/admin-panel/reservation-overview/ReservationsTable.vue';
-import { store } from '@/store/store'
-
 
 export default {
   name: 'ReservationsView',
   components: {
     SideBar,
     ReservationsTable,
-  },
-  data() {
-    return {
-      store
-    }
-  },
-  mounted() {
-    this.store.authenticate(this.$router)
-    this.store.authenticateAdmin(this.$router)
   },
 }
 </script>

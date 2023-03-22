@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from '@/store'
 import EditBooksView from '../views/admin-panel/book/EditBooksView.vue'
 import RequestsView from '../views/admin-panel/RequestsView.vue'
 import EditUsersView from '../views/admin-panel/user/EditUsersView.vue'
@@ -31,22 +32,26 @@ const routes = [
   {
     path: '/admin/edit-users',
     name: 'edit-users',
-    component: EditUsersView
+    component: EditUsersView,
+    meta: { requiresAdmin: true }
   },
   {
     path: '/admin/edit-books',
     name: 'edit-books',
-    component: EditBooksView
+    component: EditBooksView,
+    // meta: { requiresAdmin: true }
   },
   {
     path: '/admin/add-user',
     name: 'add-user',
-    component: AddUserView
+    component: AddUserView,
+    // meta: { requiresAdmin: true }
   },
   {
     path: '/admin/add-book',
     name: 'add-book',
-    component: AddBookView
+    component: AddBookView,
+    // meta: { requiresAdmin: true }
   },
   {
     path: '/admin/add-copy',
@@ -141,4 +146,38 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  // Checks if any of the matched routes for the current navigation contain 
+  // a meta field with a requiresAdmin property set to true
+  const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
+  // const isAuthenticated = !!localStorage.getItem('token')
+  const isAuthenticated = store.getters.isAuthenticated
+  const isAdmin = store.getters.isAdmin
+
+  console.log("!auth: " + !isAuthenticated)
+  console.log("!to name" + !to.name)
+
+  if (to.name === 'login' && !isAuthenticated) {
+    next({ name: 'login' })
+    console.log("index redirect to login")
+  } else if (requiresAdmin && !isAdmin) {
+    alert("You need admin rights to access this page")
+    next({ name: '/' })
+  } else {
+    next()
+    console.log("index allowing page")
+  }
+
+
+})
+
+
+// const isAdmin = (to, from, next) => {
+//   const isAdmin = localStorage.getItem('admin');
+//   if (isAdmin === 'true') {
+//     next();
+//   } else {
+//     next('/');
+//   }
+// };
 export default router

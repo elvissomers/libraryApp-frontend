@@ -12,21 +12,12 @@
   
 <script>
 import BookDetail from '@/components/details/BookDetail.vue';
-import { store } from '@/store/store'
 
 export default {
   name: 'HomeView',
   components: {
     // BookDetailAdmin,
     BookDetail
-  },
-  data() {
-    return {
-      store
-    };
-  },
-  mounted() {
-    this.store.authenticate(this.$router)
   },
 }
 </script>

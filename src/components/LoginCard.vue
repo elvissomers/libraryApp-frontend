@@ -34,7 +34,7 @@
 
 <script>
 import axios from 'axios';
-import { store } from '@/store/store'
+import store from '@/store'
 
 export default {
     name: 'LoginCard',
@@ -44,14 +44,12 @@ export default {
                 username: '',
                 password: '',
             },
-            store,
+            store
         };
     },
     mounted() {
         // Send to home if user is already logged in
-        if (store.authenticated) {
-            this.$router.push('/');
-        }
+
     },
     methods: {
         loginUser() {
@@ -61,18 +59,22 @@ export default {
 
                     // check if response data is null
                     if (response.data) {
+
+
+
                         console.log('User logged in:', response.data);
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('admin', response.data.admin);
                         console.log("tokens set")
 
                         // Save authentication & admin state
-                        store.setAuthentication()
+                        // store.setAuthentication()
+
 
                         console.log("response: " + response.data.admin)
                         if (response.data.admin) {
                             console.log("setting admin")
-                            store.setAdmin()
+                            // store.setAdmin()
                         }
 
                         this.$router.push('/');
