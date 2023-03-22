@@ -81,6 +81,13 @@
           userId: '',
           bookId: '',
         },
+        user: {
+                id: '',
+                emailAddress: '',
+                firstName: '',
+                lastName: '',
+                password: '',
+            }, 
 
 
         copy: {
@@ -94,6 +101,7 @@
     },
     mounted() {
       this.getBook()
+      this.getUser()
     },
     methods: {
     // Get methods from here
@@ -101,6 +109,17 @@
         let currentDate = new Date().toJSON().slice(0, 10);
         // console.log(currentDate); // "2023-03-13"
         return currentDate
+    },
+
+    getUser(){
+      axios.get('http://localhost:8080/user/getbytoken/' + localStorage.getItem("token"))
+                .then(response => {
+                    this.user = response.data
+                    console.log("found user" + this.user.id)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
     },
 
     getBook() {
@@ -118,7 +137,7 @@
       createReservation() {
       this.reservation.date = this.getCurrentDatey()
       // TODO: this has to be the ID of the current user (retrieved by token!)
-      this.reservation.userId = 3
+      this.reservation.userId = this.user.id
       this.reservation.bookId = this.book.id
       console.log(this.reservation)
 
