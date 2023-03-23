@@ -131,7 +131,6 @@
 
       createReservation() {
       this.reservation.date = this.getCurrentDatey()
-      // TODO: this has to be the ID of the current user (retrieved by token!)
       this.reservation.userId = this.user.id
       this.reservation.bookId = this.book.id
       console.log(this.reservation)
