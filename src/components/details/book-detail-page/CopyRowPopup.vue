@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-row w-fit justify-between hover:bg-slate-300">
+    <div class="flex flex-row w-fit justify-between hover:bg-blue-200">
         <div class="flex flex-row py-4">
-            <div class="w-36 ml-8">{{ copy.number }}</div>
+            <div class="w-36 ml-8 text-center">{{ copy.number }}</div>
         </div>
 
 
