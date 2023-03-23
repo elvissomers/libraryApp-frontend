@@ -4,7 +4,7 @@
         <div class="bg-white rounded-lg shadow-xl pb-8">
             <div class="absolute right-12 mt-4 flex flex-nowrap">
                 <div class="rounded mr-4">
-                    <button class="flex text-white bg-teal-500 border-0 py-2 px-3 focus:outline-none hover:bg-teal-600 rounded"
+                    <button v-if="store.getters.isAdmin" class="flex text-white bg-teal-500 border-0 py-2 px-3 focus:outline-none hover:bg-teal-600 rounded"
                     @click="showBookPopup = true">
                     + <span class="material-symbols-outlined"> menu_book</span></button>
                 </div>
@@ -57,8 +57,9 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import BookPopup from '@/components/details/book-detail-page/BooksPopup.vue'
+import axios from 'axios';
+import BookPopup from '@/components/details/book-detail-page/BooksPopup.vue'
+import store from '@/store'
 
     export default {
         components: {
@@ -69,6 +70,7 @@
         return {
             showBookPopup: false,
             user: [],
+            store
         };
     },
     mounted() {
