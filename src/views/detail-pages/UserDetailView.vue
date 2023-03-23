@@ -14,7 +14,7 @@ export default {
     name: 'UserDetailView',
     components: {
         UserDetail
-    }
+    },
 }
 </script>
   

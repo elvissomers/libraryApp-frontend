@@ -1,11 +1,17 @@
 <template>
-    <div class="flex flex-col w-full mx-8 ">
+    <div class="flex flex-col w-fit bg-slate-300 p-8 rounded-3xl">
 
-        <div class="content-center flex flex-row justify-between bg-slate-300">
-            <router-link :to="{ name: 'add-user' }">
-                <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Gebruiker Toevoegen</button>
-            </router-link>
-            <div class="p-4 text-center rounded-md">All Users</div>
+<div class="w-full">
+        <button v-on:click="this.$emit('closeUserPopup')" type="button" class="float-right">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+    </div>
+
+        <div class="p-4 text-center rounded-md">All Users</div>
+        <div class="content-center flex flex-row justify-between">
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchUsers(0, $event, 'lastName', 'asc')" @goBack="searchUsers(0, '', 'lastName', 'asc')"
                 class="m-2">
             </SearchBar>
@@ -13,16 +19,15 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>First Name</button>
-            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Last Name</button>
-            <button @click="sortUsers('emailAddress', sortAscending)" class="font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Email Address</button>
-            <!-- <span class="material-symbols-outlined">sort</span> -->
+            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8">First Name</button>
+            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left">Last Name</button>
         </div>
 
 
-        <div class="flex flex-col flex-wrap divide-y-2">
-            <UserRow v-for="user in users" :key="user.id" v-bind:user="user">
-            </UserRow>
+        <div class="flex flex-col h-80 overflow-y-auto"
+>
+            <UsersRowPopup v-for="user in users" :key="user.id" v-bind:user="user" @createLoanFromUser="$emit('createLoanFromUser', $event)">
+            </UsersRowPopup>
         </div>
 
         <div>
@@ -31,22 +36,24 @@
             </PaginationBar>
 
         </div>
+
     </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import axios from 'axios';
-import UserRow from '@/components/admin-panel/user-overview/UserRow.vue';
+import UsersRowPopup from '@/components/details/book-detail-page/UsersRowPopup.vue';
 import SearchBar from '@/components/reusable-components/SearchBar.vue';
 import PaginationBar from '@/components/reusable-components/PaginationBar.vue';
 
 export default {
-    name: 'UserView',
+    name: 'UserPopup',
     components: {
-        UserRow,
+        UsersRowPopup,
         SearchBar,
-        PaginationBar
+        PaginationBar,
+
     },
     data() {
         return {
@@ -56,7 +63,7 @@ export default {
             sortAscending: true,
             currentPage: 0,
             propertyToSortBy: 'lastName',
-            pageableSize: 10
+            pageableSize: 10,
         };
     },
     mounted() {
@@ -106,11 +113,6 @@ export default {
             }
         },
 
-
     },
 }
 </script>
-
-<style>
-
-</style>

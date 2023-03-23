@@ -1,33 +1,33 @@
 <template>
-    <div class="home">
+  <div class="home my-20">
 
-        <BookDetailAdmin></BookDetailAdmin>
+    <BookDetailAdmin></BookDetailAdmin>
+
+    <div class="w-4/5 flex flex-col mx-auto">
+    <BookCopyTable class="my-4 border-4"></BookCopyTable>
+    <!-- <BookLoanTable></BookLoanTable> -->
+    <BookReservationTable class="my-4 border-4"></BookReservationTable>
+  </div>
+
+  </div>
+</template>
+
+
   
-  
-    </div>
-  </template>
-  
-  <script>
+<script>
 import BookDetailAdmin from '@/components/details/BookDetailAdmin.vue';
-  
-  export default {
-    name: 'HomeView',
-    components: {
-    BookDetailAdmin
-    },
-    mounted(){
-        this.authenticateAdmin()
-    },
-    methods: {
-        authenticateAdmin() {
-        if (localStorage.getItem('token') == null || localStorage.getItem('admin') != 'true') {
-          this.$router.push('/login')
-            // this.$router.push('/book/user' + this.$route.params.id);
-            console.log('redirecting to login')
-        }
-    }
+// import BookLoanTable from '@/components/details/book-detail-page/BookLoanTable.vue'
+import BookReservationTable from '@/components/details/book-detail-page/BookReservationTable.vue';
+import BookCopyTable from '@/components/details/book-detail-page/BookCopyTable.vue';
 
-  }
+export default {
+  name: 'BookDetailAdminView',
+  components: {
+    BookCopyTable,
+    BookReservationTable,
+    // BookLoanTable,
+    BookDetailAdmin,
+  },
 }
-  </script>
+</script>
   

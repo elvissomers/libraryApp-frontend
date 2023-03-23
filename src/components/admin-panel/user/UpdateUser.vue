@@ -16,10 +16,10 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
-                    <div class="inputbox">
+                    <!-- <div class="inputbox">
                         <input type="text" id="password" v-model="user.password" required>
                         <label for="">Wachtwoord</label>
-                    </div>
+                    </div> -->
                     <div>
                         <label for="">Admin:</label>
                         <input type="checkbox" v-model="user.admin" :checked="user.admin">
@@ -43,7 +43,8 @@ export default {
             emailAddress: '',
             firstName: '',
             lastName: '',
-            admin: false
+            admin: false,
+            archived: false
         },
     };
   },
@@ -53,8 +54,9 @@ export default {
         this.user.firstName = response.data.firstName;
         this.user.lastName = response.data.lastName;
         this.user.emailAddress = response.data.emailAddress;
-        this.user.password = response.data.password;
         this.user.admin = response.data.admin;
+        this.user.archived = response.data.archived;
+        console.log("created() function was run with some success")
       })
       .catch(error => {
         console.log(error);
@@ -64,12 +66,15 @@ export default {
       
     editUser() {
 
-        axios.put(`http://localhost:8080/user/${this.$route.params.id}`, this.user)
+        axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")
+          this.$router.push('/admin/edit-users')
         })
         .catch(error => {
+          console.log("error error error")
+          console.log(this.user)
           console.log(error);
           alert("Er is iets foutgegaan, controleer de gegevens goed")
         })
@@ -101,7 +106,7 @@ export default {
         width: 400px;
         height: 450px;
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px transparent rgba(255,255,255,0.5);
         border-radius: 20px;
         backdrop-filter: blur(15px);
         display: flex;

@@ -63,19 +63,17 @@ export default {
     methods: {
 
         searchReservations(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
-            const directionOfSort = sortAscending ? "asc" : "desc";
-            let url = ''
-            if (searchTerm == '') {
-                url = 'http://localhost:8080/reservation/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
-            }
-            else {
-                url = 'http://localhost:8080/reservation/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
-            }
+            let parameterDto = {}
+            parameterDto.searchTerm = searchTerm;
+            parameterDto.propertyToSortBy = propertyToSortBy
+            parameterDto.directionOfSort = sortAscending ? "asc" : "desc";
+            parameterDto.pageNumber = currentPageNumber
+            parameterDto.numberPerPage = this.pageableSize
 
-            axios.get(url)
+            axios.post("http://localhost:8080/reservation/searchEndPoint", parameterDto)
                     .then(response => {
-                        if (response.data.length > 0) {
-                            this.reservations = response.data;
+                        if (response.data.content.length > 0) {
+                            this.reservations = response.data.content;
                             this.searchTerm = searchTerm;
                             this.currentPage = currentPageNumber;
                         }

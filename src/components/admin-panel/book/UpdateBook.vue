@@ -86,67 +86,60 @@ export default {
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+        /* font-family: 'poppins',sans-serif; */
+    }
+    section{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        
+        /* background: url('background6.jpg')no-repeat; */
+        background-position: center;
+        background-size: cover;
+    }
+    .form-box{
+        position: relative;
+        width: 400px;
+        height: 450px;
+        background: transparent;
+        border: 2px transparent rgba(255,255,255,0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-* {
-    margin: 0;
-    padding: 0;
-    /* font-family: 'poppins',sans-serif; */
-}
+    }
+    h2{
+        font-size: 2em;
+        color: #000000;
+        text-align: center;
+    }
+    .inputbox{
+        position: relative;
+        margin: 30px 0;
+        width: 310px;
+        border-bottom: 2px solid #000000;;
+    }
+    .inputbox label{
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: #000000;
+        font-size: 1em;
+        pointer-events: none;
+        transition: .5s;
+    }
+    input:focus ~ label,
+    input:valid ~ label{
 
-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-
-    /* background: url('background6.jpg')no-repeat; */
-    background-position: center;
-    background-size: cover;
-}
-
-.form-box {
-    position: relative;
-    width: 400px;
-    height: 450px;
-    background: transparent;
-    border: 2px transparent rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-h2 {
-    font-size: 2em;
-    color: #000000;
-    text-align: center;
-}
-
-.inputbox {
-    position: relative;
-    margin: 30px 0;
-    width: 310px;
-    border-bottom: 2px solid #000000;
-    ;
-}
-
-.inputbox label {
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #000000;
-    font-size: 1em;
-    pointer-events: none;
-    transition: .5s;
-}
-
-input:focus~label,
-input:valid~label {
     top: -5px;
 }
 
