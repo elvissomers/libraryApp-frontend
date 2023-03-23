@@ -5,12 +5,10 @@
         <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200"
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-          <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
-          }}</span>
-
+          <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
+          
           <h1></h1>
-          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
-          }}</span>
+          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
           <div class="flex mb-4">
           </div>
           <!-- Description -->
@@ -18,7 +16,6 @@
             microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan
             poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed
             umami cardigan.</p>
-          <button>Edit</button>
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
             <div class="flex">
               <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
@@ -28,9 +25,9 @@
             <!-- removed: ml-auto -->
             <button @click="createReservation()"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
-          </div>
-
-
+           </div>
+          
+          
 
         </div>
       </div>
@@ -48,6 +45,7 @@ export default {
   data() {
     return {
       book: [],
+      bookFetching: true,
       reservation: {
         date: '',
         userId: '',
@@ -74,6 +72,7 @@ export default {
       axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
           this.book = response.data;
+          this.bookFetching = false
         })
         .catch(error => {
           console.log(error);
