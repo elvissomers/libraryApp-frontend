@@ -31,7 +31,7 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" v-bind:totalPages="totalPages" @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -64,6 +64,7 @@ export default {
             currentPage: 0,
             propertyToSortBy: 'lastName',
             pageableSize: 10,
+            totalPages: -1
         };
     },
     mounted() {
@@ -72,26 +73,23 @@ export default {
     methods: {
 
         searchUsers(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
-            const directionOfSort = sortAscending ? "asc" : "desc";
-            let url = ''
-            if (searchTerm == '') {
-                url = 'http://localhost:8080/user/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
-            }
-            else {
-                url = 'http://localhost:8080/user/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
-            }
+            let parameterDto = {}
+            parameterDto.searchTerm = searchTerm;
+            parameterDto.propertyToSortBy = propertyToSortBy
+            parameterDto.directionOfSort = sortAscending ? "asc" : "desc";
+            parameterDto.pageNumber = currentPageNumber
+            parameterDto.numberPerPage = this.pageableSize
 
-            axios.get(url)
-                    .then(response => {
-                        if (response.data.length > 0) {
-                            this.users = response.data;
-                            this.searchTerm = searchTerm;
-                            this.currentPage = currentPageNumber;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+            axios.post("http://localhost:8080/user/searchEndPoint", parameterDto)
+                .then(response => {
+                    this.users = response.data.content;
+                    this.totalPages = response.data.totalPages;
+                    this.currentPage = currentPageNumber;
+                    this.searchTerm = searchTerm;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
 
         sortUsers(propertyToSortBy) {
@@ -108,8 +106,8 @@ export default {
 
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
-            if (tempPageNumber >= 0) {
-                this.searchUsers(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
+                this.searchUsers(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 

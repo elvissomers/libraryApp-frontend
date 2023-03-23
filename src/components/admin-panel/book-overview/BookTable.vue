@@ -34,7 +34,7 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" v-bind:totalPages="this.totalPages" @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -76,24 +76,21 @@ export default {
     methods: {
 
         searchBooks(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
-            console.log
-            const directionOfSort = sortAscending ? "asc" : "desc";
-            let url = ''
-            if (searchTerm == '') {
-                url = 'http://localhost:8080/book/pageable/search/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize + '/' + this.archived
-            }
-            else {
-                url = 'http://localhost:8080/book/pageable/search/' + searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize + '/' + this.archived
-            }
+            let parameterDto = {}
+            parameterDto.searchTerm = searchTerm;
+            parameterDto.propertyToSortBy = propertyToSortBy
+            parameterDto.directionOfSort = sortAscending ? "asc" : "desc";
+            parameterDto.pageNumber = currentPageNumber
+            parameterDto.numberPerPage = this.pageableSize
+            parameterDto.archived = this.archived
+            console.log(parameterDto)
 
-            axios.get(url)
+            axios.post("http://localhost:8080/book/searchEndPoint", parameterDto)
                 .then(response => {
-                    if (response.data.length > 0) {
-                        console.log(response)
-                        this.books = response.data;
-                        this.searchTerm = searchTerm;
-                        this.currentPage = currentPageNumber;
-                    }
+                    this.books = response.data.content;
+                    this.totalPages = response.data.totalPages;
+                    this.currentPage = currentPageNumber;
+                    this.searchTerm = searchTerm;
                 })
                 .catch(error => {
                     console.log(error);
@@ -101,6 +98,7 @@ export default {
         },
 
         sortBooks(propertyToSortBy) {
+            console.log("reach")
             this.currentPage = 0;
             if (propertyToSortBy != this.propertyToSortBy) {
                 this.sortAscending = true;
@@ -112,16 +110,17 @@ export default {
             this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
 
+
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
-            if (tempPageNumber >= 0) {
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
                 this.searchBooks(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 
         toggleArchived() {
             this.archived = !this.archived
-            this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
+            this.searchBooks(0, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         }
 
 

@@ -13,11 +13,11 @@
         <div class="flex flex-row py-4 border-b-2">
             <button @click="sortReservations('date', sortAscending)"
                 class="w-36 font-extrabold text-left ml-8">Date</button>
-            <button @click="sortReservations('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">First
+            <button @click="sortReservations('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">First
                 Name</button>
-            <button @click="sortReservations('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Last
+            <button @click="sortReservations('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Last
                 Name</button>
-            <button @click="sortReservations('book_Title', sortAscending)" class="font-extrabold text-left">Book
+            <button @click="sortReservations('book.title', sortAscending)" class="font-extrabold text-left">Book
                 Title</button>
         </div>
 
@@ -80,7 +80,8 @@ export default {
                 .then(response => {
                     this.reservations = response.data.content;
                     this.totalPages = response.data.totalPages;
-                    this.currentPage = currentPageNumber
+                    this.currentPage = currentPageNumber;
+                    this.searchTerm = searchTerm;
                 })
                 .catch(error => {
                     console.log(error);
@@ -102,7 +103,7 @@ export default {
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
             if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
-                this.searchReservations(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+                this.searchReservations(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 

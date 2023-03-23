@@ -19,11 +19,11 @@
                     class="w-36 font-extrabold text-left ml-8">Uitleen Datum</button>
                     <button @click="sortLoans('endDate', sortAscending)"
                     class="w-36 font-extrabold text-left">Inlever Datum</button>
-                <button @click="sortLoans('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">Voor
+                <button @click="sortLoans('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">Voor
                     Naam</button>
-                <button @click="sortLoans('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Achter
+                <button @click="sortLoans('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Achter
                     Naam</button>
-                <button @click="sortLoans('copy_Book_Title', sortAscending)" class="font-extrabold text-left">Boek
+                <button @click="sortLoans('copy.book.title', sortAscending)" class="font-extrabold text-left">Boek
                     Titel</button>
             </div>
             <div class="flex flex-row">
@@ -42,7 +42,7 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" v-bind:totalPages="this.totalPages" @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -75,7 +75,8 @@ export default {
             currentPage: 0,
             propertyToSortBy: 'startDate',
             pageableSize: 10,
-            showClosed: false 
+            showClosed: true,
+            totalPages: -1 
         };
     },
     mounted() {
@@ -84,22 +85,20 @@ export default {
     methods: {
 
         searchLoans(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
-            const directionOfSort = sortAscending ? "asc" : "desc";
-            let url = ''
-            if (searchTerm == '') {
-                url = 'http://localhost:8080/loan/pageable/search/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize + '/' + this.showClosed
-            }
-            else {
-                url = 'http://localhost:8080/loan/pageable/search/' + searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize + '/' + this.showClosed
-            }
+            let parameterDto = {}
+            parameterDto.searchTerm = searchTerm;
+            parameterDto.propertyToSortBy = propertyToSortBy
+            parameterDto.directionOfSort = sortAscending ? "asc" : "desc";
+            parameterDto.pageNumber = currentPageNumber
+            parameterDto.numberPerPage = this.pageableSize
+            parameterDto.open = this.showClosed
 
-            axios.get(url)
+            axios.post("http://localhost:8080/loan/searchEndPoint", parameterDto)
                 .then(response => {
-                    if (response.data.length > 0) {
-                        this.loans = response.data;
-                        this.searchTerm = searchTerm;
-                        this.currentPage = currentPageNumber;
-                    }
+                    this.loans = response.data.content;
+                    this.totalPages = response.data.totalPages;
+                    this.currentPage = currentPageNumber
+                    this.searchTerm = searchTerm;
                 })
                 .catch(error => {
                     console.log(error);
@@ -120,14 +119,13 @@ export default {
 
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
-            if (tempPageNumber >= 0) {
-                this.searchLoans(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
+                this.searchLoans(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 
         toggleOpen() {
             this.showClosed = !this.showClosed
-            console.log("reached")
             this.searchLoans(0, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         }
 
