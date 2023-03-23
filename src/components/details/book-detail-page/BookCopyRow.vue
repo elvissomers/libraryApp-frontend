@@ -92,8 +92,11 @@ export default {
             saveLoanDto.bookId = this.$route.params.id
             saveLoanDto.userId = user.id
             console.log(saveLoanDto)
+            const headers = {
+                'Authentication': localStorage.getItem('token')
+            }
 
-            axios.post('http://localhost:8080/loan/create', saveLoanDto)
+            axios.post('http://localhost:8080/loan/create', saveLoanDto, { headers: headers })
                 .then(response => {
                     console.log(response)
                 })
@@ -122,8 +125,8 @@ export default {
                 axios.put("http://localhost:8080/copy/archive/" + this.copy.id)
                     .then(response => {
                         console.log(response.data)
-                            alert("Exemplaar is gearchiveerd")
-                            window.location.reload();
+                        alert("Exemplaar is gearchiveerd")
+                        window.location.reload();
                     })
                     .catch(error => {
                         console.log(error);
@@ -136,8 +139,8 @@ export default {
                 axios.put("http://localhost:8080/copy/archive/" + this.copy.id)
                     .then(response => {
                         console.log(response.data)
-                            alert("Exemplaar is terug gehaald")
-                            window.location.reload();
+                        alert("Exemplaar is terug gehaald")
+                        window.location.reload();
                     })
                     .catch(error => {
                         console.log(error);

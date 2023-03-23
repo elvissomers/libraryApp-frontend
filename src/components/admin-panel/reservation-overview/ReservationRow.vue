@@ -46,8 +46,13 @@ export default {
       saveReservationDto.bookId = this.reservation.bookId
       saveReservationDto.userId = this.reservation.userId
       console.log(this.reservation)
-
-      axios.post('http://localhost:8080/loan/create', saveReservationDto)
+      const headers = {
+          'Authentication': localStorage.getItem('token')
+        }
+        
+      axios.post('http://localhost:8080/loan/create', saveReservationDto, {
+        headers: headers
+      })
         .then(response => {
           console.log(response)
         })

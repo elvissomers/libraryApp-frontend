@@ -44,7 +44,12 @@ export default {
   },
   methods: {
     createLoan() {
-        axios.post('http://localhost:8080/loan/create/fromreservation', this.reservation)
+        const headers = {
+          'Authentication': localStorage.getItem('token')
+        }
+        axios.post('http://localhost:8080/loan/create/fromreservation', this.reservation, {
+            headers: headers
+        })
         .then(response => {
             console.log(response)
             console.log('Copy added:', response.data);
