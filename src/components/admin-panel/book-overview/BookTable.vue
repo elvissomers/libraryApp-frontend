@@ -6,16 +6,25 @@
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Boek Toevoegen</button>
             </router-link>
             <div class="p-4 text-center rounded-md">Alle Boeken</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchBooks(0, $event, 'title', 'asc')" @goBack="searchBooks(0, '', 'title', 'asc')"
-                class="m-2">
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchBooks(0, $event, 'title', 'asc')"
+                @goBack="searchBooks(0, '', 'title', 'asc')" class="m-2">
             </SearchBar>
         </div>
 
+        <div class="flex flex-row justify-between border-b-2">
+            <div class="flex flex-row py-4">
+                <button @click="sortBooks('isbn', sortAscending)" class="w-36 font-extrabold text-left ml-8">ISBN</button>
+                <button @click="sortBooks('author', sortAscending)" class="w-56 font-extrabold text-left">Auteur</button>
+                <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">Titel</button>
 
-        <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortBooks('isbn', sortAscending)" class="w-36 font-extrabold text-left ml-8">ISBN</button>
-            <button @click="sortBooks('author', sortAscending)" class="w-56 font-extrabold text-left">Auteur</button>
-            <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">Titel</button>
+            </div>
+            <div class="flex flex-row">
+                <span class="p-4">Laat Gearchiveerde Boeken Zien</span>
+                <div class="my-auto mx-2">
+                    <ToggleButtonComponent @toggle="toggleArchived()"></ToggleButtonComponent>
+                </div>
+                <!-- <input type="checkbox" @click="toggleArchived()"> -->
+            </div>
         </div>
 
 
@@ -39,13 +48,15 @@ import axios from 'axios';
 import BookRow from '@/components/admin-panel/book-overview/BookRow.vue';
 import SearchBar from '@/components/reusable-components/SearchBar.vue';
 import PaginationBar from '@/components/reusable-components/PaginationBar.vue';
+import ToggleButtonComponent from '@/components/reusable-components/ToggleButtonComponent.vue';
 
 export default {
     name: 'BookView',
     components: {
         BookRow,
         SearchBar,
-        PaginationBar
+        PaginationBar,
+        ToggleButtonComponent
     },
     data() {
         return {
@@ -55,7 +66,8 @@ export default {
             sortAscending: true,
             currentPage: 0,
             propertyToSortBy: 'title',
-            pageableSize: 10
+            pageableSize: 10,
+            archived: false
         };
     },
     mounted() {
@@ -68,24 +80,24 @@ export default {
             const directionOfSort = sortAscending ? "asc" : "desc";
             let url = ''
             if (searchTerm == '') {
-                url = 'http://localhost:8080/book/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+                url = 'http://localhost:8080/book/pageable/search/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize + '/' + this.archived
             }
             else {
-                url = 'http://localhost:8080/book/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+                url = 'http://localhost:8080/book/pageable/search/' + searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize + '/' + this.archived
             }
 
             axios.get(url)
-                    .then(response => {
-                        if (response.data.length > 0) {
-                            console.log(response)
-                            this.books = response.data;
-                            this.searchTerm = searchTerm;
-                            this.currentPage = currentPageNumber;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .then(response => {
+                    if (response.data.length > 0) {
+                        console.log(response)
+                        this.books = response.data;
+                        this.searchTerm = searchTerm;
+                        this.currentPage = currentPageNumber;
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
 
         sortBooks(propertyToSortBy) {
@@ -97,17 +109,20 @@ export default {
             else {
                 this.sortAscending = !this.sortAscending
             }
-            console.log(this.sortAscending)
             this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
 
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
             if (tempPageNumber >= 0) {
-                console.log(this.sortAscending)
                 this.searchBooks(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
+
+        toggleArchived() {
+            this.archived = !this.archived
+            this.searchBooks(this.currentPage, this.searchTerm, this.propertyToSortBy, this.sortAscending)
+        }
 
 
     },

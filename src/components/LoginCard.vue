@@ -2,7 +2,7 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="loginUser">
+                <form @submit.prevent="store.commit('login', user)">
                     <h2>Login</h2>
                     <div class="inputbox">
                         <!-- <span class="material-symbols-outlined">alternate_email</span> -->
@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { store } from '@/store/store'
+// import axios from 'axios';
+import store from '@/store'
 
 export default {
     name: 'LoginCard',
@@ -44,43 +44,9 @@ export default {
                 username: '',
                 password: '',
             },
-            store,
+            store
         };
     },
-    mounted() {
-        // Send to home if user is already logged in
-        if (store.authenticated) {
-            this.$router.push('/');
-        }
-    },
-    methods: {
-        loginUser() {
-            axios.post('http://localhost:8080/api/user/login', this.user)
-                .then(response => {
-
-                    // check if response data is null
-                    if (response.data) {
-                        console.log('User logged in:', response.data);
-                        localStorage.setItem('token', response.data.token);
-                        localStorage.setItem('admin', response.data.admin);
-
-                        // Save authentication & admin state
-                        store.setAuthentication()
-                        if (response.data.admin) {
-                            store.setAdmin()
-                        }
-
-                        this.$router.push('/');
-                    } else {
-                        alert("Wrong username or password!")
-                        this.$router.push('/login');
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
-    }
 }
 </script>
 

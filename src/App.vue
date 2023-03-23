@@ -50,21 +50,12 @@ nav a.router-link-exact-active {
 // @ is an alias to /src
 import NavBar from '@/components/reusable-components/NavBar.vue'
 import FooterComponent from './components/reusable-components/FooterComponent.vue';
-import { store } from '@/store/store'
 
 export default {
-  name: 'TemplateView',
-  components: {
+  name: 'App',
+    components: {
     NavBar,
     FooterComponent,
-  },
-  data() {
-    return {
-      store
-    };
-  },
-  mounted() {
-    //this.store.authenticate(this.$router)
-  },
+  }
 }
 </script>

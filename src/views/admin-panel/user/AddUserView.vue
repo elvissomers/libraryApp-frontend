@@ -12,23 +12,14 @@
 // @ is an alias to /src
 import AddUser from '@/components/admin-panel/user/AddUser.vue';
 import SideBar from '@/components/reusable-components/SideBar.vue';
-import { store } from '@/store/store'
+
 
 export default {
   name: 'AddUserView',
   components: {
     AddUser,
     SideBar
-  },
-  data() {
-    return {
-      store
-    }
-  },
-  mounted() {
-    this.store.authenticate(this.$router)
-    this.store.authenticateAdmin(this.$router)
-  },
+  }
 }
 </script>
 

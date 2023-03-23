@@ -15,7 +15,6 @@
 import SearchBar from '@/components/reusable-components/SearchBar.vue'
 import BookCardStandardContainer from '@/components/catalogue-page/BookCardStandardContainer.vue';
 import BookCardSearchContainer from '@/components/catalogue-page/BookCardSearchContainer.vue';
-import { store } from '@/store/store'
 
 export default {
   name: 'CatalogueView',
@@ -28,12 +27,9 @@ export default {
     return {
       search: false,
       searchTermParent: "",
-      store
-    };
+    }
   },
-  mounted() {
-    this.store.authenticate(this.$router)
-  },
+
   methods:{
     startSearch(searchT) {
       this.searchTermParent = searchT

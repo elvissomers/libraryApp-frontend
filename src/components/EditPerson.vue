@@ -47,8 +47,9 @@ export default {
       },
     };
   },
-  created() {
-    axios.get('http://localhost:8080/user/get/1')
+  mounted() {
+    console.log("id: "+ this.$route.params.id)
+    axios.get('http://localhost:8080/user/get/' + this.$route.params.id)
       .then(response => {
         this.user.firstName = response.data.firstName;
         this.user.lastName = response.data.lastName;
@@ -62,7 +63,7 @@ export default {
   methods: {
       
     saveUserChanges() {
-      axios.put('http://localhost:8080/user/update/1', this.user)
+      axios.put('http://localhost:8080/user/self/' + this.$route.params.id, this.user)
         .then(response => {
             console.log('User created:', response.data);
             alert("Gebruiker succesvol gewijzigd!");

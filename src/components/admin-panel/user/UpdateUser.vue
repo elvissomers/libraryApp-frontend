@@ -43,7 +43,8 @@ export default {
             emailAddress: '',
             firstName: '',
             lastName: '',
-            admin: false
+            admin: false,
+            archived: false
         },
     };
   },
@@ -54,6 +55,8 @@ export default {
         this.user.lastName = response.data.lastName;
         this.user.emailAddress = response.data.emailAddress;
         this.user.admin = response.data.admin;
+        this.user.archived = response.data.archived;
+        console.log("created() function was run with some success")
       })
       .catch(error => {
         console.log(error);
@@ -63,12 +66,15 @@ export default {
       
     editUser() {
 
-        axios.put(`http://localhost:8080/user/${this.$route.params.id}`, this.user)
+        axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")
+          this.$router.push('/admin/edit-users')
         })
         .catch(error => {
+          console.log("error error error")
+          console.log(this.user)
           console.log(error);
           alert("Er is iets foutgegaan, controleer de gegevens goed")
         })

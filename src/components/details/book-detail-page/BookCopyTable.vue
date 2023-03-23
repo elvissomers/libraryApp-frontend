@@ -3,6 +3,13 @@
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
             <div class="p-4 text-center rounded-md">Alle exemplaren van dit boek</div>
+
+            <div class="flex flex-row">
+            <span class="p-4">Laat Gearchiveerde Exemplaren Zien</span>
+            <div class="my-auto mx-2">
+                <ToggleButtonComponent @toggle="toggleArchived()"></ToggleButtonComponent>
+            </div>
+        </div>
         </div>
 
 
@@ -14,7 +21,7 @@
         </div>
 
 
-        <div class="flex flex-col flex-wrap divide-y-2">
+        <div class="flex flex-col divide-y-2 h-96 overflow-y-auto">
             <BookCopyRow v-for="copy in copies" :key="copy.id" v-bind:copy="copy">
             </BookCopyRow>
         </div>
@@ -32,15 +39,18 @@
 // @ is an alias to /src
 import axios from 'axios';
 import BookCopyRow from './BookCopyRow.vue';
+import ToggleButtonComponent from '@/components/reusable-components/ToggleButtonComponent.vue';
 
 export default {
     name: 'CopyView',
     components: {
-        BookCopyRow
+        BookCopyRow,
+        ToggleButtonComponent,
     },
     data() {
         return {
-            copies: []
+            copies: [],
+            archived: false
         };
     },
     mounted() {
@@ -49,13 +59,25 @@ export default {
     methods: {
 
         searchCopies() {
-            axios.get("http://localhost:8080/book/copies/" + this.$route.params.id)
+            let url = ''
+            if (this.archived) {
+                url = "http://localhost:8080/book/copies/archived/" + this.$route.params.id
+            }
+            else {
+                url = "http://localhost:8080/book/copies/" + this.$route.params.id
+            }
+            axios.get(url)
                 .then(response => {
                     this.copies = response.data;
                 })
                 .catch(error => {
                     console.log(error)
                 })
+        },
+
+        toggleArchived() {
+            this.archived = !this.archived
+            this.searchCopies()
         }
 
     }
