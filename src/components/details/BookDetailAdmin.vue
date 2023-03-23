@@ -7,6 +7,7 @@
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
           }}</span>
+
           <button @click="changeAuthor()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -16,6 +17,7 @@
           <h1></h1>
           <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
           }}</span>
+
           <button @click="changeTitle()"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -32,6 +34,7 @@
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
             <div class="flex">
               <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
+
               <button @click="changeIsbn()"
                 class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
                 <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -48,9 +51,6 @@
               class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak
               nieuwe kopie aan</button>
           </div>
-
-
-
         </div>
       </div>
     </div>
@@ -86,8 +86,6 @@ export default {
         lastName: '',
         password: '',
       },
-
-
       copy: {
         // TODO: this needs to be the actual ID of the book
         bookId: 0,
@@ -193,22 +191,33 @@ export default {
 
     // Change methods from here
     changeAuthor() {
+      let headers = {
+        'Authentication': localStorage.getItem('token')
+      }
+
       let newAuthor = prompt("Voer nieuwe auteur in:")
 
       let changeBook = this.book
       changeBook.author = newAuthor
 
-      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook)
+
+      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook, {
+        headers: headers
+      })
       console.log('Changed author name into ', newAuthor)
 
     },
 
     changeTitle() {
+      let headers = {
+        'Authentication': localStorage.getItem('token')
+      }
       let newTitle = prompt("Voer nieuwe titel in:")
       let changeBook = this.book
       changeBook.title = newTitle
-
-      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook)
+      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook, {
+        headers: headers
+      })
       console.log('Changed title into ', newTitle)
     },
 
