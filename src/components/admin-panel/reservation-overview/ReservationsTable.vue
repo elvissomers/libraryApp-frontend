@@ -19,7 +19,7 @@
 
 
         <div class="flex flex-col flex-wrap divide-y-2">
-            <ReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">
+            <ReservationRow v-for="reservation in filteredReservations" :key="reservation.id" v-bind:reservation="reservation">
             </ReservationRow>
         </div>
 
@@ -49,6 +49,7 @@ export default {
     data() {
         return {
             reservations: [],
+            filteredReservations:  [],
             placeholder: "Naam of Titel",
             searchTerm: '',
             sortAscending: true,
@@ -63,19 +64,27 @@ export default {
     methods: {
 
         searchReservations(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
-            let parameterDto = {}
-            parameterDto.searchTerm = searchTerm;
-            parameterDto.propertyToSortBy = propertyToSortBy
-            parameterDto.directionOfSort = sortAscending ? "asc" : "desc";
-            parameterDto.pageNumber = currentPageNumber
-            parameterDto.numberPerPage = this.pageableSize
+            const directionOfSort = sortAscending ? "asc" : "desc";
+            let url = ''
+            if (searchTerm == '') {
+                url = 'http://localhost:8080/reservation/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+            }
+            else {
+                url = 'http://localhost:8080/reservation/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
+            }
 
-            axios.post("http://localhost:8080/reservation/searchEndPoint", parameterDto)
+            axios.get(url)
                     .then(response => {
-                        if (response.data.content.length > 0) {
-                            this.reservations = response.data.content;
+                        if (response.data.length > 0) {
+                            this.reservations = response.data;
                             this.searchTerm = searchTerm;
                             this.currentPage = currentPageNumber;
+                            let length = this.reservations.length;
+                            for (var i = 0; i < length; i++){
+                                if (this.reservations[i].userFirstName != '[Archived]'){
+                                    this.filteredReservations.push(this.reservations[i])
+                                }
+                            }
                         }
                     })
                     .catch(error => {
