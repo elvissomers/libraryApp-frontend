@@ -4,21 +4,15 @@
         <div class="bg-white rounded-lg shadow-xl pb-8">
             <div class="absolute right-12 mt-4 flex flex-nowrap">
                 <div class="rounded mr-4">
-                    <button v-if="store.getters.isAdmin" class="flex text-white bg-teal-500 border-0 py-2 px-3 focus:outline-none hover:bg-teal-600 rounded"
+                    <button class="flex text-white bg-teal-500 border-0 py-2 px-3 focus:outline-none hover:bg-teal-600 rounded"
                     @click="showBookPopup = true">
                     + <span class="material-symbols-outlined"> menu_book</span></button>
                 </div>
 
-                <!-- <BookDetailAdmin v-if="store.getters.isAdmin"></BookDetailAdmin> -->
-                <!--<BookDetail v-if="!store.getters.isAdmin"></BookDetail>-->
-
                 <div class="rounded">
                 <!-- removed: @click="openSettings = !openSettings" class="hover:text-gray-200"-->
-                    <router-link v-if="store.getters.isAdmin" :to="{ name: 'update-user' }">
-                        <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (admin)</button>
-                    </router-link>
-                    <router-link v-if="!store.getters.isAdmin" :to="{ name: 'edit-myaccount' }">
-                        <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (user)</button>
+                    <router-link :to="{ name: 'update-user' }">
+                        <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel</button>
                     </router-link>
                 </div>
             </div>
@@ -64,7 +58,6 @@
 
 <script>
     import axios from 'axios';
-    import store from '@/store';
     import BookPopup from '@/components/details/book-detail-page/BooksPopup.vue'
 
     export default {
@@ -76,7 +69,6 @@
         return {
             showBookPopup: false,
             user: [],
-            store
         };
     },
     mounted() {

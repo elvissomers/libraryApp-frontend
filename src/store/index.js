@@ -4,7 +4,7 @@ import router from '../router'
 
 export default createStore({
     state: {
-        admin: localStorage.getItem('admin') == 'true',
+        admin: localStorage.getItem('admin'),
         token: localStorage.getItem('token') || null,
         userId: localStorage.getItem('userId')
     },
