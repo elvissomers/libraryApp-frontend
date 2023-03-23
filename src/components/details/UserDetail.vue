@@ -9,10 +9,16 @@
                     + <span class="material-symbols-outlined"> menu_book</span></button>
                 </div>
 
+                <!-- <BookDetailAdmin v-if="store.getters.isAdmin"></BookDetailAdmin> -->
+                <!--<BookDetail v-if="!store.getters.isAdmin"></BookDetail>-->
+
                 <div class="rounded">
                 <!-- removed: @click="openSettings = !openSettings" class="hover:text-gray-200"-->
-                    <router-link :to="{ name: 'update-user' }">
-                        <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel</button>
+                    <router-link v-if="store.getters.isAdmin" :to="{ name: 'update-user' }">
+                        <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (admin)</button>
+                    </router-link>
+                    <router-link v-if="!store.getters.isAdmin" :to="{ name: 'edit-myaccount' }">
+                        <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (user)</button>
                     </router-link>
                 </div>
             </div>
@@ -57,9 +63,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import BookPopup from '@/components/details/book-detail-page/BooksPopup.vue'
-import store from '@/store'
+    import axios from 'axios';
+    import store from '@/store';
+    import BookPopup from '@/components/details/book-detail-page/BooksPopup.vue'
 
     export default {
         components: {

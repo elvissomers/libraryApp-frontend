@@ -2,19 +2,45 @@
     <div class="flex flex-row justify-between hover:bg-slate-300">
         <div class="flex flex-row py-4">
             <div class="w-48 ml-8">{{ copy.number }}</div>
-            <div class="w-48">{{ availabilityString }}</div>
+            <div class="w-48">{{ copy.available ? (copy.archived ? 'Gearchiveerd' : 'Beschikbaar') : (copy.archived ?
+                'Gearchiveerd' : 'Uitgeleend') }}</div>
             <div class="w-48">{{ heldSincePresent ? copy.heldSince : "-" }}</div>
             <div class="w-48">{{ heldByUserFirstNamePresent ? copy.heldByUserFirstName : "-" }}</div>
-            <button v-on:click="showUsers()" class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48"
+            <!-- <button v-on:click="showUsers()" class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48"
                 :class="[copy.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300' : 'bg-gray-400 cursor-not-allowed']"
                 :disabled="!copy.available">
                 {{ copy.available ? 'Uitlenen' : 'Niet Beschikbaar' }}
+            </button> -->
+
+            <button v-if="!copy.archived && copy.available" v-on:click="showUsers()"
+                class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48 bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300">
+                Uitlenen
             </button>
+
+            <button v-if="!copy.archived && copy.loanId != 0" v-on:click="returnCopy()"
+                class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48 bg-yellow-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300">
+                Terug Melden
+            </button>
+
+            <button v-if="copy.archived" v-on:click="dearchive()"
+                class="ml-56 text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48 bg-slate-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300">
+                Dearchiveer
+            </button>
+
+            <button v-if="!copy.archived" v-on:click="archive()"
+                class="ml-8 text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48 bg-slate-400 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300">
+                Archiveer
+            </button>
+
+
+
+
+
         </div>
 
     </div>
 
-    <UsersPopup class="fixed top-32 inset-x-0 mx-auto z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"
+    <UsersPopup class="fixed top-16 inset-x-0 mx-auto z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"
         @closeUserPopup="userPopupVisible = false" @createLoanFromUser="createLoan($event)"></UsersPopup>
 </template>
       
@@ -75,6 +101,48 @@ export default {
                     console.log(error);
                 })
             window.location.reload()
+        },
+
+        returnCopy() {
+            let endDate = new Date()
+            // TODO: zorg ervoor dat deze knop alert en refreshed
+            axios.put("http://localhost:8080/loan/update/" + this.copy.loanId, { "endDate": endDate })
+                .then(response => {
+                    console.log(response)
+                    window.location.reload()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            // window.location.reload()
+        },
+
+        archive() {
+            if (confirm("Weet je zeker dat je dit exemplaar wilt archiveren? Het exemplaar kan dan niet meer uitgeleend worden.")) {
+                axios.put("http://localhost:8080/copy/archive/" + this.copy.id)
+                    .then(response => {
+                        console.log(response.data)
+                            alert("Exemplaar is gearchiveerd")
+                            window.location.reload();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+        },
+
+        dearchive() {
+            if (confirm("Weet je zeker dat je dit exemplaar wilt dearchiveren? Het exemplaar kan dan weer uitgeleend worden.")) {
+                axios.put("http://localhost:8080/copy/archive/" + this.copy.id)
+                    .then(response => {
+                        console.log(response.data)
+                            alert("Exemplaar is terug gehaald")
+                            window.location.reload();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
         }
     }
 
