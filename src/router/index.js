@@ -12,7 +12,7 @@ import LoginView from '../views/general-pages/LoginView.vue'
 import MyBooksView from '../views/MyBooksView.vue'
 import ContactView from '../views/general-pages/ContactView.vue'
 import MyTestView from '../views/test/MyTestView.vue'
-import MyAccountView from '../views/general-pages/MyAccountView.vue'
+import MyAccountView from '../views/general-pages/EditMyAccountView.vue'
 import CatalogueView from '../views/CatalogueView.vue'
 import BookDetailView from '../views/detail-pages/BookDetailView.vue'
 import BookDetailAdminView from '../views/detail-pages/BookDetailAdminView.vue'
@@ -76,8 +76,8 @@ const routes = [
     component: MyBooksView
   },
   {
-    path: '/myaccount',
-    name: 'myaccount',
+    path: '/account/self/:id',
+    name: 'edit-myaccount',
     component: MyAccountView
   },
   {
