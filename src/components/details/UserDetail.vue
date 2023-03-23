@@ -29,7 +29,10 @@
                 <img src="https://vojislavd.com/ta-template-demo/assets/img/profile.jpg" class="w-40 border-4 border-white rounded-full">
                 <div class="flex items-center space-x-2 mt-2">
                     <!-- name -->
-                    <p class="text-2xl">{{ user.firstName }} {{ user.lastName }}</p>
+                    <p class="text-2xl">
+                        <span v-if="user.admin" class="material-symbols-outlined align-middle">admin_panel_settings</span>
+                        {{ user.firstName }} {{ user.lastName }}
+                    </p>
                     
                 </div>
             </div>
@@ -50,14 +53,15 @@
                             <span class="font-bold w-24">Email:</span>
                             <span class="text-gray-700">{{ user.emailAddress }}</span>
                         </li>
-                        <li class="flex border-b py-2">
+                        <!-- <li v-if="user.admin" class="flex border-b py-2">
                             <span class="font-bold w-24">Beheerder:</span>
-                            <span class="text-gray-700">{{ user.Admin }}</span>
-                        </li>  
+                            <span class="text-gray-700">waar</span>
+                        </li>   -->
                     </ul>
                 </div>
             </div>
         </div>
+        
         <BookPopup v-if="showBookPopup" @close="showBookPopup = false" />
     </div>
 </template>

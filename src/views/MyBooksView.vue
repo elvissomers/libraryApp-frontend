@@ -13,7 +13,7 @@
             </ReservationCard>
             <p v-if="myReservations.length === 0" class="text-gray-500">Je hebt geen boeken gereserveerd</p>
         </div>
-        <h3 class="flex justify-center font-bold text-2xl mb-6">Mijn eerder geleende boeken:</h3>
+        <h3 class="flex justify-center font-bold text-2xl mt-16 mb-6">Mijn eerder geleende boeken:</h3>
         <div class="flex flex-row flex-wrap justify-center">
             <MyHistoryBookCard v-for="loan in myHistory" :key="loan.id" v-bind:loan="loan">
             </MyHistoryBookCard>
