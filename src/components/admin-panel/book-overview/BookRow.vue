@@ -63,8 +63,12 @@ export default {
     },
     archive() {
       if (confirm("Weet je zeker dat je dit boek wilt archiveren? Het boek kan dan niet meer uitgeleend worden.")) {
-        axios.put("http://localhost:8080/book/archive/" + this.book.id)
+        const headers = {
+          'Authentication': localStorage.getItem('token')
+        }
+        axios.put("http://localhost:8080/book/archive/" + this.book.id, null, {headers: headers})
           .then(response => {
+            console.log("No error:")
             console.log(response.data)
             if (response.data == true) {
               alert("Boek " + this.book.title + " is gearchiveerd")
@@ -72,6 +76,7 @@ export default {
             }
           })
           .catch(error => {
+            console.log("error:")
             console.log(error);
           })
       }
@@ -79,7 +84,10 @@ export default {
 
     dearchive() {
       if (confirm("Weet je zeker dat je dit boek terug wilt halen? Het boek kan dan weer uitgeleend worden.")) {
-        axios.put("http://localhost:8080/book/archive/" + this.book.id)
+        const headers = {
+          'Authentication': localStorage.getItem('token')
+        }
+        axios.put("http://localhost:8080/book/archive/" + this.book.id, null, {headers: headers})
           .then(response => {
             console.log(response.data)
             if (response.data == true) {
