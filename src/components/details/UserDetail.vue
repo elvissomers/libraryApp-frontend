@@ -9,14 +9,13 @@
                     + <span class="material-symbols-outlined"> menu_book</span></button>
                 </div>
 
-                <!-- <BookDetailAdmin v-if="store.getters.isAdmin"></BookDetailAdmin> -->
-                <!--<BookDetail v-if="!store.getters.isAdmin"></BookDetail>-->
-
                 <div class="rounded">
                 <!-- removed: @click="openSettings = !openSettings" class="hover:text-gray-200"-->
-                    <router-link v-if="store.getters.isAdmin" :to="{ name: 'update-user' }">
+                <div v-if="$route.query.parent != 'UserRow'">  
+                    <router-link v-if="store.getters.isAdmin" :to="{ name: 'update-user', query:{parent: 'UserDetail'} }">
                         <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (admin)</button>
                     </router-link>
+                </div>  
                     <router-link v-if="!store.getters.isAdmin" :to="{ name: 'edit-myaccount' }">
                         <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (user)</button>
                     </router-link>
