@@ -88,14 +88,17 @@ export default {
     let userPassword = prompt("Bevestig uw huidige wachtwoord om de wijzigingen op te slaan", { type: 'password'})
     axios.get(`http://localhost:8080/user/self/${this.$route.params.id}/${userPassword}`)
         .then(response => {
-            if (response.data === true) {
+            if (response.data) {
+                if(typeof this.user.password === 'undefined'){
+                    this.user.password = userPassword
+                }
                 axios.put(`http://localhost:8080/user/self/${this.$route.params.id}`, this.user)
                     .then(response => {
                         console.log('User created:', response.data);
                         alert("Gebruiker succesvol gewijzigd!");
                     })
                     .catch(error => {
-                        alert('Er is iets fout gegaan')
+                        alert('Er is iets fout gegaan binnen de put request')
                         console.log(error);
                     })
             } else {
@@ -103,7 +106,7 @@ export default {
             }
         })
         .catch(error => {
-            alert('Er is iets fout gegaan')
+            alert('Er is iets fout gegaan binnen de get request')
             console.log(error);
         })
 }
