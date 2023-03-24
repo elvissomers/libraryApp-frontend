@@ -14,8 +14,8 @@
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
           <PromptComponent v-bind:book="book" v-bind:typePrompt="'author'" class=""
-      :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
-      @saveField="changeField('author', $event)"></PromptComponent>
+            :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
+            @saveField="changeField('author', $event)"></PromptComponent>
 
           <h1></h1>
           <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
@@ -27,20 +27,25 @@
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
           <PromptComponent v-bind:book="book" v-bind:typePrompt="'title'" class=""
-      :class="[prompts.title ? 'visible' : 'invisible']" @closePrompt="prompts.title = false"
-      @saveField="changeField('title', $event)"></PromptComponent>
+            :class="[prompts.title ? 'visible' : 'invisible']" @closePrompt="prompts.title = false"
+            @saveField="changeField('title', $event)"></PromptComponent>
 
 
           <div class="flex mb-4">
           </div>
           <!-- Description -->
-            <div v-if="!bookFetching">
-          <BookKeyword  v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
-          </BookKeyword>
-            </div>
+          <div v-if="!bookFetching">
+            <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
+            </BookKeyword>
+            <button @click="addKeyword()"
+            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+              +
+            </button>
+          </div>
           <button>Edit</button>
 
-          <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{ book.description }}</p>
+          <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
+            book.description }}</p>
           <button @click="showPrompt('description')"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -48,8 +53,8 @@
           </button>
 
           <PromptComponent v-bind:book="book" v-bind:typePrompt="'description'" class=""
-      :class="[prompts.description ? 'visible' : 'invisible']" @closePrompt="prompts.description = false"
-      @saveField="changeField('description', $event)"></PromptComponent>
+            :class="[prompts.description ? 'visible' : 'invisible']" @closePrompt="prompts.description = false"
+            @saveField="changeField('description', $event)"></PromptComponent>
 
 
 
@@ -120,7 +125,7 @@ export default {
         // ?
         // bookId: this.book.id
       },
-      prompts: {description: false, title: false, author: false}
+      prompts: { description: false, title: false, author: false }
     };
   },
   mounted() {
