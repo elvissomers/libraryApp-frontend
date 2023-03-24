@@ -38,11 +38,10 @@
             <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
             </BookKeyword>
             <button @click="addKeyword()"
-            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+              class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
               +
             </button>
           </div>
-          <button>Edit</button>
 
           <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
             book.description }}</p>
@@ -231,6 +230,25 @@ export default {
             console.log(error);
           })
       }
+    },
+
+    addKeyword() {
+      let keywordName = prompt("Welk keyword wil je toevoegen?")
+      let keyword = {
+        name: keywordName,
+        bookId: this.book.id
+      }
+      axios.post('http://localhost:8080/keyword/create', keyword)
+        .then(response => {
+          console.log("Keyword toegevoegd: ", response)
+          console.log('Added keyword: ', keywordName, 'to book: ', this.book.title)
+          alert("Keyword toegevoegd")
+          window.location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+          alert("Er is iets mis gegaan!")
+        })
     },
 
 
