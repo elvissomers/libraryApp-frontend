@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row justify-between hover:bg-slate-300">
+    <div class="flex flex-row justify-between hover:bg-blue-200">
       <div class="flex flex-row py-4">
         <div class="w-36 ml-8">{{ user.firstName }}</div>
         <div class="w-56">{{ user.lastName }}</div>

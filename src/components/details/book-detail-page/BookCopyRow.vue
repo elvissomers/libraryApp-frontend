@@ -40,7 +40,7 @@
 
     </div>
 
-    <UsersPopup class="fixed top-16 inset-x-0 mx-auto z-10" :class="[userPopupVisible ? 'visible' : 'invisible']"
+    <UsersPopup class="" :class="[userPopupVisible ? 'visible' : 'invisible']"
         @closeUserPopup="userPopupVisible = false" @createLoanFromUser="createLoan($event)"></UsersPopup>
 </template>
       
