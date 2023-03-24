@@ -36,6 +36,7 @@ export default createStore({
                         }
                         state.token = localStorage.getItem('token')
                         state.userId = localStorage.getItem('userId')
+                        
 
                         router.push('/')
                     } else {
@@ -72,8 +73,9 @@ export default createStore({
             state.admin = null
             state.token = null
             state.userId = null
-
+            window.location.reload()
             router.push('/login')
+            
         }
 
 
