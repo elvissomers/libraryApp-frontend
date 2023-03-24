@@ -145,7 +145,7 @@ export default {
       })
         .then(response => {
           console.log('Reservation created:', response.data);
-          alert('Reservation created.');
+            alert('Reservering aangemaakt');
           window.location.reload()
         })
         .catch(error => {
