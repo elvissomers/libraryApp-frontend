@@ -221,6 +221,25 @@ export default {
       }
     },
 
+    addKeyword(){
+      let keywordName = prompt("Welk keyword wil je toevoegen?")
+      let keyword = {
+        name: keywordName,
+        bookId: this.book.id
+      }
+      axios.post('http://localhost:8080/keyword/create', keyword)
+        .then(response => {
+          console.log("Keyword toegevoegd: ", response)
+          console.log('Added keyword: ', keywordName , 'to book: ', this.book.title)
+          alert("Keyword toegevoegd")
+          window.location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+          alert("Er is iets mis gegaan!")
+        })
+    },
+
 
     changeIsbn() {
       let newIsbn = prompt("Voer nieuw ISBN in:")
