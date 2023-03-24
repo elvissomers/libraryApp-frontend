@@ -77,15 +77,15 @@
             <button @click="showPrompt('nCopies')"
               class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak
               nieuwe kopie aan</button>
-              <PromptComponent v-bind:typePrompt="'Hoeveel exemplaren?'"
-            :class="[prompts.nCopies ? 'visible' : 'invisible']" @closePrompt="prompts.nCopies = false"
-            @saveField="createCopies($event); showNotification('nCopies')"></PromptComponent>
+            <PromptComponent v-bind:typePrompt="'Hoeveel exemplaren?'"
+              :class="[prompts.nCopies ? 'visible' : 'invisible']" @closePrompt="prompts.nCopies = false"
+              @saveField="createCopies($event); showNotification('nCopies')"></PromptComponent>
 
             <NotificationComponent v-bind:notificationText="'Exemplaren aangemaakt'"
-            :class="[notifications.nCopies ? 'visible' : 'invisible']" @closeNotification="notifications.nCopies = false"
-            ></NotificationComponent>
+              :class="[notifications.nCopies ? 'visible' : 'invisible']"
+              @closeNotification="notifications.nCopies = false; refresh()"></NotificationComponent>
 
-            
+
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ export default {
         // bookId: this.book.id
       },
       prompts: { description: false, title: false, author: false, nCopies: false },
-      notifications: {nCopies: false}
+      notifications: { nCopies: false }
     };
   },
   mounted() {
@@ -279,6 +279,10 @@ export default {
       axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook, {
         headers: headers
       })
+    },
+
+    refresh() {
+      window.location.reload()
     }
 
 
