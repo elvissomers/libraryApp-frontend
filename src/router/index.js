@@ -22,6 +22,9 @@ import PageNotFoundView from '../views/general-pages/PageNotFoundView.vue'
 import UserDetailView from '../views/detail-pages/UserDetailView.vue'
 import UpdateUserView from '../views/admin-panel/user/UpdateUserView.vue'
 import CreateLoanForUser from '../components/admin-panel/reservation-overview/CreateLoanForUser.vue'
+import ChangePasswordView from '../views/general-pages/ChangePasswordView.vue'
+import ResetPasswordView from '../views/general-pages/ResetPasswordView.vue'
+
 
 const routes = [
   {
@@ -68,7 +71,8 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    meta: { requiresNoAuth: true }
   },
   {
     path: '/mybooks',
@@ -144,8 +148,20 @@ const routes = [
     path: '/notfound',
     name: 'page-not-found',
     component: PageNotFoundView,
+    meta: { requiresNoAuth: true }
   },
-  
+  {
+    path: '/change-password',
+    name: 'change-password',
+    component: ChangePasswordView,
+    meta: { requiresNoAuth: true }
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: ResetPasswordView,
+    meta: { requiresNoAuth: true }
+  },
 ]
 
 const router = createRouter({
@@ -155,14 +171,18 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
+  const requiresNoAuth = to.matched.some(record => record.meta.requiresNoAuth)
   const isAuthenticated = store.getters.isAuthenticated
   const isAdmin = store.getters.isAdmin
 
   console.log("admin: " + typeof isAdmin)
 
-  if (to.name !== 'login' && !isAuthenticated) {
+  if (!requiresNoAuth && !isAuthenticated) {
     console.log(1)
-    next('/login')
+    next('/login') 
+  } else if (requiresNoAuth && isAuthenticated) {
+    console.log(4)
+    next('/')
   } else if (requiresAdmin && !isAdmin) {
     console.log(2)
     alert("admin rights required")

@@ -14,6 +14,7 @@
                         <li ><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
                         <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
                     </ul>
+                    <!-- <router-link to="/reset-password" class="hover:text-gray-200">Change password</router-link> -->
 
                     <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
                     <div v-if="store.getters.isAuthenticated" class="flex-nowrap">
