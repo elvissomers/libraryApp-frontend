@@ -4,17 +4,21 @@
         <div class="content-center flex flex-row justify-between bg-slate-300">
             <div></div>
             <div class="p-4 text-center rounded-md">All Reservations</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event, 'date', 'asc')" @goBack="searchReservations(0, '', 'date', 'asc')"
-                class="m-2">
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event, 'date', 'asc')"
+                @goBack="searchReservations(0, '', 'date', 'asc')" class="m-2">
             </SearchBar>
         </div>
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortReservations('date', sortAscending)" class="w-36 font-extrabold text-left ml-8">Date</button>
-            <button @click="sortReservations('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">First Name</button>
-            <button @click="sortReservations('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Last Name</button>
-            <button @click="sortReservations('book_Title', sortAscending)" class="font-extrabold text-left">Book Title</button>
+            <button @click="sortReservations('date', sortAscending)"
+                class="w-36 font-extrabold text-left ml-8">Date</button>
+            <button @click="sortReservations('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">First
+                Name</button>
+            <button @click="sortReservations('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Last
+                Name</button>
+            <button @click="sortReservations('book.title', sortAscending)" class="font-extrabold text-left">Book
+                Title</button>
         </div>
 
 
@@ -24,7 +28,8 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" v-bind:totalPages="this.totalPages"
+                @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -54,7 +59,8 @@ export default {
             sortAscending: true,
             currentPage: 0,
             propertyToSortBy: 'date',
-            pageableSize: 10
+            pageableSize: 10,
+            totalPages: -1
         };
     },
     mounted() {
@@ -71,16 +77,15 @@ export default {
             parameterDto.numberPerPage = this.pageableSize
 
             axios.post("http://localhost:8080/reservation/searchEndPoint", parameterDto)
-                    .then(response => {
-                        if (response.data.content.length > 0) {
-                            this.reservations = response.data.content;
-                            this.searchTerm = searchTerm;
-                            this.currentPage = currentPageNumber;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .then(response => {
+                    this.reservations = response.data.content;
+                    this.totalPages = response.data.totalPages;
+                    this.currentPage = currentPageNumber;
+                    this.searchTerm = searchTerm;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
 
         sortReservations(propertyToSortBy) {
@@ -97,8 +102,8 @@ export default {
 
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
-            if (tempPageNumber >= 0) {
-                this.searchReservations(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
+                this.searchReservations(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 

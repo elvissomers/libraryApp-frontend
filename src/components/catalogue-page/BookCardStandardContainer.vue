@@ -9,7 +9,7 @@
                 v-bind:isbn="book.isbn">
             </BookCardCatalogue>
         </div>
-        <PaginationBar v-bind:curPage="currentPage" @changePage="changePageNumber($event)">
+        <PaginationBar v-bind:curPage="currentPage" v-bind:totalPages="totalPages" @changePage="changePageNumber($event)">
         </PaginationBar>
 
     </div>
@@ -31,6 +31,7 @@ export default {
         return {
             books: [],
             currentPage: 0,
+            totalPages: -1
         };
     },
     mounted() {
@@ -38,12 +39,19 @@ export default {
     },
     methods: {
         getBooks(pageNumber) {
-            axios.get('http://localhost:8080/book/pageable/search/title/asc/' + pageNumber + '/16/false')
+            let parameterDto = {}
+            parameterDto.searchTerm = "";
+            parameterDto.propertyToSortBy = "title"
+            parameterDto.directionOfSort = "asc";
+            parameterDto.pageNumber = pageNumber
+            parameterDto.numberPerPage = 16
+            parameterDto.archived = false
+
+            axios.post("http://localhost:8080/book/searchEndPoint", parameterDto)
                 .then(response => {
-                    if (response.data.length > 0) {
-                        this.books = response.data;
-                        this.currentPage = pageNumber
-                    }
+                    this.books = response.data.content;
+                    this.currentPage = pageNumber
+                    this.totalPages = response.data.totalPages
                 })
                 .catch(error => {
                     console.log(error);
@@ -51,9 +59,9 @@ export default {
         },
 
         changePageNumber(change) {
-            const tempPage = this.currentPage + change;
-            if (this.currentPage >= 0) {
-                this.getBooks(tempPage)
+            const tempPageNumber = this.currentPage + change
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
+                this.getBooks(tempPageNumber)
             }
         }
     }
