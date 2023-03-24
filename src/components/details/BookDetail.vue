@@ -93,7 +93,7 @@ export default {
       })
         .then(response => {
           console.log('Reservation created:', response.data);
-          if (response.data == "true"){
+          if (response.data){
             alert('Reservering aangemaakt');
           } else {
             alert('Reservering kan niet aangemaakt worden')
