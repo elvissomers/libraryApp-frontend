@@ -10,15 +10,11 @@
                 </svg>
             </button>
         </div>
-        Voer een nieuwe {{typePrompt}} in
-
-            <input
-                class="shadow appearance-none border rounded w-96 p-4 my-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                v-model="fieldValue" :placeholder=typePrompt>
+        {{ notificationText }}
 
             <button
                 class="w-48 self-center text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
-                @click="$emit('saveField', fieldValue); $emit('closePrompt')">Save
+                @click="$emit('closeNotification')">Oke
             </button>
         </div>
 
@@ -30,16 +26,15 @@
 
 
 export default {
-    name: 'PromptComponent',
+    name: 'NotificationComponent',
     components: {
 
     },
 
-    props: ['typePrompt'],
+    props: ['notificationText'],
 
     data() {
         return {
-            fieldValue: ''
 
         };
     },

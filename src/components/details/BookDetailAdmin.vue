@@ -75,9 +75,18 @@
             <button @click="createReservation()"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
 
-            <button @click='createCopies()'
+            <button @click="showPrompt('nCopies')"
               class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak
               nieuwe kopie aan</button>
+              <PromptComponent v-bind:typePrompt="'Hoeveel exemplaren?'"
+            :class="[prompts.nCopies ? 'visible' : 'invisible']" @closePrompt="prompts.nCopies = false"
+            @saveField="createCopies($event); showNotification('nCopies')"></PromptComponent>
+
+            <NotificationComponent v-bind:notificationText="'Exemplaren aangemaakt'"
+            :class="[notifications.nCopies ? 'visible' : 'invisible']" @closeNotification="notifications.nCopies = false"
+            ></NotificationComponent>
+
+            
           </div>
         </div>
       </div>
@@ -92,6 +101,7 @@ import axios from 'axios';
 
 import BookKeyword from './book-detail-page/BookKeyword.vue';
 import PromptComponent from '@/components/reusable-components/PromptComponent.vue'
+import NotificationComponent from '../reusable-components/NotificationComponent.vue';
 
 
 export default {
@@ -99,7 +109,8 @@ export default {
 
   components: {
     BookKeyword,
-    PromptComponent
+    PromptComponent,
+    NotificationComponent
   },
 
   data() {
@@ -125,7 +136,8 @@ export default {
         // ?
         // bookId: this.book.id
       },
-      prompts: { description: false, title: false, author: false }
+      prompts: { description: false, title: false, author: false, nCopies: false },
+      notifications: {nCopies: false}
     };
   },
   mounted() {
@@ -207,13 +219,13 @@ export default {
     },
 
 
-    createCopies() {
-      this.copy.amount = prompt("Hoeveel kopieën wil je toevoegen?")
+    createCopies(numberOfCopies) {
+      this.copy.amount = numberOfCopies
       if (this.copy.amount > 0) {
         axios.post('http://localhost:8080/copy/create', this.copy)
           .then(response => {
             console.log('Copy added:', response.data);
-            alert(this.copy.amount + ' copies have been added for this book')
+
           })
           .catch(error => {
             console.log(error);
@@ -234,6 +246,10 @@ export default {
 
     showPrompt(typePrompt) {
       this.prompts[typePrompt] = true
+    },
+
+    showNotification(typeNotification) {
+      this.notifications[typeNotification] = true
     },
 
     changeField(whichField, newFieldValue) {
