@@ -30,6 +30,10 @@
             microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan
             poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed
             umami cardigan.</p>
+            <div v-if="!bookFetching">
+          <BookKeyword  v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
+          </BookKeyword>
+            </div>
           <button>Edit</button>
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
             <div class="flex">
@@ -61,13 +65,14 @@
   
 <script>
 import axios from 'axios';
+import BookKeyword from './book-detail-page/BookKeyword.vue';
 
 
 export default {
   name: 'MyBooksView',
 
   components: {
-
+    BookKeyword
   },
 
   data() {
