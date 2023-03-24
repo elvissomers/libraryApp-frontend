@@ -1,37 +1,67 @@
 <template>
   <section class="text-gray-700 body-font overflow-hidden">
-    <div class="container px-5 pt-16 mx-auto">
-      <div class="lg:w-4/5 mx-auto flex flex-wrap justify-center">
-        <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200"
+    <div class="container mx-auto">
+      <div class="lg:w-full mx-auto flex flex-wrap justify-center">
+        <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200 my-auto"
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
           }}</span>
-          <button @click="changeAuthor()"
+
+          <button @click="showPrompt('author')"
+            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+            <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
+              src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
+          </button>
+          <PromptComponent v-bind:book="book" v-bind:typePrompt="'author'" class=""
+            :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
+            @saveField="changeField('author', $event)"></PromptComponent>
+
+          <h1></h1>
+          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
+          }}</span>
+
+          <button @click="showPrompt('title')"
+            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+            <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
+              src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
+          </button>
+          <PromptComponent v-bind:book="book" v-bind:typePrompt="'title'" class=""
+            :class="[prompts.title ? 'visible' : 'invisible']" @closePrompt="prompts.title = false"
+            @saveField="changeField('title', $event)"></PromptComponent>
+
+
+          <div class="flex mb-4">
+          </div>
+          <!-- Description -->
+          <div v-if="!bookFetching">
+            <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
+            </BookKeyword>
+            <button @click="addKeyword()"
+              class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+              +
+            </button>
+          </div>
+
+          <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
+            book.description }}</p>
+          <button @click="showPrompt('description')"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
 
-          <h1></h1>
-          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
-          }}</span>
-          <button @click="changeTitle()"
-            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
-            <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
-              src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
-          </button>
-          <div class="flex mb-4">
-          </div>
-          <!-- Description -->
-          <p class="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia
-            microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan
-            poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed
-            umami cardigan.</p>
-          <button>Edit</button>
+          <PromptComponent v-bind:book="book" v-bind:typePrompt="'description'" class=""
+            :class="[prompts.description ? 'visible' : 'invisible']" @closePrompt="prompts.description = false"
+            @saveField="changeField('description', $event)"></PromptComponent>
+
+
+
+
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
             <div class="flex">
               <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
+
               <button @click="changeIsbn()"
                 class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
                 <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
@@ -44,13 +74,19 @@
             <button @click="createReservation()"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
 
-            <button @click='createCopies()'
+            <button @click="showPrompt('nCopies')"
               class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak
               nieuwe kopie aan</button>
+              <PromptComponent v-bind:typePrompt="'Hoeveel exemplaren?'"
+            :class="[prompts.nCopies ? 'visible' : 'invisible']" @closePrompt="prompts.nCopies = false"
+            @saveField="createCopies($event); showNotification('nCopies')"></PromptComponent>
+
+            <NotificationComponent v-bind:notificationText="'Exemplaren aangemaakt'"
+            :class="[notifications.nCopies ? 'visible' : 'invisible']" @closeNotification="notifications.nCopies = false"
+            ></NotificationComponent>
+
+            
           </div>
-
-
-
         </div>
       </div>
     </div>
@@ -62,12 +98,18 @@
 <script>
 import axios from 'axios';
 
+import BookKeyword from './book-detail-page/BookKeyword.vue';
+import PromptComponent from '@/components/reusable-components/PromptComponent.vue'
+import NotificationComponent from '../reusable-components/NotificationComponent.vue';
+
 
 export default {
   name: 'MyBooksView',
 
   components: {
-
+    BookKeyword,
+    PromptComponent,
+    NotificationComponent
   },
 
   data() {
@@ -86,15 +128,15 @@ export default {
         lastName: '',
         password: '',
       },
-
-
       copy: {
         // TODO: this needs to be the actual ID of the book
         bookId: 0,
         amount: 1
         // ?
         // bookId: this.book.id
-      }
+      },
+      prompts: { description: false, title: false, author: false, nCopies: false },
+      notifications: {nCopies: false}
     };
   },
   mounted() {
@@ -123,6 +165,7 @@ export default {
     getBook() {
       axios.get('http://localhost:8080/book/get/' + this.$route.params.id)
         .then(response => {
+          console.log(response.data)
           this.book = response.data;
           this.copy.bookId = this.book.id;
           this.bookFetching = false
@@ -175,13 +218,13 @@ export default {
     },
 
 
-    createCopies() {
-      this.copy.amount = prompt("Hoeveel kopieën wil je toevoegen?")
+    createCopies(numberOfCopies) {
+      this.copy.amount = numberOfCopies
       if (this.copy.amount > 0) {
         axios.post('http://localhost:8080/copy/create', this.copy)
           .then(response => {
             console.log('Copy added:', response.data);
-            alert(this.copy.amount + ' copies have been added for this book')
+
           })
           .catch(error => {
             console.log(error);
@@ -189,28 +232,25 @@ export default {
       }
     },
 
-
-
-    // Change methods from here
-    changeAuthor() {
-      let newAuthor = prompt("Voer nieuwe auteur in:")
-
-      let changeBook = this.book
-      changeBook.author = newAuthor
-
-      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook)
-      console.log('Changed author name into ', newAuthor)
-
+    addKeyword() {
+      let keywordName = prompt("Welk keyword wil je toevoegen?")
+      let keyword = {
+        name: keywordName,
+        bookId: this.book.id
+      }
+      axios.post('http://localhost:8080/keyword/create', keyword)
+        .then(response => {
+          console.log("Keyword toegevoegd: ", response)
+          console.log('Added keyword: ', keywordName, 'to book: ', this.book.title)
+          alert("Keyword toegevoegd")
+          window.location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+          alert("Er is iets mis gegaan!")
+        })
     },
 
-    changeTitle() {
-      let newTitle = prompt("Voer nieuwe titel in:")
-      let changeBook = this.book
-      changeBook.title = newTitle
-
-      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook)
-      console.log('Changed title into ', newTitle)
-    },
 
     changeIsbn() {
       let newIsbn = prompt("Voer nieuw ISBN in:")
@@ -220,6 +260,25 @@ export default {
       alert("ISBN veranderen niet toegestaan!")
       // axios.put('http://localhost:8080/book/' + this.$route.params.id, changeBook)
       // console.log('Changed isbn into ', newIsbn)
+    },
+
+    showPrompt(typePrompt) {
+      this.prompts[typePrompt] = true
+    },
+
+    showNotification(typeNotification) {
+      this.notifications[typeNotification] = true
+    },
+
+    changeField(whichField, newFieldValue) {
+      let headers = {
+        'Authentication': localStorage.getItem('token')
+      }
+      let changeBook = this.book
+      changeBook[whichField] = newFieldValue
+      axios.put('http://localhost:8080/book/update/' + this.$route.params.id, changeBook, {
+        headers: headers
+      })
     }
 
 

@@ -16,10 +16,10 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
-                    <!-- <div class="inputbox">
+                    <div class="inputbox" v-if="$route.query.parent == 'UserDetail'">
                         <input type="text" id="password" v-model="user.password" required>
                         <label for="">Wachtwoord</label>
-                    </div> -->
+                    </div>
                     <div>
                         <label for="">Admin:</label>
                         <input type="checkbox" v-model="user.admin" :checked="user.admin">
@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+import store from '@/store';
 
 export default {
   name: 'EditUser',
@@ -46,6 +47,7 @@ export default {
             admin: false,
             archived: false
         },
+        store
     };
   },
   created() {
@@ -57,6 +59,7 @@ export default {
         this.user.admin = response.data.admin;
         this.user.archived = response.data.archived;
         console.log("created() function was run with some success")
+        console.log(this.$route.query.parent)
       })
       .catch(error => {
         console.log(error);
@@ -65,20 +68,37 @@ export default {
   methods: {
       
     editUser() {
-
-        axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
+        if(this.user.password != ""){
+            console.log("password is not empty")
+            this.saveUserChanges()
+        }
+        else{
+            axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")
           this.$router.push('/admin/edit-users')
-        })
+            })
         .catch(error => {
           console.log("error error error")
           console.log(this.user)
           console.log(error);
           alert("Er is iets foutgegaan, controleer de gegevens goed")
-        })
+            })
+        }
     },
+    saveUserChanges() {
+      axios.put('http://localhost:8080/user/self/' + this.$route.params.id, this.user)
+        .then(response => {
+            console.log('User created:', response.data);
+            alert("Gebruiker succesvol gewijzigd!");
+        })
+        .catch(error => {
+            alert('Er is iets fout gegaan')
+            console.log(error);
+        })
+        
+    }
   },
 };
 </script>

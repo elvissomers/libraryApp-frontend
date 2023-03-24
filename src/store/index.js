@@ -22,21 +22,27 @@ export default createStore({
             // Login user 
             axios.post('http://localhost:8080/api/user/login', user)
                 .then(response => {
-                    // Set token & admin
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('admin', response.data.admin);
-                    localStorage.setItem('userId', response.data.userId);
+                    if (response.data) {
+                        // Set token & admin
+                        localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('admin', response.data.admin);
+                        localStorage.setItem('userId', response.data.userId);
 
-                    // Set state
-                    if (localStorage.getItem('admin') == 'true') {
-                        state.admin = true
+                        // Set state
+                        if (localStorage.getItem('admin') == 'true') {
+                            state.admin = true
+                        } else {
+                            state.admin = false
+                        }
+                        state.token = localStorage.getItem('token')
+                        state.userId = localStorage.getItem('userId')
+
+                        router.push('/')
                     } else {
-                        state.admin = false
+                        alert("Gebruikersnaam of wachtwoord is incorrect")
+                        router.push('/login')
                     }
-                    state.token = localStorage.getItem('token')
-                    state.userId = localStorage.getItem('userId')
-
-                    router.push('/')
+                    
                 })
                 .catch(error => {
                     console.log(error);

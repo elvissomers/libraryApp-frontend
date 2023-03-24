@@ -9,14 +9,13 @@
                     + <span class="material-symbols-outlined"> menu_book</span></button>
                 </div>
 
-                <!-- <BookDetailAdmin v-if="store.getters.isAdmin"></BookDetailAdmin> -->
-                <!--<BookDetail v-if="!store.getters.isAdmin"></BookDetail>-->
-
                 <div class="rounded">
                 <!-- removed: @click="openSettings = !openSettings" class="hover:text-gray-200"-->
-                    <router-link v-if="store.getters.isAdmin" :to="{ name: 'update-user' }">
+                <div v-if="$route.query.parent != 'UserRow'">  
+                    <router-link v-if="store.getters.isAdmin" :to="{ name: 'update-user', query:{parent: 'UserDetail'} }">
                         <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (admin)</button>
                     </router-link>
+                </div>  
                     <router-link v-if="!store.getters.isAdmin" :to="{ name: 'edit-myaccount' }">
                         <button class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig profiel (user)</button>
                     </router-link>
@@ -29,7 +28,10 @@
                 <img src="https://vojislavd.com/ta-template-demo/assets/img/profile.jpg" class="w-40 border-4 border-white rounded-full">
                 <div class="flex items-center space-x-2 mt-2">
                     <!-- name -->
-                    <p class="text-2xl">{{ user.firstName }} {{ user.lastName }}</p>
+                    <p class="text-2xl">
+                        <span v-if="user.admin" class="material-symbols-outlined align-middle">admin_panel_settings</span>
+                        {{ user.firstName }} {{ user.lastName }}
+                    </p>
                     
                 </div>
             </div>
@@ -50,14 +52,15 @@
                             <span class="font-bold w-24">Email:</span>
                             <span class="text-gray-700">{{ user.emailAddress }}</span>
                         </li>
-                        <li class="flex border-b py-2">
+                        <!-- <li v-if="user.admin" class="flex border-b py-2">
                             <span class="font-bold w-24">Beheerder:</span>
-                            <span class="text-gray-700">{{ user.Admin }}</span>
-                        </li>  
+                            <span class="text-gray-700">waar</span>
+                        </li>   -->
                     </ul>
                 </div>
             </div>
         </div>
+        
         <BookPopup v-if="showBookPopup" @close="showBookPopup = false" />
     </div>
 </template>
