@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row">
     <SideBar></SideBar>
-    <LoanTable></LoanTable>
+    <LoanTable class="my-8"></LoanTable>
   </div>
 </template>
 
@@ -15,19 +15,7 @@ export default {
   components: {
     SideBar,
     LoanTable,
-  },
-
-  data() {
-    return {
-
-    };
-  },
-  mounted() {
-
-  },
-  methods: {
-
-  },
+  }
 }
 </script>
 <style>

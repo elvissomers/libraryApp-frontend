@@ -10,7 +10,7 @@
                 v-bind:isbn="book.isbn">
             </BookCardCatalogue>
         </div>
-        <PaginationBar v-bind:curPage="currentPage" @changePage="changePageNumber($event)">
+        <PaginationBar v-bind:curPage="currentPage" v-bind:totalPages="totalPages" @changePage="changePageNumber($event)">
         </PaginationBar>
     </div>
 </template>
@@ -32,7 +32,7 @@ export default {
 
     watch: {
         searchTerm: function () {
-            this.searchBooks(0)
+            this.getBooks(0)
         }
     },
 
@@ -40,36 +40,40 @@ export default {
         return {
             books: [],
             currentPage: 0,
-            previousPage: 0,
-            startOver: this.startAgain
         };
     },
 
     mounted() {
-        this.searchBooks(0);
+        this.getBooks(0);
     },
 
 
 
     methods: {
 
-        searchBooks(pageNumber) {
-            axios.get('http://localhost:8080/book/pageable/search/' + this.searchTerm + '/title/asc/' + pageNumber + '/16')
+        getBooks(pageNumber) {
+            let parameterDto = {}
+            parameterDto.searchTerm = this.searchTerm;
+            parameterDto.propertyToSortBy = "title"
+            parameterDto.directionOfSort = "asc";
+            parameterDto.pageNumber = pageNumber
+            parameterDto.numberPerPage = 16
+            parameterDto.archived = false
+
+            axios.post("http://localhost:8080/book/searchEndPoint", parameterDto)
                 .then(response => {
-                    if (response.data.length > 0) {
-                        this.books = response.data;
-                        this.currentPage = pageNumber
-                    }
+                    this.books = response.data.content;
+                    this.currentPage = pageNumber
+                    this.totalPages = response.data.totalPages
                 })
                 .catch(error => {
                     console.log(error);
                 });
         },
-
         changePageNumber(change) {
-            const tempPage = this.currentPage + change;
-            if (this.currentPage >= 0) {
-                this.searchBooks(tempPage)
+            const tempPageNumber = this.currentPage + change
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
+                this.getBooks(tempPageNumber)
             }
         }
     }

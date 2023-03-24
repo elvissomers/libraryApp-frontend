@@ -3,20 +3,36 @@
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
             <router-link :to="{ name: 'create-loan-user' }">
-                <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening Toevoegen</button>
+                <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening
+                    Toevoegen</button>
             </router-link>
             <div class="p-4 text-center rounded-md">Alle Uitleningen</div>
-            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event, 'startDate', 'asc')" @goBack="searchLoans(0, '', 'startDate', 'asc')"
-                class="m-2">
+            <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event, 'startDate', 'asc')"
+                @goBack="searchLoans(0, '', 'startDate', 'asc')" class="m-2">
             </SearchBar>
         </div>
 
 
-        <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortLoans('startDate', sortAscending)" class="w-36 font-extrabold text-left ml-8">Datum</button>
-            <button @click="sortLoans('user_FirstName', sortAscending)" class="w-36 font-extrabold text-left">Voor Naam</button>
-            <button @click="sortLoans('user_LastName', sortAscending)" class="w-36 font-extrabold text-left">Achter Naam</button>
-            <button @click="sortLoans('copy_Book_Title', sortAscending)" class="font-extrabold text-left">Boek Titel</button>
+        <div class="flex flex-row justify-between border-b-2">
+            <div class="flex flex-row py-4">
+                <button @click="sortLoans('startDate', sortAscending)"
+                    class="w-36 font-extrabold text-left ml-8">Uitleen Datum</button>
+                    <button @click="sortLoans('endDate', sortAscending)"
+                    class="w-36 font-extrabold text-left">Inlever Datum</button>
+                <button @click="sortLoans('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">Voor
+                    Naam</button>
+                <button @click="sortLoans('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Achter
+                    Naam</button>
+                <button @click="sortLoans('copy.book.title', sortAscending)" class="font-extrabold text-left">Boek
+                    Titel</button>
+            </div>
+            <div class="flex flex-row">
+                <span class="p-4">Laat Ingeleverde Boeken Zien</span>
+                <div class="my-auto mx-2">
+                    <ToggleButtonComponent @toggle="toggleOpen()"></ToggleButtonComponent>
+                </div>
+                <!-- <input type="checkbox" @click="toggleArchived()"> -->
+            </div>
         </div>
 
 
@@ -26,7 +42,7 @@
         </div>
 
         <div>
-            <PaginationBar v-bind:curPage="this.currentPage" @changePage="changePageNumber($event)">
+            <PaginationBar v-bind:curPage="this.currentPage" v-bind:totalPages="this.totalPages" @changePage="changePageNumber($event)">
 
             </PaginationBar>
 
@@ -40,13 +56,15 @@ import axios from 'axios';
 import LoanRow from '@/components/admin-panel/loan-overview/LoanRow.vue';
 import SearchBar from '@/components/reusable-components/SearchBar.vue';
 import PaginationBar from '@/components/reusable-components/PaginationBar.vue';
+import ToggleButtonComponent from '@/components/reusable-components/ToggleButtonComponent.vue';
 
 export default {
     name: 'LoanView',
     components: {
         LoanRow,
         SearchBar,
-        PaginationBar
+        PaginationBar,
+        ToggleButtonComponent
     },
     data() {
         return {
@@ -56,7 +74,9 @@ export default {
             sortAscending: true,
             currentPage: 0,
             propertyToSortBy: 'startDate',
-            pageableSize: 10
+            pageableSize: 10,
+            showClosed: true,
+            totalPages: -1 
         };
     },
     mounted() {
@@ -65,26 +85,24 @@ export default {
     methods: {
 
         searchLoans(currentPageNumber, searchTerm, propertyToSortBy, sortAscending) {
-            const directionOfSort = sortAscending ? "asc" : "desc";
-            let url = ''
-            if (searchTerm == '') {
-                url = 'http://localhost:8080/loan/pageable/search/'+ propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
-            }
-            else {
-                url = 'http://localhost:8080/loan/pageable/search/'+ searchTerm + '/' + propertyToSortBy + '/' + directionOfSort + '/' + currentPageNumber + '/' + this.pageableSize
-            }
+            let parameterDto = {}
+            parameterDto.searchTerm = searchTerm;
+            parameterDto.propertyToSortBy = propertyToSortBy
+            parameterDto.directionOfSort = sortAscending ? "asc" : "desc";
+            parameterDto.pageNumber = currentPageNumber
+            parameterDto.numberPerPage = this.pageableSize
+            parameterDto.open = this.showClosed
 
-            axios.get(url)
-                    .then(response => {
-                        if (response.data.length > 0) {
-                            this.loans = response.data;
-                            this.searchTerm = searchTerm;
-                            this.currentPage = currentPageNumber;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+            axios.post("http://localhost:8080/loan/searchEndPoint", parameterDto)
+                .then(response => {
+                    this.loans = response.data.content;
+                    this.totalPages = response.data.totalPages;
+                    this.currentPage = currentPageNumber
+                    this.searchTerm = searchTerm;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
 
         sortLoans(propertyToSortBy) {
@@ -101,11 +119,15 @@ export default {
 
         changePageNumber(change) {
             const tempPageNumber = this.currentPage + change
-            if (tempPageNumber >= 0) {
-                this.searchLoans(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.directionOfSort)
+            if (tempPageNumber >= 0 && tempPageNumber <= (this.totalPages - 1)) {
+                this.searchLoans(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
 
+        toggleOpen() {
+            this.showClosed = !this.showClosed
+            this.searchLoans(0, this.searchTerm, this.propertyToSortBy, this.sortAscending)
+        }
 
     },
 }

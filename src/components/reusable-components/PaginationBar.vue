@@ -6,7 +6,7 @@
     <button v-on:click="decreasePage()" class="border rounded-md bg-gray-100 px-2 py-1 text-3xl leading-6 text-slate-400 transition hover:bg-gray-200 hover:text-slate-500 cursor-pointer shadow-sm">
     <span class="material-symbols-outlined">arrow_left</span>
     </button>
-    <div class="text-slate-500">{{ curPage }}</div>
+    <div class="text-slate-500">{{ curPage + 1 }}/{{ totalPages }}</div>
     <button v-on:click="increasePage()" class="border rounded-md bg-gray-100 px-2 py-1 text-3xl leading-6 text-slate-400 transition hover:bg-gray-200 hover:text-slate-500 cursor-pointer shadow-sm">
         <span class="material-symbols-outlined">arrow_right</span>
     </button>
@@ -17,7 +17,7 @@
   <script>
 export default {
   name: 'PaginationBar',
-  props: ['curPage'],
+  props: ['curPage', 'totalPages'],
 
   data() {
     return {

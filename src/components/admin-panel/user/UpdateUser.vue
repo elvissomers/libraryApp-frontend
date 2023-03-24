@@ -16,9 +16,9 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
-                    <div class="inputbox">
-                        <input type="text" id="password" v-model="user.password" required>
-                        <label for="">Wachtwoord</label>
+                    <div class="inputbox" v-if="$route.query.parent == 'UserDetail'">
+                        <input type="text" id="password" v-model="user.password">
+                        <label for="">Nieuw wachtwoord (indien gewenst)</label>
                     </div>
                     <div>
                         <label for="">Admin:</label>
@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+import store from '@/store';
 
 export default {
   name: 'EditUser',
@@ -43,8 +44,10 @@ export default {
             emailAddress: '',
             firstName: '',
             lastName: '',
-            admin: false
+            admin: false,
+            archived: false
         },
+        store
     };
   },
   created() {
@@ -53,8 +56,8 @@ export default {
         this.user.firstName = response.data.firstName;
         this.user.lastName = response.data.lastName;
         this.user.emailAddress = response.data.emailAddress;
-        this.user.password = response.data.password;
         this.user.admin = response.data.admin;
+        this.user.archived = response.data.archived;
       })
       .catch(error => {
         console.log(error);
@@ -63,17 +66,51 @@ export default {
   methods: {
       
     editUser() {
-
-        axios.put(`http://localhost:8080/user/${this.$route.params.id}`, this.user)
+        if(this.user.password != ""){
+            this.saveUserChanges()
+        }
+        else{
+            axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
           alert("Gebruiker is succesvol geupdate!")
-        })
+          this.$router.push('/admin/edit-users')
+            })
         .catch(error => {
+          console.log("error error error")
+          console.log(this.user)
           console.log(error);
           alert("Er is iets foutgegaan, controleer de gegevens goed")
-        })
+            })
+        }
     },
+    saveUserChanges() {
+    let userPassword = prompt("Bevestig uw huidige wachtwoord om de wijzigingen op te slaan", { type: 'password'})
+    axios.get(`http://localhost:8080/user/self/${this.$route.params.id}/${userPassword}`)
+        .then(response => {
+            if (response.data) {
+                if(typeof this.user.password === 'undefined'){
+                    this.user.password = userPassword
+                }
+                axios.put(`http://localhost:8080/user/self/${this.$route.params.id}`, this.user)
+                    .then(response => {
+                        console.log('User created:', response.data);
+                        alert("Gebruiker succesvol gewijzigd!");
+                    })
+                    .catch(error => {
+                        alert('Er is iets fout gegaan binnen de put request')
+                        console.log(error);
+                    })
+            } else {
+                alert("Wachtwoord is niet correct");
+            }
+        })
+        .catch(error => {
+            alert('Er is iets fout gegaan binnen de get request')
+            console.log(error);
+        })
+}
+
   },
 };
 </script>
@@ -101,7 +138,7 @@ export default {
         width: 400px;
         height: 450px;
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px transparent rgba(255,255,255,0.5);
         border-radius: 20px;
         backdrop-filter: blur(15px);
         display: flex;

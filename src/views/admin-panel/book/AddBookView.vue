@@ -2,7 +2,7 @@
   <div class="AddBook">
     <SideBar></SideBar>
     <div class="mx-auto">
-      <AddBook></AddBook>
+      <AddBook class="my-20"></AddBook>
     </div>
     
   </div>
@@ -18,26 +18,6 @@ export default {
   components: {
     SideBar,
     AddBook
-  },
-  mounted() {
-    this.authenticate()
-    this.authenticateAdmin()
-  },
-  methods: {
-    authenticate() {
-      if (localStorage.getItem('token') == null ) {
-          alert("You need to be logged in to view this page")
-          this.$router.push('/login');
-          console.log('redirecting to login')
-      }
-    },
-    authenticateAdmin() {
-        if (localStorage.getItem('admin') != 'true') {
-            alert("You need admin rights to view the Admin panel")
-            this.$router.push('/');
-            console.log('redirecting to home')
-        }
-    }
   }
 }
 </script>
