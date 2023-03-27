@@ -19,7 +19,7 @@
                     <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
                     <div v-if="store.getters.isAuthenticated" class="flex-nowrap">
                         <router-link to="/" @click="store.commit('logout')" class="mx-2 align-middle hover:text-gray-200">
-                            Log out
+                            Uitloggen
                         </router-link>
                         <!-- Sign In / Register removed: My Account-->
                         <router-link :to="{name: 'user-detail', params:{id: store.state.userId }}" class=" hover:text-gray-200">
