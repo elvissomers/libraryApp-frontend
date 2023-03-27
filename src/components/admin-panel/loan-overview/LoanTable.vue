@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col w-full mx-8 ">
 
-        <div class="content-center flex flex-row justify-between bg-slate-300">
+        <div class="content-center flex flex-row justify-between border-b-2 border-zinc-400">
             <router-link :to="{ name: 'create-loan-user' }">
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening
                     Toevoegen</button>

@@ -1,21 +1,21 @@
 <template>
-  <div class="Reservations flex flex-row">
+  <div class="flex flex-row bg-white">
     <SideBar></SideBar>
-    <ReservationsTable class="my-8"></ReservationsTable>
+    <LoanTable class="my-8"></LoanTable>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import SideBar from '@/components/reusable-components/SideBar.vue';
-import ReservationsTable from '@/components/admin-panel/reservation-overview/ReservationsTable.vue';
+import LoanTable from '@/components/admin-panel/loan-overview/LoanTable.vue';
 
 export default {
   name: 'ReservationsView',
   components: {
     SideBar,
-    ReservationsTable,
-  },
+    LoanTable,
+  }
 }
 </script>
 <style>

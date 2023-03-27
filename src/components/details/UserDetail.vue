@@ -69,13 +69,16 @@
             </div>
         </div>
 
-        <BooksPopup v-if="showBooksPopup" @closeBooksPopup="showBooksPopup = false"
-            @showCopySelector="showCopySelector($event); showBooksPopup = false" />
-        <CopyPopup v-if="showCopyPopup" v-bind:bookId="book.id" @closeCopyPopup="showCopyPopup = false"
-            @createReservationFromNumber="createLoan($event); showCopyPopup = false; notifications.loanCreated = true" />
+        <BooksPopup v-if="showBooksPopup" 
+                    @closeBooksPopup="showBooksPopup = false"
+                    @showCopySelector="showCopySelector($event); showBooksPopup = false" />
+        <CopyPopup  v-if="showCopyPopup" 
+                    v-bind:bookId="book.id" 
+                    @closeCopyPopup="showCopyPopup = false"
+                    @createReservationFromNumber="createLoan($event); showCopyPopup = false; notifications.loanCreated = true" />
         <NotificationComponent v-bind:notificationText="'Lening gemaakt'"
             :class="[notifications.loanCreated ? 'visible' : 'invisible']"
-            @closeNotification="notifications.loanCreated = false; refresh()"></NotificationComponent>
+            @closeNotification="notifications.loanCreated = false; refresh()"/>
     </div>
 </template>
 
@@ -83,8 +86,8 @@
 import axios from 'axios';
 import store from '@/store';
 import BooksPopup from '@/components/details/book-detail-page/BooksPopup.vue'
-import CopyPopup from './book-detail-page/CopyPopup.vue';
-import NotificationComponent from '../reusable-components/NotificationComponent.vue';
+import CopyPopup from '@/components/details/book-detail-page/CopyPopup.vue' 
+import NotificationComponent from '@/components/reusable-components/NotificationComponent.vue'
 
 export default {
     components: {
@@ -125,6 +128,7 @@ export default {
         },
 
         createLoan(copyNumber) {
+            console.log("creating loan")
 
             let saveLoanDto = {}
             saveLoanDto.copyNumber = copyNumber

@@ -1,7 +1,7 @@
 <template>
   <div class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50">
 
-  <div class="flex flex-col w-2/5 h-3/4 bg-white p-8 rounded-3xl fixed top-8 border-8 border-green-600">
+  <div class="flex flex-col w-2/5 h-3/4 bg-white p-8 rounded-3xl fixed top-8">
 
       <div class="w-full">
           <button v-on:click="this.$emit('closeBooksPopup')" type="button" class="float-right">
@@ -30,6 +30,7 @@
           <BooksRowPopup v-for="book in books" :key="book.id" v-bind:book="book"
               @goToSelectCopy="$emit('showCopySelector', $event)">
           </BooksRowPopup>
+          
       </div>
 
       <div>
