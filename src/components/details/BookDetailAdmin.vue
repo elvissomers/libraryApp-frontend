@@ -2,7 +2,7 @@
   <section class="text-gray-700 body-font overflow-hidden">
     <div class="container px-5 pt-16 mx-auto">
       <div class="lg:w-4/5 mx-auto flex flex-wrap justify-center">
-        <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200"
+        <img v-if="!bookFetching" alt="ecommerce" class="mt-6 h-96 rounded border border-white border-4"
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author

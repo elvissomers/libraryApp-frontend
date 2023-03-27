@@ -18,7 +18,7 @@
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="text" id="isbn" v-model="book.isbn" v-bind:placeholder=oldBookIsbn required>
+                        <input type="text" id="isbn" v-model="book.isbn" v-bind:placeholder=oldBookIsbn readonly required>
                         <label for="">isbn</label>
                     </div>
                     <button v-on:click="updateBook" class="submit-btn">Wijzig</button>
