@@ -1,24 +1,30 @@
 <template>
-    <div class="flex flex-row py-2 border-b-2">
-      <div class="flex-grow-0 w-10 text-center">
-        {{ book.isbn }}
-      </div>
-      <div class="flex-grow pl-4">
-        <div class="font-bold">{{ book.title }}</div>
-        <div class="text-sm text-gray-700">{{ book.author }}</div>
-      </div>
+  <div class="flex flex-row justify-between hover:bg-blue-200">
+    <div class="flex flex-row py-4">
+      <div class="w-36 ml-8">{{ book.author }}</div>
+      <div class="w-56">{{ book.title }}</div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'BookRowPopup',
-    props: {
-      book: {
-        type: Object,
-        required: true,
-      },
-    },
-  };
-  </script>
-  
+
+
+  <div class="flex flex-row">
+      <button
+        class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+        @click="$emit('goToSelectCopy', book)">Leen Uit
+      </button>
+
+  </div>
+
+
+  </div>
+</template>
+
+
+<script>
+
+export default {
+  name: "BookRow",
+  props: ['book']
+}
+
+
+</script>
