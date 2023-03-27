@@ -1,5 +1,5 @@
 <template>
-    <button class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+    <button class="text-white bg-slate-400 border-0 p-1 m-1 rounded-md">
         {{ keyword }}
     </button>
 </template>
