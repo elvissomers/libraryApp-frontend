@@ -10,9 +10,9 @@
                             alt="Logo"></router-link>
                     <!-- Nav Links -->
                     <ul v-if="store.getters.isAuthenticated" class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                        <li ><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
-                        <li ><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
-                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
+                        <li ><router-link to="/" class="hover:text-gray-200">Catalogus</router-link></li>
+                        <li ><router-link to="/mybooks" class="hover:text-gray-200">Mijn Boekenoverzicht</router-link></li>
+                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Administratie omgeving</router-link></li>
                     </ul>
                     <!-- <router-link to="/reset-password" class="hover:text-gray-200">Change password</router-link> -->
 

@@ -88,7 +88,7 @@ export default {
                     .then(response => {
                         if (response.data) {
                             console.log('User updated:', response.status, this.user);
-                            alert("Wachtwoord is succesvol geupdate!")
+                            alert("Wachtwoord is succesvol geüpdatet!")
                             this.$router.push('/login')
                         } else {
                             alert("Wachtwoord wijzigen is niet gelukt")

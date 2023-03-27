@@ -18,7 +18,7 @@
       deleteData() {
         axios.delete(`http://localhost:8080/book/delete/${this.idToDelete}`)
           .then(response => {
-            alert("Book Deleted")
+            alert("Boek is verwijderd")
             console.log(response.data);
             this.$router.push('edit-books')
           })

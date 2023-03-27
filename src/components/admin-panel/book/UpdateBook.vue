@@ -71,7 +71,7 @@ export default {
                 headers: headers
             })
                 .then(response => {
-                    alert('The book has been updated!')
+                    alert('Boek ' + this.book.title + 'is gewijzigd')
                     console.log('Book updated:', response.data);
                 })
                 .catch(error => {

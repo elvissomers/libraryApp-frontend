@@ -5,7 +5,7 @@
             <router-link :to="{ name: 'add-user' }">
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Gebruiker Toevoegen</button>
             </router-link>
-            <div class="p-4 text-center rounded-md">All Users</div>
+            <div class="p-4 text-center rounded-md">Alle gebruikers</div>
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchUsers(0, $event, 'lastName', 'asc')" @goBack="searchUsers(0, '', 'lastName', 'asc')"
                 class="m-2">
             </SearchBar>
@@ -13,9 +13,9 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>First Name</button>
-            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Last Name</button>
-            <button @click="sortUsers('emailAddress', sortAscending)" class="font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Email Address</button>
+            <button @click="sortUsers('firstName', sortAscending)" class="w-36 font-extrabold text-left ml-8"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Voornaam</button>
+            <button @click="sortUsers('lastName', sortAscending)" class="w-56 font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Achternaam</button>
+            <button @click="sortUsers('emailAddress', sortAscending)" class="font-extrabold text-left"><span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>Email Adres</button>
             <!-- <span class="material-symbols-outlined">sort</span> -->
         </div>
 

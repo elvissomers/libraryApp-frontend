@@ -73,7 +73,7 @@ export default {
             axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
-          alert("Gebruiker is succesvol geupdate!")
+          alert("Je hebt de gebruiker succesvol geüpdatet!")
           this.$router.push('/admin/edit-users')
             })
         .catch(error => {
@@ -98,7 +98,7 @@ export default {
                         alert("Gebruiker succesvol gewijzigd!");
                     })
                     .catch(error => {
-                        alert('Er is iets fout gegaan binnen de put request')
+                        alert('Er is iets fout gegaan bij het wijzigen van de gegevens')
                         console.log(error);
                     })
             } else {
@@ -106,7 +106,7 @@ export default {
             }
         })
         .catch(error => {
-            alert('Er is iets fout gegaan binnen de get request')
+            alert('Er is iets fout gegaan bij het ophalen van de gegevens')
             console.log(error);
         })
 }

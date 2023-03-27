@@ -168,7 +168,7 @@ export default {
       axios.post('http://localhost:8080/copy/create', this.copy)
         .then(response => {
           console.log('Copy added:', response.data);
-          alert("Copy was added")
+          alert("Kopie is aangemaakt")
           window.location.reload()
         })
         .catch(error => {
@@ -183,7 +183,7 @@ export default {
         axios.post('http://localhost:8080/copy/create', this.copy)
           .then(response => {
             console.log('Copy added:', response.data);
-            alert(this.copy.amount + ' copies have been added for this book')
+            alert("Er zijn " + this.copy.amount + ' kopieën aangemaakt voor dit boek')
           })
           .catch(error => {
             console.log(error);
