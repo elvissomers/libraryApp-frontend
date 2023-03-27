@@ -3,10 +3,10 @@
     <div class="flex flex-row justify-center">
       <SearchBar @doSearch="startSearch($event)" @goBack="goBackToCatalogue()" />
     </div>
-
-    <BookCardStandardContainer v-if="!this.search"></BookCardStandardContainer>
-    <BookCardSearchContainer v-if="this.search" :searchTerm="searchTermParent">
-    </BookCardSearchContainer>
+    <!-- <div class="flex flex-wrap"> -->
+      <BookCardStandardContainer v-if="!this.search"/>
+      <BookCardSearchContainer v-if="this.search" :searchTerm="searchTermParent"/>
+    <!-- </div> -->
   </div>
 </template>
 

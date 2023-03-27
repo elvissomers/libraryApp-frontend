@@ -12,7 +12,7 @@
 
 <style>
 #app {
-  background: #f4f4f4;
+  /* background: #f4f4f4; */
 }
 
 

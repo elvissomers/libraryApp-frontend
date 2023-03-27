@@ -1,12 +1,13 @@
 <template>
     <div class="Catalogue">
-        <!--<div class="flex flex-row flex-wrap justify-center">-->
-        <div class="mx-40 my-5 grid grid-cols-4 grid-rows-3 gap-4">
+        <div class="flex flex-row flex-wrap justify-center">
+        <!-- <div class="mx-40 my-5 grid grid-cols-4 grid-rows-3 gap-4"> -->
             <BookCardCatalogue v-for="book in books" :key="book.id" 
                 v-bind:id="book.id" 
                 v-bind:title="book.title" 
                 v-bind:author="book.author"
-                v-bind:isbn="book.isbn">
+                v-bind:isbn="book.isbn"
+                class="w-1/5">
             </BookCardCatalogue>
         </div>
         <PaginationBar v-bind:curPage="currentPage" v-bind:totalPages="totalPages" @changePage="changePageNumber($event)">

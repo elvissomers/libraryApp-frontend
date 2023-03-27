@@ -6,7 +6,7 @@
                 <button class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening
                     Toevoegen</button>
             </router-link>
-            <div class="p-4 text-center rounded-md">Alle Uitleningen</div>
+            <div class="p-4 text-center rounded-md font-bold text-lg">Alle Uitleningen</div>
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event, 'startDate', 'asc')"
                 @goBack="searchLoans(0, '', 'startDate', 'asc')" class="m-2">
             </SearchBar>
