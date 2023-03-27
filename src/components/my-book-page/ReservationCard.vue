@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-xs rounded-lg overflow-hidden shadow-lg">
+    <div class="max-w-xs rounded-lg overflow-hidden shadow-md bg-white">
         <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
         <router-link :to="{ name: 'book-detail', params: { id: reservation.bookId } }" class="hover:text-gray-200">
                 <img class="rounded-t-lg p-8"
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "BookCard",
+  name: "ReservationCard",
     // props: ['id','title', 'author', 'isbn'] 
     props: ['reservation']
 }
