@@ -19,8 +19,16 @@
       </button>
     </router-link>
     <button v-on:click="Archive()"
-        class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Archiveer
-    </button>
+        class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+        :class="[user.id != parseInt(store.state.userId) ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
+        :disabled="user.id == parseInt(store.state.userId)">
+        {{ user.id != parseInt(store.state.userId) ? 'Archiveren!' : 'Dit ben jij!' }}
+      </button>
+    <!--<button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
+      :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
+      :disabled="!reservation.available">
+      {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
+    </button>-->
 
   </div>
 
@@ -31,10 +39,17 @@
     
 <script>
 import axios from 'axios';
+import store from '@/store';
 
 export default {
   name: "UserRow",
   props: ['user'],
+  data(){
+    return{
+      store
+    }
+  },
+  
 
   methods: {
     Archive(){
