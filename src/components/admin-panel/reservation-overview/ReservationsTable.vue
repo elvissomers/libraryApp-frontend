@@ -3,7 +3,7 @@
 
         <div class="content-center flex flex-row justify-between bg-slate-300">
             <div></div>
-            <div class="p-4 text-center rounded-md">All Reservations</div>
+            <div class="p-4 text-center rounded-md">Alle Reserveringen</div>
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event, 'date', 'asc')"
                 @goBack="searchReservations(0, '', 'date', 'asc')" class="m-2">
             </SearchBar>
@@ -11,16 +11,11 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortReservations('date', sortAscending)"
-                class="w-36 font-extrabold text-left ml-8">Date</button>
-            <button @click="sortReservations('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">First
-                Name</button>
-            <button @click="sortReservations('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Last
-                Name</button>
-            <button @click="sortReservations('book.title', sortAscending)" class="font-extrabold text-left">Book
-                Title</button>
+            <button @click="sortReservations('date', sortAscending)" class="w-36 font-extrabold text-left ml-8">Datum</button>
+            <button @click="sortReservations('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">Voornaam</button>
+            <button @click="sortReservations('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Achternaam</button>
+            <button @click="sortReservations('book.title', sortAscending)" class="font-extrabold text-left">Boektitel</button>
         </div>
-
 
         <div class="flex flex-col flex-wrap divide-y-2">
             <ReservationRow v-for="reservation in reservations" :key="reservation.id" v-bind:reservation="reservation">

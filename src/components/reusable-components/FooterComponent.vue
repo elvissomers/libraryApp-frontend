@@ -73,11 +73,11 @@
                     <div class="flex flex-col w-1/2 space-y-2 text-white">
                         <div class="inline-block">
                             <a href="/" aria-current="page" class="block w-full nuxt-link-exact-active nuxt-link-active">
-                                <span class="text-white">Home</span>
+                                <span class="text-white">Hoofdpagina</span>
                             </a>
                         </div>
                         <div class="inline-block">
-                            <router-link to="/contact" class="hover:text-gray-200">Contact</router-link>
+                            <router-link to="/contact" class="hover:text-gray-200">Contact-formulier</router-link>
                         </div>
                     </div>
                 </div>

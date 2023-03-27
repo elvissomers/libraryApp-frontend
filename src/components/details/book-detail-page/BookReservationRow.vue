@@ -4,10 +4,14 @@
       <div class="w-48 ml-8">{{ reservation.date }}</div>
       <div class="w-48">{{ reservation.userFirstName }}</div>
       <div class="w-48">{{ reservation.userLastName }}</div>
+      
       <button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-0 h-fit rounded-md w-48"
         :class="[reservation.available ? 'bg-green-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300' : 'bg-gray-400 cursor-not-allowed']"
         :disabled="!reservation.available">
         {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
+
+        <!-- <span v-if="reservation.available" class="material-symbols-outlined">thumb_up</span> -->
+        <p></p>
       </button>
 
       <button @click='deleteReservation(reservation.id)'

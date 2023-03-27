@@ -43,7 +43,7 @@ export default {
             })
             .catch(error => {
                 alert("Er is iets misgegaan")
-            console.log(error);
+                console.log(error);
             })
         },
     },

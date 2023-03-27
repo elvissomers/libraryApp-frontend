@@ -60,7 +60,7 @@ export default {
         for(let i = 0; i < this.amount_copies; i++){
             axios.post('http://localhost:8080/copy/create', this.copy)
         }
-        alert(this.amount_copies+ ' copies have been added for this book')
+        alert(this.amount_copies+ ' kopieën zijn aangemaakt voor het boek')
         this.$router.push('edit-books')
     },
 

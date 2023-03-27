@@ -10,15 +10,16 @@
                             alt="Logo"></router-link>
                     <!-- Nav Links -->
                     <ul v-if="store.getters.isAuthenticated" class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                        <li ><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
-                        <li ><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
-                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
+                        <li ><router-link to="/" class="hover:text-gray-200">Catalogus</router-link></li>
+                        <li ><router-link to="/mybooks" class="hover:text-gray-200">Mijn Boekenoverzicht</router-link></li>
+                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Administratie omgeving</router-link></li>
                     </ul>
+                    <!-- <router-link to="/reset-password" class="hover:text-gray-200">Change password</router-link> -->
 
                     <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
                     <div v-if="store.getters.isAuthenticated" class="flex-nowrap">
                         <router-link to="/" @click="store.commit('logout')" class="mx-2 align-middle hover:text-gray-200">
-                            Log out
+                            Uitloggen
                         </router-link>
                         <!-- Sign In / Register removed: My Account-->
                         <router-link :to="{name: 'user-detail', params:{id: store.state.userId }}" class=" hover:text-gray-200">

@@ -17,8 +17,8 @@
                         <label for="">Achternaam</label>
                     </div>
                     <div class="inputbox" v-if="$route.query.parent == 'UserDetail'">
-                        <input type="text" id="password" v-model="user.password" required>
-                        <label for="">Wachtwoord</label>
+                        <input type="text" id="password" v-model="user.password">
+                        <label for="">Nieuw wachtwoord (indien gewenst)</label>
                     </div>
                     <div>
                         <label for="">Admin:</label>
@@ -58,8 +58,6 @@ export default {
         this.user.emailAddress = response.data.emailAddress;
         this.user.admin = response.data.admin;
         this.user.archived = response.data.archived;
-        console.log("created() function was run with some success")
-        console.log(this.$route.query.parent)
       })
       .catch(error => {
         console.log(error);
@@ -69,14 +67,13 @@ export default {
       
     editUser() {
         if(this.user.password != ""){
-            console.log("password is not empty")
             this.saveUserChanges()
         }
         else{
             axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
         .then(response => {
           console.log('User updated:', response.status, this.user);
-          alert("Gebruiker is succesvol geupdate!")
+          alert("Je hebt de gebruiker succesvol geüpdatet!")
           this.$router.push('/admin/edit-users')
             })
         .catch(error => {
@@ -88,17 +85,32 @@ export default {
         }
     },
     saveUserChanges() {
-      axios.put('http://localhost:8080/user/self/' + this.$route.params.id, this.user)
+    let userPassword = prompt("Bevestig uw huidige wachtwoord om de wijzigingen op te slaan", { type: 'password'})
+    axios.get(`http://localhost:8080/user/self/${this.$route.params.id}/${userPassword}`)
         .then(response => {
-            console.log('User created:', response.data);
-            alert("Gebruiker succesvol gewijzigd!");
+            if (response.data) {
+                if(typeof this.user.password === 'undefined'){
+                    this.user.password = userPassword
+                }
+                axios.put(`http://localhost:8080/user/self/${this.$route.params.id}`, this.user)
+                    .then(response => {
+                        console.log('User created:', response.data);
+                        alert("Gebruiker succesvol gewijzigd!");
+                    })
+                    .catch(error => {
+                        alert('Er is iets fout gegaan bij het wijzigen van de gegevens')
+                        console.log(error);
+                    })
+            } else {
+                alert("Wachtwoord is niet correct");
+            }
         })
         .catch(error => {
-            alert('Er is iets fout gegaan')
+            alert('Er is iets fout gegaan bij het ophalen van de gegevens')
             console.log(error);
         })
-        
-    }
+}
+
   },
 };
 </script>

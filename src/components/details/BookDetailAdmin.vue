@@ -2,7 +2,7 @@
   <section class="text-gray-700 body-font overflow-hidden">
     <div class="container mx-auto">
       <div class="lg:w-full mx-auto flex flex-wrap justify-center">
-        <img v-if="!bookFetching" alt="ecommerce" class="h-96 rounded border border-gray-200 my-auto"
+        <img v-if="!bookFetching" alt="ecommerce" class="mt-6 h-96 rounded border border-white border-4"
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
@@ -190,7 +190,11 @@ export default {
       })
         .then(response => {
           console.log('Reservation created:', response.data);
-          alert('Reservation created.');
+          if (response.data){
+            alert('Reservering aangemaakt');
+          } else {
+            alert('Reservering kan niet aangemaakt worden')
+          }
           window.location.reload()
         })
         .catch(error => {
@@ -209,7 +213,7 @@ export default {
       axios.post('http://localhost:8080/copy/create', this.copy)
         .then(response => {
           console.log('Copy added:', response.data);
-          alert("Copy was added")
+          alert("Kopie is aangemaakt")
           window.location.reload()
         })
         .catch(error => {
@@ -224,7 +228,7 @@ export default {
         axios.post('http://localhost:8080/copy/create', this.copy)
           .then(response => {
             console.log('Copy added:', response.data);
-
+            alert("Er zijn " + this.copy.amount + ' kopieën aangemaakt voor dit boek')
           })
           .catch(error => {
             console.log(error);
