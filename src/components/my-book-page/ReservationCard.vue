@@ -6,7 +6,7 @@
                 <img v-if="bookCoverExists" class="rounded-t-lg p-8 w-full h-96"
                     v-bind:src="require(`@/assets/bookCovers/` + reservation.bookIsbn + `.jpg`)"
                     alt="product image">
-                    <div v-if="!bookCoverExists" class="rounded-t-lg p-8 w-full h-96">Plaatje niet beschikbaar</div>
+                    <div v-if="!bookCoverExists" class="rounded-t-lg p-8 w-full h-96 flex items-center justify-center">Plaatje niet beschikbaar</div>
             </router-link>
         <div class="px-6 py-4">
             <router-link :to="{ name: 'book-detail', params: { id: reservation.bookId } }" class="hover:text-gray-200">
