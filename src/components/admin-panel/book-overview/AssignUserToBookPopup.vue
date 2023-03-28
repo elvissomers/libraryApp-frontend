@@ -12,7 +12,8 @@
             </button>
         </div>
 
-        <div class="p-4 text-center rounded-md underline underline-offset-8 font-extrabold text-xl">Alle Gebruikers</div>
+        <div class="pt-4 pb-2 text-center rounded-md underline underline-offset-8 font-extrabold text-xl">Wijs gebruiker toe aan boek:</div>
+        <div class="text-center rounded-md font-extrabold text-xl">{{ title }}</div>
         <div class="content-center flex flex-row justify-between">
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchUsers(0, $event, 'lastName', 'asc')"
                 @goBack="searchUsers(0, '', 'lastName', 'asc')" class="m-2">
@@ -28,7 +29,7 @@
 
         <div class="flex flex-col h-80 overflow-y-auto border-2 divide-y-2 mb-4">
             <UsersRowPopup v-for="user in users" :key="user.id" v-bind:user="user"
-                @createLoanFromUser="$emit('createLoanFromUser', $event)">
+                @createLoanFromUser="$emit('showCopySelector', $event)">
             </UsersRowPopup>
         </div>
 
@@ -59,6 +60,7 @@ export default {
         PaginationBar,
 
     },
+    props: ['title'],
     data() {
         return {
             users: [],

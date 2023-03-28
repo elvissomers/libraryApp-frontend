@@ -14,9 +14,12 @@
   <div class="flex flex-row">
     <button v-on:click="this.$emit('showBookPopup', user)"
       class="float-right text-white bg-blue-500 px-3 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+      <span>
+        +
+      </span>
       <span class="material-symbols-outlined align-middle ">
-        <!-- menu_book -->
-        assignment_add
+        menu_book
+        <!-- assignment_add -->
       </span>
     </button>
 
@@ -84,4 +87,5 @@ export default {
 
 
 </script>
-    
+
+

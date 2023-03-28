@@ -60,6 +60,7 @@ export default {
     },
     mounted() {
         this.searchCopies();
+        console.log("bookid: " + this.bookId)
     },
     methods: {
 
@@ -69,12 +70,17 @@ export default {
 
                     if (response.data.length > 0) {
                         this.copies = response.data;
+                        console.log("copy length: " + this.copies.length )
                     }
                 })
                 .catch(error => {
                     console.log(error);
                 });
+            
+            console.log("no copies: " + this.copies.length )
         },
+
+        
 
 
 
