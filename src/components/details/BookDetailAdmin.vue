@@ -221,7 +221,7 @@ export default {
             this.textNotification = "Reservering gemaakt"
 
           } else {
-            this.textNotification = "Reservering maken mislukt"
+            this.textNotification = "Je hebt dit boek al gereserveerd"
           }
         })
         .catch(error => {

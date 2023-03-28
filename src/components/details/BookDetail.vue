@@ -105,7 +105,7 @@ export default {
           if (response.data) {
             alert('Reservering aangemaakt');
           } else {
-            alert('Reservering kan niet aangemaakt worden')
+            alert('Je hebt dit boek al gereserveerd')
           }
           window.location.reload()
         })
