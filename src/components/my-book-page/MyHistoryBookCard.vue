@@ -16,7 +16,7 @@
             <p class="text-gray-700 text-base">Auteur: {{ loan.bookAuthor }}</p>
             <p class="text-gray-700 text-base">ISBN: {{ loan.bookIsbn }}</p>
             <p class="text-gray-700 text-base">Geleend sinds: {{ loan.startDate }}</p>
-            <p class="text-gray-700 test-base">Terug gebracht op: {{ loan.endDate }}</p>
+            <p class="text-gray-700 test-base">Terug gebracht: {{ loan.endDate }}</p>
             <p class="text-gray-700 text-base">Exemplaar: {{ loan.copyNumber }}</p>
             </div>
 
