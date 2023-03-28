@@ -1,9 +1,11 @@
 <template>
   <section class="text-gray-700 body-font overflow-hidden">
     <div class="container mx-auto">
-      <div class="lg:w-full mx-auto flex flex-wrap justify-center">
-        <img v-if="!bookFetching" alt="ecommerce" class="mt-6 h-96 rounded border border-white border-4"
+      <div v-if="!bookFetching" class="lg:w-full mx-auto flex flex-wrap justify-center">
+        <img v-if="bookCoverExists" alt="ecommerce"
+          class="mt-6 h-96 rounded border border-white border-4"
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
+        <div v-if="!bookCoverExists" class="mt-6 h-96 rounded border border-white border-4 text-center flex items-center justify-center">No Image Available</div>
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
           }}</span>
@@ -112,6 +114,20 @@ export default {
     NotificationComponent
   },
 
+  computed: {
+    bookCoverExists() {
+      if (this.bookFetching){
+        return false;
+      }
+      try {
+        require(`@/assets/bookCovers/${this.book.isbn}.jpg`);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  },
+
   data() {
     return {
       book: null,
@@ -190,7 +206,7 @@ export default {
       })
         .then(response => {
           console.log('Reservation created:', response.data);
-          if (response.data){
+          if (response.data) {
             alert('Reservering aangemaakt');
           } else {
             alert('Reservering kan niet aangemaakt worden')
