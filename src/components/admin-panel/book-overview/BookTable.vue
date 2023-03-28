@@ -17,9 +17,18 @@
         <!-- Header Bar -->
         <div class="flex flex-row justify-between border-b-2">
             <div class="flex flex-row py-4">
-                <button @click="sortBooks('isbn', sortAscending)" class="w-36 font-extrabold text-left ml-8">ISBN</button>
-                <button @click="sortBooks('author', sortAscending)" class="w-56 font-extrabold text-left">Auteur</button>
-                <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">Titel</button>
+                <button @click="sortBooks('isbn', sortAscending)" class="w-40 font-extrabold text-left ml-8">
+                    <span class="material-symbols-outlined align-middle mr-1">sort</span>
+                    ISBN
+                </button>
+                <button @click="sortBooks('author', sortAscending)" class="w-52 font-extrabold text-left">
+                    <span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>
+                    Auteur
+                </button>
+                <button @click="sortBooks('title', sortAscending)" class="font-extrabold text-left">
+                    <span class="material-symbols-outlined align-middle mr-1">sort_by_alpha</span>
+                    Titel
+                </button>
 
             </div>
             <div class="flex flex-row">

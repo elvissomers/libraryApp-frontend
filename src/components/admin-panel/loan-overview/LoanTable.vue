@@ -18,16 +18,14 @@
 
         <div class="flex flex-row justify-between border-b-2">
             <div class="flex flex-row py-4">
-                <button @click="sortLoans('startDate', sortAscending)" class="w-36 font-extrabold text-left ml-8">Uitleen
+                <button @click="sortLoans('startDate', sortAscending)" class="w-28 font-extrabold text-left ml-8">Uitleen
                     Datum</button>
-                <button @click="sortLoans('endDate', sortAscending)" class="w-36 font-extrabold text-left">Inlever
+                <button @click="sortLoans('endDate', sortAscending)" class="w-28 font-extrabold text-left">Inlever
                     Datum</button>
-                <button @click="sortLoans('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">Voor
-                    Naam</button>
-                <button @click="sortLoans('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Achter
-                    Naam</button>
+                <button @click="sortLoans('user.firstName', sortAscending)" class="w-28 font-extrabold text-left">Voornaam</button>
+                <button @click="sortLoans('user.lastName', sortAscending)" class="w-28 font-extrabold text-left">Achternaam</button>
                 <button @click="sortLoans('copy.number', sortAscending)"
-                    class="w-36 font-extrabold text-left">Exemplaar</button>
+                    class="w-24 font-extrabold text-left">Exemplaar</button>
                 <button @click="sortLoans('copy.book.title', sortAscending)" class="font-extrabold text-left">Boek
                     Titel</button>
             </div>
