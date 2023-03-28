@@ -9,7 +9,7 @@
             </router-link>
         <div class="px-6 py-4">
             <router-link :to="{ name: 'book-detail', params: { id: reservation.bookId } }" class="hover:text-gray-200">
-                <p class="font-bold text-xl mb-2  h-16">"{{ reservation.bookTitle }}</p>
+                <p class="font-bold text-xl mb-2  h-16">{{ truncatedTitle }}</p>
             </router-link>
             <p class="text-gray-700 text-base">Auteur: {{ reservation.bookAuthor }}</p>
             <p class="text-gray-700 text-base">ISBN: {{ reservation.bookIsbn }}</p>
@@ -25,7 +25,16 @@
 export default {
   name: "ReservationCard",
     // props: ['id','title', 'author', 'isbn'] 
-    props: ['reservation']
+    props: ['reservation'],
+    computed: {
+    truncatedTitle() {
+      if (this.reservation.bookTitle.length > 30) {
+        return this.reservation.bookTitle.substring(0, 30) + '...';
+      } else {
+        return this.reservation.bookTitle;
+      }
+    },
+  },
 }
 </script>
 
