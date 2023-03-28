@@ -1,5 +1,6 @@
 <template>
-    <div class="max-w-xs rounded-lg overflow-hidden shadow-md bg-white">
+    <div class="max-w-xs rounded-lg overflow-hidden shadow-lg bg-white">
+    <div class="shadow-inner">
         <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
         <router-link :to="{ name: 'book-detail', params: { id: reservation.bookId } }" class="hover:text-gray-200">
                 <img class="rounded-t-lg p-8 w-full h-96"
@@ -13,6 +14,8 @@
             <p class="text-gray-700 text-base">Auteur: {{ reservation.bookAuthor }}</p>
             <p class="text-gray-700 text-base">ISBN: {{ reservation.bookIsbn }}</p>
             <p class="text-gray-700 text-base">Gereserveerd sinds: {{ reservation.date }}</p>
+            </div>
+
         </div>
     </div>
 </template>
