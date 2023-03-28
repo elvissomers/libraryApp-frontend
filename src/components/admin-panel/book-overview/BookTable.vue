@@ -1,10 +1,11 @@
 <template>
     <div class="flex flex-col w-full mx-8 ">
 
+        <!-- Title Bar -->
         <div class="content-center flex flex-row justify-between border-b-2 border-zinc-400 align-middle">
             <router-link :to="{ name: 'add-book' }">
-                <button class="text-white float-right px-3 py-2 m-2 h-fit rounded-md bg-blue-500  ">
-                    <span class="material-symbols-outlined align-middle mr-1">library_add</span>
+                <button class="text-white float-right px-3 py-2 m-2 h-fit rounded-md bg-blue-500 flex flex-nowrap align-middle ">
+                    <span class="material-symbols-outlined mr-1">library_add</span>
                     Boek toevoegen
                 </button>
             </router-link>
@@ -13,6 +14,7 @@
                 @goBack="searchBooks(0, '', 'title', 'asc')" class="m-2"/>
         </div>
 
+        <!-- Header Bar -->
         <div class="flex flex-row justify-between border-b-2">
             <div class="flex flex-row py-4">
                 <button @click="sortBooks('isbn', sortAscending)" class="w-36 font-extrabold text-left ml-8">ISBN</button>
@@ -30,10 +32,10 @@
         </div>
 
 
+        <!-- Book Row -->
         <div class="flex flex-col flex-wrap divide-y-2">
             <BookRow    v-for="book in books" :key="book.id" v-bind:book="book" 
-                        @openAssignUserPopup="assignUserPopup = true"/>
-
+                        @openAssignUserPopup="setBookPopup($event)"/>
         </div>
 
         <div>
@@ -43,17 +45,23 @@
         </div>
 
         <PopUp  v-if="assignUserPopup" 
-                @closeAssignUserPopup="assignUserPopup = false"
+                v-bind:title="this.book.title"
+                @closeUserPopup="assignUserPopup = false"
                 @showCopySelector="showCopySelector($event); 
                     assignUserPopup = false" />
-        <CopyPopup  v-if="showCopyPopup" v-bind:bookId="book.id" 
+                    
+
+        <CopyPopup  v-if="showCopyPopup" 
+                    v-bind:bookId="book.id" 
                     @closeCopyPopup="showCopyPopup = false"
                     @createReservationFromNumber="createLoan($event); 
                         showCopyPopup = false; 
                         notifications.loanCreated = true" />
-        <!-- <NotificationComponent v-bind:notificationText="'Lening gemaakt'"
+
+
+        <NotificationComponent v-bind:notificationText="'Lening gemaakt'"
             :class="[notifications.loanCreated ? 'visible' : 'invisible']"
-            @closeNotification="notifications.loanCreated = false; refresh()"></NotificationComponent> -->
+            @closeNotification="notifications.loanCreated = false; closeAndReset(); refresh()"/>
     </div>
 </template>
 
@@ -64,9 +72,9 @@ import BookRow from '@/components/admin-panel/book-overview/BookRow.vue';
 import SearchBar from '@/components/reusable-components/SearchBar.vue';
 import PaginationBar from '@/components/reusable-components/PaginationBar.vue';
 import ToggleButtonComponent from '@/components/reusable-components/ToggleButtonComponent.vue';
-import PopUp from '@/components/admin-panel/user-overview/AssignBookToUserPopup.vue'
+import PopUp from '@/components/admin-panel/book-overview/AssignUserToBookPopup.vue'
 import CopyPopup from '@/components/details/book-detail-page/CopyPopup.vue';
-// import NotificationComponent from '@/components/reusable-components/NotificationComponent.vue';
+import NotificationComponent from '@/components/reusable-components/NotificationComponent.vue';
 
 export default {
     name: 'BookView',
@@ -77,7 +85,7 @@ export default {
         ToggleButtonComponent,
         PopUp,
         CopyPopup,
-        // NotificationComponent
+        NotificationComponent
     },
     data() {
         return {
@@ -92,6 +100,10 @@ export default {
             assignUserPopup: false,
             showCopyPopup: false,
             book: null,
+            // showBooksPopup: false,
+            notifications: { loanCreated: false },
+            user: null,
+            copy: null,
         };
     },
     mounted() {
@@ -141,18 +153,46 @@ export default {
                 this.searchBooks(tempPageNumber, this.searchTerm, this.propertyToSortBy, this.sortAscending)
             }
         },
-
+        setBookPopup(book) {
+            this.assignUserPopup = true
+            this.book = book
+            console.log("book id from table" + this.book.id)
+        },
         toggleArchived() {
             this.archived = !this.archived
             this.searchBooks(0, this.searchTerm, this.propertyToSortBy, this.sortAscending)
         },
-        showCopySelector(book) {
-            this.book = book
-            this.showCopyPopup = true
-            console.log(this.book)
-        },
-        
+        showCopySelector(user) {
+            this.user = user
 
+            this.showCopyPopup = true
+            console.log("create loan from user: " + this.book.id)
+        },
+        createLoan(copy) {
+            this.copy = copy
+
+            console.log("create copyId: " + this.copy.id)
+            console.log("create bookId: " + this.book.id)
+            console.log("create userId: " + this.user.id)
+
+            let saveLoanDto = {}
+            saveLoanDto.copyNumber = this.copy.number
+            saveLoanDto.startDate = new Date()
+            saveLoanDto.bookId = this.book.id
+            saveLoanDto.userId = this.user.id
+            console.log(this.reservation)
+
+            axios.post('http://localhost:8080/loan/create', saveLoanDto)
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        refresh() {
+            window.location.reload()
+        }
 
     },
 }

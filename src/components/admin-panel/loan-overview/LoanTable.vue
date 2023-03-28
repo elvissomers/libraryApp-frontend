@@ -2,11 +2,12 @@
     <div class="flex flex-col w-full mx-8 ">
 
 
-<div class="content-center flex flex-row justify-between border-b-2 border-zinc-400">
+        <div class="content-center flex flex-row justify-between border-b-2 border-zinc-400">
             <button @click="showUsersPopup = true"
-                class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">Uitlening
-                Toevoegen</button>
-<div class="p-4 text-center rounded-md font-bold text-lg">Alle Uitleningen</div>
+                    class="text-white float-right px-4 py-2 m-2 h-fit rounded-md bg-blue-500">
+                Uitlening Toevoegen
+            </button>
+            <div class="p-4 text-center rounded-md font-bold text-lg">Alle Uitleningen</div>
 
 
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchLoans(0, $event, 'startDate', 'asc')"
@@ -183,9 +184,9 @@ export default {
             this.user = null
             this.book = null
             this.copy = null
-            this.showUsersPopup= false
-            this.showBooksPopup= false
-            this.showCopyPopup= false
+            this.showUsersPopup = false
+            this.showBooksPopup = false
+            this.showCopyPopup = false
         },
 
         refresh() {

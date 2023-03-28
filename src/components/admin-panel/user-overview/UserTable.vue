@@ -46,7 +46,8 @@
                 @showCopySelector="showCopySelector($event);
         showBookPopup = false" />
 
-        <CopyPopup  v-if="showCopyPopup" v-bind:bookId="book.id" 
+        <CopyPopup  v-if="showCopyPopup" 
+                    v-bind:bookId="book.id" 
                     @closeCopyPopup="showCopyPopup = false"
                     @createReservationFromNumber="createLoan($event);
                         showCopyPopup = false;
