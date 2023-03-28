@@ -22,10 +22,11 @@
           <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe auteur in'" class=""
             :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
             @saveField="changeField('author', $event)"></PromptComponent>
-
+          <div>
           <!-- Title -->
           <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
           }}</span>
+          </div>
 
           <button @click="showPrompt('title')"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
