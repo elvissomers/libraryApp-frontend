@@ -2,8 +2,8 @@
   <div class="flex flex-row justify-between hover:bg-blue-200"
     :class="[book.archived ? 'bg-slate-300 border-white' : '']">
     <div class="flex flex-row py-4">
-      <div class="w-36 ml-8">{{ book.isbn }}</div>
-      <div class="w-56">{{ book.author }}</div>
+      <div class="w-40 ml-8">{{ book.isbn }}</div>
+      <div class="w-52">{{ book.author }}</div>
       <router-link :to="{ name: 'book-detail', params: { id: book.id } }" class="hover:text-lime-500">
         <div>{{ truncatedTitle }}</div>
       </router-link>

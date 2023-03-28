@@ -11,9 +11,9 @@
 
 
         <div class="flex flex-row py-4 border-b-2">
-            <button @click="sortReservations('date', sortAscending)" class="w-36 font-extrabold text-left ml-8">Datum</button>
-            <button @click="sortReservations('user.firstName', sortAscending)" class="w-36 font-extrabold text-left">Voornaam</button>
-            <button @click="sortReservations('user.lastName', sortAscending)" class="w-36 font-extrabold text-left">Achternaam</button>
+            <button @click="sortReservations('date', sortAscending)" class="w-32 font-extrabold text-left ml-8">Datum</button>
+            <button @click="sortReservations('user.firstName', sortAscending)" class="w-28 font-extrabold text-left">Voornaam</button>
+            <button @click="sortReservations('user.lastName', sortAscending)" class="w-28 font-extrabold text-left">Achternaam</button>
             <button @click="sortReservations('book.title', sortAscending)" class="font-extrabold text-left">Boektitel</button>
         </div>
 

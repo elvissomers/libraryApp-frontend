@@ -6,23 +6,23 @@
                     <h2>Wijzig gebruiker</h2>
                     <div class="inputbox">
                         <input type="email" id="email" v-model="user.emailAddress" required>
-                        <label for="">Email</label>
+                        <label class="font-extrabold" for="">Email</label>
                     </div>
                     <div class="inputbox">
                         <input type="text" id="firstname" v-model="user.firstName" required>
-                        <label for="">Voornaam</label>
+                        <label class="font-extrabold" for="">Voornaam</label>
                     </div>
                     <div class="inputbox">
                         <input type="text" id="lastname" v-model="user.lastName" required>
-                        <label for="">Achternaam</label>
+                        <label class="font-extrabold" for="">Achternaam</label>
                     </div>
                     <!--Only shows when the page was called from the UserDetail page-->
                     <div class="inputbox" v-if="$route.query.parent == 'UserDetail'">
                         <input type="text" id="password" v-model="user.password">
-                        <label for="">Nieuw wachtwoord (indien gewenst)</label>
+                        <label class="font-extrabold" for="">Nieuw wachtwoord (indien gewenst)</label>
                     </div>
-                    <div>
-                        <label for="">Admin:</label>
+                    <div class="pb-2 flex align-middle">
+                        <label for="" class="p-1">Admin:</label>
                         <input type="checkbox" v-model="user.admin" :checked="user.admin">
                     </div>
                     <button type="submit">Sla wijzigingen op</button>

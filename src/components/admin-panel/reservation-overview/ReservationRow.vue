@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-row justify-between hover:bg-blue-200">
     <div class="flex flex-row py-4">
-      <div class="w-36 ml-8">{{ reservation.date }}</div>
-      <div class="w-36">{{ reservation.userFirstName }}</div>
-      <div class="w-36">{{ reservation.userLastName }}</div>
+      <div class="w-32 ml-8">{{ reservation.date }}</div>
+      <div class="w-28">{{ reservation.userFirstName }}</div>
+      <div class="w-28">{{ reservation.userLastName }}</div>
       <div class="">{{ truncatedTitle }}</div>
     </div>
     <button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
