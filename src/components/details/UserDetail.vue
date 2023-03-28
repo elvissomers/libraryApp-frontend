@@ -16,7 +16,7 @@
                         <router-link v-if="store.getters.isAdmin"
                             :to="{ name: 'update-user', query: { parent: 'UserDetail' } }">
                             <button
-                                class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">Wijzig
+                                class="flex text-white bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded ">Wijzig
                                 profiel (admin)</button>
                         </router-link>
                     </div>
@@ -28,12 +28,16 @@
                 </div>
             </div>
             <div class="w-full h-[250px]">
+                <!-- removed: green-filter  -->
                 <img src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
-                    class="w-full h-full rounded-tl-lg rounded-tr-lg">
+                    class="z-50 w-full h-full rounded-tl-lg rounded-tr-lg">
             </div>
             <div class="flex flex-col items-center -mt-20">
-                <img src="https://vojislavd.com/ta-template-demo/assets/img/profile.jpg"
-                    class="w-40 border-4 border-white rounded-full">
+                <!-- Avatar photo -->
+                <img src="https://iptc.org/wp-content/uploads/2018/05/avatar-anonymous-300x300.png"
+                    class="w-40 border-4 border-white rounded-full z-0">
+                <!-- <img src="https://vojislavd.com/ta-template-demo/assets/img/profile.jpg"
+                    class="w-40 border-4 border-white rounded-full"> -->
                 <div class="flex items-center space-x-2 mt-2">
                     <!-- name -->
                     <p class="text-2xl">
@@ -180,3 +184,9 @@ export default {
 }
 
 </script>
+
+<style>
+.green-filter {
+  filter: hue-rotate(270deg);
+}
+</style>
