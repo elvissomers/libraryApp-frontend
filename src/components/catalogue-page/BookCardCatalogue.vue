@@ -4,14 +4,15 @@
     <!-- removed: dark:bg-zinc-800 dark:border-gray-700 -->
 <div class="shadow-inner ">
     <router-link :to="{ name: 'book-detail', params: { id: id } }" class="hover:text-gray-200">
-      <img class="rounded-t-lg p-8 w-full h-96" :src="require(`@/assets/bookCovers/` + isbn + `.jpg`)"
+      <img v-if="bookCoverExists" class="rounded-t-lg p-8 w-full h-96" :src="require(`@/assets/bookCovers/` + isbn + `.jpg`)"
         alt="product image">
+        <div v-if="!bookCoverExists" class="h-96 rounded border text-center border-white border-4 flex items-center justify-center">Geen plaatje beschikbaar</div>
     </router-link>
     <div class="px-5 pb-5 ">
       <!-- Title -->
       <!-- removed: dark:text-white -->
       <router-link :to="{ name: 'book-detail', params: { id: id } }" class="hover:text-gray-200">
-        <h3 class="text-gray-900 font-semibold text-xl tracking-tight h-16 text-center">{{ title }}</h3>
+        <h3 class="text-gray-900 font-semibold text-xl tracking-tight h-16 text-center">{{ truncatedTitle }}</h3>
       </router-link>
     </div>
     <div class="px-5 pb-5 ">
@@ -29,7 +30,24 @@
 <script>
 export default {
   name: "BookCardCatalogue",
-  props: ['id', 'title', 'author', 'isbn']
+  props: ['id', 'title', 'author', 'isbn'],
+  computed: {
+    truncatedTitle() {
+      if (this.title.length > 50) {
+        return this.title.substring(0, 50) + '...';
+      } else {
+        return this.title;
+      }
+    },
+    bookCoverExists() {
+      try {
+        require(`@/assets/bookCovers/${this.isbn}.jpg`);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  },
 }
 </script>
 
