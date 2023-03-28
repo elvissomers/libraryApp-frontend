@@ -6,17 +6,19 @@
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
 
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-          <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author }}</span>
-          
+          <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
+          }}</span>
+
           <h1></h1>
-          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title }}</span>
+          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
+          }}</span>
           <div class="flex mb-4">
           </div>
+          <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
+          </BookKeyword>
           <!-- Description -->
-          <p class="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia
-            microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan
-            poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed
-            umami cardigan.</p>
+          <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
+            book.description }}</p>
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
             <div class="flex">
               <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
@@ -26,9 +28,9 @@
             <!-- removed: ml-auto -->
             <button @click="createReservation()"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
-           </div>
-          
-          
+          </div>
+
+
 
         </div>
       </div>
@@ -40,9 +42,15 @@
 
 <script>
 import axios from 'axios';
+import BookKeyword from './book-detail-page/BookKeyword.vue';
 
 export default {
   name: 'MyBooksView',
+
+  components: {
+    BookKeyword
+  },
+
   data() {
     return {
       book: [],
@@ -94,7 +102,7 @@ export default {
       })
         .then(response => {
           console.log('Reservation created:', response.data);
-          if (response.data){
+          if (response.data) {
             alert('Reservering aangemaakt');
           } else {
             alert('Reservering kan niet aangemaakt worden')
