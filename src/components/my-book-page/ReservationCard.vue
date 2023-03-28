@@ -3,9 +3,10 @@
     <div class="shadow-inner">
         <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
         <router-link :to="{ name: 'book-detail', params: { id: reservation.bookId } }" class="hover:text-gray-200">
-                <img class="rounded-t-lg p-8 w-full h-96"
+                <img v-if="bookCoverExists" class="rounded-t-lg p-8 w-full h-96"
                     v-bind:src="require(`@/assets/bookCovers/` + reservation.bookIsbn + `.jpg`)"
                     alt="product image">
+                    <div v-if="!bookCoverExists" class="rounded-t-lg p-8 w-full h-96">Plaatje niet beschikbaar</div>
             </router-link>
         <div class="px-6 py-4">
             <router-link :to="{ name: 'book-detail', params: { id: reservation.bookId } }" class="hover:text-gray-200">
@@ -34,6 +35,14 @@ export default {
         return this.reservation.bookTitle;
       }
     },
+    bookCoverExists() {
+      try {
+        require(`@/assets/bookCovers/${this.reservation.bookIsbn}.jpg`);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
   },
 }
 </script>
