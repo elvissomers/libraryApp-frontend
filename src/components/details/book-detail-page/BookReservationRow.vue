@@ -51,10 +51,10 @@ export default {
       this.copyPopupVisible = true
     },
 
-    createLoan(copyNumber) {
+    createLoan(copy) {
 
       let saveLoanDto = {}
-      saveLoanDto.copyNumber = copyNumber
+      saveLoanDto.copyNumber = copy.number
       saveLoanDto.startDate = new Date()
       saveLoanDto.bookId = this.reservation.bookId
       saveLoanDto.userId = this.reservation.userId

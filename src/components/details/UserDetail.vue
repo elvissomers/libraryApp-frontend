@@ -7,7 +7,7 @@
                     <button v-if="store.getters.isAdmin"
                         class="flex text-white bg-teal-500 border-0 py-2 px-3 focus:outline-none hover:bg-teal-600 rounded"
                         @click="showBooksPopup = true">
-                        + <span class="material-symbols-outlined"> menu_book</span></button>
+                        + <span class="material-symbols-outlined mr-2"> menu_book</span>Boek Toewijzen</button>
                 </div>
 
                 <div class="rounded">
@@ -69,6 +69,24 @@
             </div>
         </div>
 
+
+        <div class="my-4 flex flex-col space-y-4">
+            <div class="w-full flex flex-col ">
+                <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                    <UserLoanTable></UserLoanTable>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-4 flex flex-col space-y-4">
+            <div class="w-full flex flex-col ">
+                <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                    <UserReservationTable></UserReservationTable>
+                </div>
+            </div>
+        </div>
+
+
         <BooksPopup v-if="showBooksPopup" 
                     @closeBooksPopup="showBooksPopup = false"
                     @showCopySelector="showCopySelector($event); showBooksPopup = false" />
@@ -76,6 +94,7 @@
                     v-bind:bookId="book.id" 
                     @closeCopyPopup="showCopyPopup = false"
                     @createReservationFromNumber="createLoan($event); showCopyPopup = false; notifications.loanCreated = true" />
+
         <NotificationComponent v-bind:notificationText="'Lening gemaakt'"
             :class="[notifications.loanCreated ? 'visible' : 'invisible']"
             @closeNotification="notifications.loanCreated = false; refresh()"/>
@@ -86,14 +105,21 @@
 import axios from 'axios';
 import store from '@/store';
 import BooksPopup from '@/components/details/book-detail-page/BooksPopup.vue'
+
+import UserReservationTable from './user-detail-page/UserReservationTable.vue';
+import UserLoanTable from './user-detail-page/UserLoanTable.vue';
+
 import CopyPopup from '@/components/details/book-detail-page/CopyPopup.vue' 
 import NotificationComponent from '@/components/reusable-components/NotificationComponent.vue'
+
 
 export default {
     components: {
         BooksPopup,
         CopyPopup,
-        NotificationComponent
+        NotificationComponent,
+        UserReservationTable,
+        UserLoanTable
     },
     name: 'UserDetail',
     data() {
@@ -102,7 +128,7 @@ export default {
             showCopyPopup: false,
             user: [],
             book: null,
-            notifications: {loanCreated: false},
+            notifications: { loanCreated: false },
             store
         };
     },
