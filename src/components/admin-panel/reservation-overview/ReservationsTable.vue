@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-col w-full mx-8 ">
 
-        <div class="content-center flex flex-row justify-between bg-slate-300">
+        <div class="content-center flex flex-row justify-between border-b-2 border-zinc-400">
             <div></div>
-            <div class="p-4 text-center rounded-md">Alle Reserveringen</div>
+            <div class="p-4 text-center rounded-md font-bold text-lg">Alle Reserveringen</div>
             <SearchBar v-bind:placeholder="placeholder" @doSearch="searchReservations(0, $event, 'date', 'asc')"
                 @goBack="searchReservations(0, '', 'date', 'asc')" class="m-2">
             </SearchBar>

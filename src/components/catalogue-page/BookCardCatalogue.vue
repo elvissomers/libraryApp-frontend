@@ -1,7 +1,8 @@
 <template>
-  <div class="p-2 bg-white shadow-md rounded-lg relative aspect-square">
-    <!-- removed: dark:bg-zinc-800 dark:border-gray-700 -->
 
+  <div class="p-2 bg-white shadow-lg rounded-lg relative aspect-square">
+    <!-- removed: dark:bg-zinc-800 dark:border-gray-700 -->
+<div class="shadow-inner ">
     <router-link :to="{ name: 'book-detail', params: { id: id } }" class="hover:text-gray-200">
       <img class="rounded-t-lg p-8 w-full h-96" :src="require(`@/assets/bookCovers/` + isbn + `.jpg`)"
         alt="product image">
@@ -19,8 +20,10 @@
       <h3 class="text-gray-900 font-normal text-xl tracking-tight text-center align-bottom align-text-bottom">{{ author
       }}</h3>
     </div>
+    </div>
   </div>
 </template>
+
 
 
 <script>

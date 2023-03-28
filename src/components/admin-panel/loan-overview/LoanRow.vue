@@ -6,7 +6,8 @@
       <div class="w-36">{{ loan.userFirstName }}</div>
       <div class="w-36">{{ loan.userLastName }}</div>
       <div class="w-36">{{ loan.copyNumber }}</div>
-      <div class="">{{ loan.bookTitle }}</div>
+
+      <div class="">{{ truncatedTitle }}</div>
     </div>
 
     <button v-on:click="returnCopy()"
@@ -28,6 +29,15 @@ import axios from 'axios'
 export default {  
   name: "LoanRow",
   props: ['loan'],
+  computed: {
+    truncatedTitle() {
+      if (this.loan.bookTitle.length > 50) {
+        return this.loan.bookTitle.substring(0, 50) + '...';
+      } else {
+        return this.loan.bookTitle;
+      }
+    },
+  },
 
   data(){
       return{

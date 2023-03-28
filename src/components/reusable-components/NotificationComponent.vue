@@ -1,6 +1,6 @@
 <template>
     <div class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="flex flex-col w-fit bg-white p-8 rounded-3xl fixed top-32 border-8 border-green-600">
+        <div class="flex flex-col w-fit bg-white p-8 rounded-3xl fixed top-32">
 
             <div class="w-full mb-4">
             <button v-on:click="this.$emit('closePrompt')" type="button" class="float-right">

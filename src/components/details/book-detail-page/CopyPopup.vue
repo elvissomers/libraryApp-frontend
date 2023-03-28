@@ -1,6 +1,6 @@
 <template>
     <div class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="flex flex-col w-2/5 h-3/4 bg-white p-8 rounded-3xl fixed top-8 border-8 border-green-600">
+        <div class="flex flex-col w-2/5 h-3/4 bg-white p-8 rounded-3xl fixed top-8">
 
             <div class="w-full">
                 <button v-on:click="this.$emit('closeCopyPopup')" type="button" class="float-right">
@@ -26,10 +26,12 @@
             </div>
 
 
-            <div class="flex flex-col h-80 overflow-y-auto border-2 divide-y-2 mb-4">
+            <div class="flex flex-col h-80 overflow-y-auto divide-y-2 mb-4">
                 <CopyRowPopup v-for="copy in copies" :key="copy.id" v-bind:copy="copy"
                     @createReservationFromNumber="$emit('createReservationFromNumber', $event)">
                 </CopyRowPopup>
+
+                <p class="flex-wrap" v-if="copies.length === 0">Er zijn geen exemplaren van dit boek beschikbaar</p>
             </div>
         </div>
 
@@ -64,6 +66,7 @@ export default {
         searchCopies() {
             axios.get('http://localhost:8080/book/copies/available/' + this.bookId)
                 .then(response => {
+
                     if (response.data.length > 0) {
                         this.copies = response.data;
                     }

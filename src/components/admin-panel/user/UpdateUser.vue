@@ -2,7 +2,7 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form @submit.prevent="editUser">
+                <form @submit.prevent="editForm">
                     <h2>Wijzig gebruiker</h2>
                     <div class="inputbox">
                         <input type="email" id="email" v-model="user.emailAddress" required>
@@ -16,6 +16,7 @@
                         <input type="text" id="lastname" v-model="user.lastName" required>
                         <label for="">Achternaam</label>
                     </div>
+                    <!--Only shows when the page was called from the UserDetail page-->
                     <div class="inputbox" v-if="$route.query.parent == 'UserDetail'">
                         <input type="text" id="password" v-model="user.password">
                         <label for="">Nieuw wachtwoord (indien gewenst)</label>
@@ -50,6 +51,7 @@ export default {
         store
     };
   },
+
   created() {
     axios.get('http://localhost:8080/user/get/' + this.$route.params.id)
       .then(response => {
@@ -65,25 +67,30 @@ export default {
   },
   methods: {
       
-    editUser() {
-        if(this.user.password != ""){
-            this.saveUserChanges()
-        }
-        else{
-            axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
+    // handles the form once the user submits by clicking on the button
+    editForm() {
+        // control whether the admin is themselves, to prevent themselves from removing their own admin status
+        axios.get(`http://localhost:8080/user/getbytoken/${localStorage.getItem("token")}`)
         .then(response => {
-          console.log('User updated:', response.status, this.user);
-          alert("Je hebt de gebruiker succesvol geüpdatet!")
-          this.$router.push('/admin/edit-users')
-            })
-        .catch(error => {
-          console.log("error error error")
-          console.log(this.user)
-          console.log(error);
-          alert("Er is iets foutgegaan, controleer de gegevens goed")
-            })
-        }
+            if(localStorage.getItem("userId") == response.data.id.toString() && localStorage.getItem("admin") == true.toString()){
+                console.log("localstorage Id is the same as token iser id")
+                console.log("localstorage admin is true")
+                console.log(this.user.admin)
+                if(this.user.admin == false){
+                    alert("Je kunt jezelf niet onadminnen")
+                    return
+                }
+            }
+            if(this.user.password != ""){
+            this.saveUserChanges()
+            }
+            else{
+            this.updateAnUser()
+            }
+        })
     },
+
+    // calls when an user wants to edit their own info
     saveUserChanges() {
     let userPassword = prompt("Bevestig uw huidige wachtwoord om de wijzigingen op te slaan", { type: 'password'})
     axios.get(`http://localhost:8080/user/self/${this.$route.params.id}/${userPassword}`)
@@ -109,9 +116,24 @@ export default {
             alert('Er is iets fout gegaan bij het ophalen van de gegevens')
             console.log(error);
         })
-}
+    },
 
-  },
+    // Calls when an admin wants to edit an user in the admin panel
+    updateAnUser(){
+        axios.put('http://localhost:8080/user/' + this.$route.params.id, this.user)
+        .then(response => {
+          console.log('User updated:', response.status, this.user);
+          alert("Je hebt de gebruiker succesvol geüpdatet!")
+          this.$router.push('/admin/edit-users')
+            })
+        .catch(error => {
+          console.log("error error error")
+          console.log(this.user)
+          console.log(error);
+          alert("Er is iets foutgegaan, controleer de gegevens goed")
+            })
+        }
+    },
 };
 </script>
 
