@@ -11,34 +11,33 @@
 
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <!-- Author -->
-          <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
-          }}</span>
+          <div class="flex flex-row">
+            <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
+            }}</span>
 
-          <button @click="showPrompt('author')"
-            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
-            <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
-              src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
-          </button>
-          <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe auteur in'" class=""
-            :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
-            @saveField="changeField('author', $event)"></PromptComponent>
-          <div>
-          <!-- Title -->
-          <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
-          }}</span>
+            <button @click="showPrompt('author')"
+              class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+              <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
+                src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
+            </button>
+            <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe auteur in'" class=""
+              :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
+              @saveField="changeField('author', $event)"></PromptComponent>
           </div>
 
-          <button @click="showPrompt('title')"
-            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
-            <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
-              src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
-          </button>
-          <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe titel in'" class=""
-            :class="[prompts.title ? 'visible' : 'invisible']" @closePrompt="prompts.title = false"
-            @saveField="changeField('title', $event)"></PromptComponent>
+          <!-- Title -->
+          <div class="flex flex-row">
+            <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
+            }}</span>
 
-
-          <div class="flex mb-4">
+            <button @click="showPrompt('title')"
+              class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+              <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
+                src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
+            </button>
+            <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe titel in'" class=""
+              :class="[prompts.title ? 'visible' : 'invisible']" @closePrompt="prompts.title = false"
+              @saveField="changeField('title', $event)"></PromptComponent>
           </div>
 
           <div v-if="!bookFetching">
@@ -58,7 +57,7 @@
           <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-y-2 p-1 my-2 border-slate-400">{{
             book.description }}</p>
           <button @click="showPrompt('description')"
-            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+            class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded float-right">
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
@@ -68,18 +67,20 @@
             @saveField="changeField('description', $event)"></PromptComponent>
 
 
-          <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+
+
+          <div class="flex py-2 items-center border-b-2 border-gray-200">
             <div class="flex">
               <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
 
               <button @click="changeIsbn()"
-                class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+                class="text-white bg-grey-500 border-0 p-1 focus:outline-none hover:bg-grey-600 rounded">
                 <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
                   src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
               </button>
             </div>
           </div>
-
+          <div class="text-xl py-4">Aantal Beschikbaar: {{ this.numberAvailable }}</div>
           <!-- Buttons -->
           <div class="flex">
             <!-- removed: ml-auto -->
@@ -147,6 +148,7 @@ export default {
     return {
       book: null,
       bookFetching: true,
+      numberAvailable: -1,
       reservation: {
         date: '',
         userId: '',
@@ -174,6 +176,7 @@ export default {
   mounted() {
     this.getBook()
     this.getUser()
+    this.countCopies()
   },
   methods: {
     // Get methods from here
@@ -265,6 +268,19 @@ export default {
             console.log(error);
           })
       }
+    },
+
+    countCopies() {
+      axios.get('http://localhost:8080/book/copies/available/' + this.$route.params.id)
+        .then(response => {
+          if (response.data.length > 0) {
+            this.numberAvailable = response.data.length;
+            console.log(response.data.length)
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
 
     addKeyword(keywordName) {

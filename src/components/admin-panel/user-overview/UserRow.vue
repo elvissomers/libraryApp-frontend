@@ -37,7 +37,7 @@
         class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
         :class="[user.id != parseInt(store.state.userId) ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed hover:bg-gray-600 hover:scale-100 hover:-translate-y-0']"
         :disabled="user.id == parseInt(store.state.userId)">
-        {{ user.id != parseInt(store.state.userId) ? 'Archiveren!' : 'Archiveren!' }}
+        Archiveren
       </button>
     <!--<button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
       :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"

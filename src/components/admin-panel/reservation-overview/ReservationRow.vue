@@ -6,11 +6,15 @@
       <div class="w-36">{{ reservation.userLastName }}</div>
       <div class="">{{ truncatedTitle }}</div>
     </div>
-    <button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
-      :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
-      :disabled="!reservation.available">
-      {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
-    </button>
+    <div class="flex flex-row">
+      <button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-40"
+        :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
+        :disabled="!reservation.available">
+        {{ reservation.available ? 'Goedkeuren' : 'Niet Beschikbaar' }}
+      </button>
+      <button @click='deleteReservation(reservation.id)'
+        class="text-white float-right ml-4 px-4 py-2 m-2 h-fit rounded-md w-40 bg-red-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300">Afwijzen!</button>
+    </div>
   </div>
 
   <CopyPopup v-bind:bookId="reservation.bookId" class="fixed top-32 inset-x-0 mx-auto z-10"
@@ -62,7 +66,7 @@ export default {
         .catch(error => {
           console.log(error);
         })
-        this.deleteReservation(this.reservation.id)
+      this.deleteReservation(this.reservation.id)
     },
 
     deleteReservation(id) {

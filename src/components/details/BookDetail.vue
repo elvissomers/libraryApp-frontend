@@ -19,16 +19,20 @@
           <!-- Description -->
           <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
             book.description }}</p>
-          <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+          <div class="flex py-2 items-center border-b-2 border-gray-200">
             <div class="flex">
               <span v-if="!bookFetching" class="mr-3">ISBN: {{ book.isbn }}</span>
             </div>
           </div>
+          <div class="text-xl py-4">Aantal Beschikbaar: {{ this.numberAvailable }}</div>
           <div class="flex">
             <!-- removed: ml-auto -->
-            <button @click="createReservation()"
+            <button @click="createReservation(); notifications.reservation = true"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
           </div>
+          <NotificationComponent v-bind:notificationText="this.textNotification"
+              :class="[notifications.reservation ? 'visible' : 'invisible']"
+              @closeNotification="notifications.reservation = false; refresh()"></NotificationComponent>
 
 
 
@@ -43,28 +47,34 @@
 <script>
 import axios from 'axios';
 import BookKeyword from './book-detail-page/BookKeyword.vue';
+import NotificationComponent from '../reusable-components/NotificationComponent.vue';
 
 export default {
   name: 'MyBooksView',
 
   components: {
-    BookKeyword
+    BookKeyword,
+    NotificationComponent
   },
 
   data() {
     return {
       book: [],
+      numberAvailable: -1,
+      textNotification: '',
       bookFetching: true,
       reservation: {
         date: '',
         userId: '',
         bookId: '',
-      }
+      },
+      notifications: {reservation: false}
     };
   },
   mounted() {
     this.getBook()
     this.getUser()
+    this.countCopies()
   },
   methods: {
     getUser() {
@@ -87,6 +97,20 @@ export default {
           console.log(error);
         });
     },
+
+    countCopies() {
+      axios.get('http://localhost:8080/book/copies/available/' + this.$route.params.id)
+        .then(response => {
+          if (response.data.length > 0) {
+            this.numberAvailable = response.data.length;
+            console.log(response.data.length)
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
     createReservation() {
       this.reservation.date = this.getCurrentDatey()
       this.reservation.userId = this.user.id
@@ -103,11 +127,10 @@ export default {
         .then(response => {
           console.log('Reservation created:', response.data);
           if (response.data) {
-            alert('Reservering aangemaakt');
+            this.textNotification = "Reservering gelukt"
           } else {
-            alert('Je hebt dit boek al gereserveerd')
+            this.textNotification = "Je hebt dit boek al gereserveerd"
           }
-          window.location.reload()
         })
         .catch(error => {
           console.log(error);
@@ -117,6 +140,10 @@ export default {
       let currentDate = new Date().toJSON().slice(0, 10);
       // console.log(currentDate); // "2023-03-13"
       return currentDate
+    },
+
+    refresh() {
+      window.location.reload()
     }
   },
 }
