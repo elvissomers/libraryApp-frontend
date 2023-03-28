@@ -70,7 +70,7 @@
         </div>
 
 
-        <div class="my-4 flex flex-col space-y-4">
+        <div v-if="store.getters.isAdmin" class="my-4 flex flex-col space-y-4">
             <div class="w-full flex flex-col ">
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                     <UserLoanTable></UserLoanTable>
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="my-4 flex flex-col space-y-4">
+        <div v-if="store.getters.isAdmin" class="my-4 flex flex-col space-y-4">
             <div class="w-full flex flex-col ">
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                     <UserReservationTable></UserReservationTable>
@@ -122,6 +122,7 @@ export default {
         UserLoanTable
     },
     name: 'UserDetail',
+
     data() {
         return {
             showBooksPopup: false,

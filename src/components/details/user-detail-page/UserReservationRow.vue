@@ -18,7 +18,7 @@
       </div>
   
   
-      <CopyPopup v-bind:bookId="$route.params.id" class=""
+      <CopyPopup v-bind:bookId="reservation.bookId" class=""
         :class="[copyPopupVisible ? 'visible' : 'invisible']" @closeCopyPopup="copyPopupVisible = false"
         @createReservationFromNumber="createLoan($event)"></CopyPopup>
   

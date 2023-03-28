@@ -66,6 +66,7 @@ export default {
         searchCopies() {
             axios.get('http://localhost:8080/book/copies/available/' + this.bookId)
                 .then(response => {
+
                     if (response.data.length > 0) {
                         this.copies = response.data;
                     }
