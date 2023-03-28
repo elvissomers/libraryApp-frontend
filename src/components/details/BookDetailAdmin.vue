@@ -2,11 +2,15 @@
   <section class="text-gray-700 body-font overflow-hidden">
     <div class="container mx-auto">
       <div v-if="!bookFetching" class="lg:w-full mx-auto flex flex-wrap justify-center">
-        <img v-if="bookCoverExists" alt="ecommerce"
-          class="mt-6 h-96 rounded border border-white border-4"
+        <img v-if="bookCoverExists" alt="ecommerce" class="mt-6 h-96 rounded border border-white border-4"
           v-bind:src="require(`@/assets/bookCovers/` + book.isbn + `.jpg`)">
-        <div v-if="!bookCoverExists" class="mt-6 h-96 rounded border border-white border-4 text-center flex items-center justify-center">No Image Available</div>
+        <div v-if="!bookCoverExists"
+          class="mt-6 h-96 rounded border border-white border-4 text-center flex items-center justify-center">No Image
+          Available
+        </div>
+
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+          <!-- Author -->
           <span v-if="!bookFetching" class="text-sm title-font text-gray-500 mr-2 tracking-widest">{{ book.author
           }}</span>
 
@@ -19,7 +23,7 @@
             :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
             @saveField="changeField('author', $event)"></PromptComponent>
 
-          <h1></h1>
+          <!-- Title -->
           <span v-if="!bookFetching" class="text-gray-900 text-3xl mr-2 title-font font-medium mb-1">{{ book.title
           }}</span>
 
@@ -35,7 +39,7 @@
 
           <div class="flex mb-4">
           </div>
-          <!-- Description -->
+
           <div v-if="!bookFetching">
             <button @click="prompts.keyword = true"
               class="text-white bg-blue-500 px-2 border-0 p-1 m-1 rounded-md hover:bg-blue-600">
@@ -43,14 +47,14 @@
             </button>
             <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
             </BookKeyword>
-            
+
           </div>
           <PromptComponent v-bind:typePrompt="'Welk keyword wil je toevoegen?'"
-              :class="[prompts.keyword ? 'visible' : 'invisible']" @closePrompt="prompts.keyword = false"
-              @saveField="addKeyword($event); showNotification('keyword')"></PromptComponent>
+            :class="[prompts.keyword ? 'visible' : 'invisible']" @closePrompt="prompts.keyword = false"
+            @saveField="addKeyword($event); showNotification('keyword')" />
 
-
-          <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
+          <!-- Description -->
+          <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-y-2 p-1 my-2 border-slate-400">{{
             book.description }}</p>
           <button @click="showPrompt('description')"
             class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
@@ -61,8 +65,6 @@
           <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een beschrijving in'" class=""
             :class="[prompts.description ? 'visible' : 'invisible']" @closePrompt="prompts.description = false"
             @saveField="changeField('description', $event)"></PromptComponent>
-
-
 
 
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
@@ -76,12 +78,14 @@
               </button>
             </div>
           </div>
+
+          <!-- Buttons -->
           <div class="flex">
             <!-- removed: ml-auto -->
             <button @click="createReservation(); notifications.reservation = true"
               class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded px-20 text-center">Reserveer</button>
 
-              <NotificationComponent v-bind:notificationText="this.textNotification"
+            <NotificationComponent v-bind:notificationText="this.textNotification"
               :class="[notifications.reservation ? 'visible' : 'invisible']"
               @closeNotification="notifications.reservation = false; refresh()"></NotificationComponent>
 
@@ -126,7 +130,7 @@ export default {
 
   computed: {
     bookCoverExists() {
-      if (this.bookFetching){
+      if (this.bookFetching) {
         return false;
       }
       try {
@@ -162,7 +166,7 @@ export default {
         // bookId: this.book.id
       },
       prompts: { description: false, title: false, author: false, nCopies: false, keyword: false },
-      notifications: { nCopies: false, reservation: false},
+      notifications: { nCopies: false, reservation: false },
       textNotification: ''
     };
   },
