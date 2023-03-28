@@ -13,7 +13,7 @@
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
-          <PromptComponent v-bind:book="book" v-bind:typePrompt="'author'" class=""
+          <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe auteur in'" class=""
             :class="[prompts.author ? 'visible' : 'invisible']" @closePrompt="prompts.author = false"
             @saveField="changeField('author', $event)"></PromptComponent>
 
@@ -26,7 +26,7 @@
             <img alt="ecommerce" class="lg:w-1/1 w-4 object-cover object-center rounded"
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
-          <PromptComponent v-bind:book="book" v-bind:typePrompt="'title'" class=""
+          <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een nieuwe titel in'" class=""
             :class="[prompts.title ? 'visible' : 'invisible']" @closePrompt="prompts.title = false"
             @saveField="changeField('title', $event)"></PromptComponent>
 
@@ -35,13 +35,18 @@
           </div>
           <!-- Description -->
           <div v-if="!bookFetching">
-            <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
-            </BookKeyword>
-            <button @click="addKeyword()"
-              class="text-white bg-grey-500 border-0 py-1 px-1 focus:outline-none hover:bg-grey-600 rounded">
+            <button @click="prompts.keyword = true"
+              class="text-white bg-blue-500 px-2 border-0 p-1 m-1 rounded-md hover:bg-blue-600">
               +
             </button>
+            <BookKeyword v-for="keyword in book.keywords" :key="keyword" v-bind:keyword="keyword">
+            </BookKeyword>
+            
           </div>
+          <PromptComponent v-bind:typePrompt="'Welk keyword wil je toevoegen?'"
+              :class="[prompts.keyword ? 'visible' : 'invisible']" @closePrompt="prompts.keyword = false"
+              @saveField="addKeyword($event); showNotification('keyword')"></PromptComponent>
+
 
           <p v-if="!bookFetching" class="leading-relaxed h-64 overflow-y-auto border-4 p-4 border-slate-200">{{
             book.description }}</p>
@@ -51,7 +56,7 @@
               src="https://cdn-icons-png.flaticon.com/512/61/61456.png?w=740&t=st=1678887410~exp=1678888010~hmac=91d3144990e622b8cafc0f2e8f4123973c3327bf4b075f343aaec0581930ca12">
           </button>
 
-          <PromptComponent v-bind:book="book" v-bind:typePrompt="'description'" class=""
+          <PromptComponent v-bind:book="book" v-bind:typePrompt="'Voer een beschrijving in'" class=""
             :class="[prompts.description ? 'visible' : 'invisible']" @closePrompt="prompts.description = false"
             @saveField="changeField('description', $event)"></PromptComponent>
 
@@ -71,13 +76,18 @@
           </div>
           <div class="flex">
             <!-- removed: ml-auto -->
-            <button @click="createReservation()"
-              class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded">Reserveer</button>
+            <button @click="createReservation(); notifications.reservation = true"
+              class="flex text-white bg-lime-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-lime-600 rounded px-20 text-center">Reserveer</button>
+
+              <NotificationComponent v-bind:notificationText="this.textNotification"
+              :class="[notifications.reservation ? 'visible' : 'invisible']"
+              @closeNotification="notifications.reservation = false; refresh()"></NotificationComponent>
+
 
             <button @click="showPrompt('nCopies')"
               class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Maak
               nieuwe kopie aan</button>
-            <PromptComponent v-bind:typePrompt="'Hoeveel exemplaren?'"
+            <PromptComponent v-bind:typePrompt="'Hoeveel exemplaren wil je toevoegen?'"
               :class="[prompts.nCopies ? 'visible' : 'invisible']" @closePrompt="prompts.nCopies = false"
               @saveField="createCopies($event); showNotification('nCopies')"></PromptComponent>
 
@@ -135,8 +145,9 @@ export default {
         // ?
         // bookId: this.book.id
       },
-      prompts: { description: false, title: false, author: false, nCopies: false },
-      notifications: { nCopies: false }
+      prompts: { description: false, title: false, author: false, nCopies: false, keyword: false },
+      notifications: { nCopies: false, reservation: false},
+      textNotification: ''
     };
   },
   mounted() {
@@ -189,16 +200,14 @@ export default {
         headers: headers
       })
         .then(response => {
-          console.log('Reservation created:', response.data);
-          if (response.data){
-            alert('Reservering aangemaakt');
+          if (response.data) {
+            this.textNotification = "Reservering gemaakt"
           } else {
-            alert('Reservering kan niet aangemaakt worden')
+            this.textNotification = "Reservering maken mislukt"
           }
-          window.location.reload()
         })
         .catch(error => {
-          console.log(error);
+          console.log(error)
         })
     },
     getCurrentDatey() {
@@ -235,8 +244,8 @@ export default {
       }
     },
 
-    addKeyword() {
-      let keywordName = prompt("Welk keyword wil je toevoegen?")
+    addKeyword(keywordName) {
+
       let keyword = {
         name: keywordName,
         bookId: this.book.id
@@ -245,7 +254,6 @@ export default {
         .then(response => {
           console.log("Keyword toegevoegd: ", response)
           console.log('Added keyword: ', keywordName, 'to book: ', this.book.title)
-          alert("Keyword toegevoegd")
           window.location.reload()
         })
         .catch(error => {
