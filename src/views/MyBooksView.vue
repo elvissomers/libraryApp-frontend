@@ -3,21 +3,22 @@
     <div class="MyBooks my-20">
         <h3 class="flex justify-center font-bold text-2xl mb-6">Mijn geleende boeken:</h3>
 
-        <div class="py-5 grid grid-cols-4 gap-4 max-w-7xl mx-auto">
+        <div class="py-5 grid grid-cols-4 gap-4 max-w-6xl mx-auto">
             <MyBookCard v-for="loan in myLoans" :key="loan.id" v-bind:loan="loan">
             </MyBookCard>
         </div>
         <p v-if="myLoans.length === 0" class="text-gray-500 flex justify-center">Je hebt geen boeken in bezit</p>
 
         <h3 class="flex justify-center font-bold text-2xl mt-16 mb-6">Mijn gereserveerde boeken:</h3>
-        <div class="py-5 grid grid-cols-4 gap-4 max-w-7xl mx-auto">
+        <div class="py-5 grid grid-cols-4 gap-4 max-w-6xl mx-auto">
             <ReservationCard v-for="reservation in myReservations" :key="reservation.id" v-bind:reservation="reservation">
             </ReservationCard>
         </div>
         <p v-if="myReservations.length === 0" class="text-gray-500 flex justify-center">Je hebt geen boeken gereserveerd</p>
-
-        <h3 class="flex justify-center font-bold text-2xl mt-16 mb-6">Mijn leengeschiedenis:</h3>
-        <div class="py-5 grid grid-cols-4 gap-4 max-w-7xl mx-auto">
+        
+        <h3 class="flex justify-center font-bold text-2xl mt-16 mb-6">Mijn eerder geleende boeken:</h3>
+        <div class="py-5 grid grid-cols-4 gap-4 max-w-6xl mx-auto">
+        
             <MyHistoryBookCard v-for="loan in myHistory" :key="loan.id" v-bind:loan="loan">
             </MyHistoryBookCard>
         </div>
