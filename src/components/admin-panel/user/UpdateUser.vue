@@ -72,7 +72,9 @@ export default {
         // control whether the admin is themselves, to prevent themselves from removing their own admin status
         axios.get(`http://localhost:8080/user/getbytoken/${localStorage.getItem("token")}`)
         .then(response => {
-            if(localStorage.getItem("userId") == response.data.id.toString() && localStorage.getItem("admin") == true.toString()){
+            if (this.$route.params.id == response.data.id && store.getters.isAdmin){
+                console.log(store.state.userId + ", " + response.data.id)
+                console.log(store.getters.isAdmin)
                 console.log("localstorage Id is the same as token iser id")
                 console.log("localstorage admin is true")
                 console.log(this.user.admin)
@@ -81,7 +83,7 @@ export default {
                     return
                 }
             }
-            if(this.user.password != ""){
+            if(this.user.password != "" && store.state.userId == this.$route.params.id ){
             this.saveUserChanges()
             }
             else{
