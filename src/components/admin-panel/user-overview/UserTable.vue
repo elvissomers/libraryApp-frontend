@@ -150,11 +150,11 @@ export default {
             this.showCopyPopup = true
             console.log(this.book)
         },
-        createLoan(copyNumber) {
+        createLoan(copy) {
             console.log("creating loan")
 
             let saveLoanDto = {}
-            saveLoanDto.copyNumber = copyNumber
+            saveLoanDto.copyNumber = copy.number
             saveLoanDto.startDate = new Date()
             saveLoanDto.bookId = this.book.id
             saveLoanDto.userId = this.user.id // get juiste ID
