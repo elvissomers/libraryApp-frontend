@@ -6,7 +6,7 @@
                     <div><h2>Creëer een lening</h2></div>
                     <div><h2>Verwijder een reservering</h2></div>
                     <div class="inputbox">
-                        <label for="">Reservation</label>
+                        <label for="">Reservering</label>
 
                         <select v-model="reservation">
 
@@ -47,7 +47,7 @@ export default {
         axios.post('http://localhost:8080/loan/create/fromreservation', this.reservation)
         .then(response => {
             console.log(response)
-            console.log('Copy added:', response.data);
+            console.log('Toegevoegde kopie:', response.data);
             alert("Exemplaar succesvol toegevoegd")
         })
         .catch(error => {
@@ -56,8 +56,8 @@ export default {
         axios.delete(`http://localhost:8080/reservation/delete/${this.reservation.id}`)
         .then(response => {
             console.log(response)
-            console.log('reservation deleted')
-            alert('reservation deleted')
+            console.log('De reservering is verwijderd')
+            alert('De reservering is verwijderd')
         })
     },
     getReservation() {

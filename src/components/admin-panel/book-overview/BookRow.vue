@@ -2,25 +2,38 @@
   <div class="flex flex-row justify-between hover:bg-blue-200"
     :class="[book.archived ? 'bg-slate-300 border-white' : '']">
     <div class="flex flex-row py-4">
-      <div class="w-36 ml-8">{{ book.isbn }}</div>
-      <div class="w-56">{{ book.author }}</div>
-      <div>{{ book.title }}</div>
+      <div class="w-40 ml-8">{{ book.isbn }}</div>
+      <div class="w-52">{{ book.author }}</div>
+      <router-link :to="{ name: 'book-detail', params: { id: book.id } }" class="hover:text-lime-500">
+        <div>{{ truncatedTitle }}</div>
+      </router-link>
     </div>
 
     <div class="flex flex-row">
       <div class="float:right p-4" :class="[book.archived ? 'visible' : 'invisible']">Gearchiveerd</div>
 
-      <router-link :to="{ name: 'update-book', params: { id: book.id } }" class="hover:text-gray-200">
+      <!-- <router-link :to="{ name: 'update-book', params: { id: book.id } }" class="hover:text-gray-200">
         <button
           class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Wijzig
         </button>
-      </router-link>
+      </router-link> -->
 
-      <router-link :to="{ name: 'book-detail', params: { id: book.id } }" class="hover:text-gray-200">
+      <button v-on:click="this.$emit('openAssignUserPopup', book)"
+        class="float-right text-white bg-blue-500 px-3 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 flex flex-nowrap">
+        <span>
+          +
+        </span>
+        <span class="material-symbols-outlined align-middle ">
+          assignment_ind
+          <!-- supervisor_account -->
+        </span>
+      </button>
+
+      <!-- <router-link :to="{ name: 'book-detail', params: { id: book.id } }" class="hover:text-gray-200">
         <button
           class="float-right text-white bg-blue-500 px-4 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Bekijk
         </button>
-      </router-link>
+      </router-link> -->
 
       <button v-if="!book.archived" v-on:click="archive()"
         class="float-right text-white bg-blue-500 py-2 m-2 h-fit rounded-md transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 w-24">Archiveer
@@ -42,7 +55,25 @@ import axios from 'axios';
 export default {
   name: "BookRow",
   props: ['book'],
-
+  data() {
+    return {
+      showBooksPopup: false,
+      showCopyPopup: false,
+      // user: [],
+      // book: null,
+      // notifications: {loanCreated: false},
+      // store
+    };
+  },
+  computed: {
+    truncatedTitle() {
+      if (this.book.title.length > 50) {
+        return this.book.title.substring(0, 50) + '...';
+      } else {
+        return this.book.title;
+      }
+    },
+  },
   methods: {
     deleteBook(id) {
       if (window.confirm("Weet je zeker dat je dit boek wilt verwijderen?")) {

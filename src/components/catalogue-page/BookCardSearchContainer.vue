@@ -1,7 +1,7 @@
 <template>
     <div class="Catalogue">
         <!--<div class="flex flex-row flex-wrap justify-center">-->
-        <div class="mx-40 my-5 grid grid-cols-4 gap-2">
+            <div class="py-5 grid grid-cols-4 gap-4 max-w-6xl mx-auto">
             <BookCardCatalogue 
                 v-for="book in books" :key="book.id" 
                 v-bind:id="book.id" 

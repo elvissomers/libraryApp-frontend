@@ -1,5 +1,5 @@
 <template>
-  <div class="EditUser flex flex-row">
+  <div class="EditUser flex flex-row bg-white">
     <SideBar></SideBar>
     <UserTable class="my-8"></UserTable>
   </div>

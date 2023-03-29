@@ -1,16 +1,20 @@
 <template>
   <div class="flex flex-row justify-between hover:bg-blue-200">
     <div class="flex flex-row py-4">
-      <div class="w-36 ml-8">{{ reservation.date }}</div>
-      <div class="w-36">{{ reservation.userFirstName }}</div>
-      <div class="w-36">{{ reservation.userLastName }}</div>
-      <div class="">{{ reservation.bookTitle }}</div>
+      <div class="w-32 ml-8">{{ reservation.date }}</div>
+      <div class="w-28">{{ reservation.userFirstName }}</div>
+      <div class="w-28">{{ reservation.userLastName }}</div>
+      <div class="">{{ truncatedTitle }}</div>
     </div>
-    <button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-48"
-      :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
-      :disabled="!reservation.available">
-      {{ reservation.available ? 'Goedkeuren!' : 'Niet Beschikbaar' }}
-    </button>
+    <div class="flex flex-row">
+      <button v-on:click="showCopies()" class="text-white float-right px-4 py-2 m-2 h-fit rounded-md w-40"
+        :class="[reservation.available ? 'bg-blue-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300' : 'bg-gray-400 cursor-not-allowed']"
+        :disabled="!reservation.available">
+        {{ reservation.available ? 'Goedkeuren' : 'Niet Beschikbaar' }}
+      </button>
+      <button @click='deleteReservation(reservation.id)'
+        class="text-white float-right ml-4 px-4 py-2 m-2 h-fit rounded-md w-40 bg-red-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300">Afwijzen!</button>
+    </div>
   </div>
 
   <CopyPopup v-bind:bookId="reservation.bookId" class="fixed top-32 inset-x-0 mx-auto z-10"
@@ -33,15 +37,23 @@ export default {
       copyPopupVisible: false,
     }
   },
-
+  computed: {
+    truncatedTitle() {
+      if (this.reservation.bookTitle.length > 50) {
+        return this.reservation.bookTitle.substring(0, 50) + '...';
+      } else {
+        return this.reservation.bookTitle;
+      }
+    },
+  },
   methods: {
     showCopies() {
       this.copyPopupVisible = true
     },
 
-    createLoan(copyNumber) {
+    createLoan(copy) {
       let saveReservationDto = {}
-      saveReservationDto.copyNumber = copyNumber
+      saveReservationDto.copyNumber = copy.number
       saveReservationDto.startDate = new Date()
       saveReservationDto.bookId = this.reservation.bookId
       saveReservationDto.userId = this.reservation.userId
@@ -54,7 +66,7 @@ export default {
         .catch(error => {
           console.log(error);
         })
-        this.deleteReservation(this.reservation.id)
+      this.deleteReservation(this.reservation.id)
     },
 
     deleteReservation(id) {

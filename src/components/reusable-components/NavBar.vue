@@ -10,24 +10,28 @@
                             alt="Logo"></router-link>
                     <!-- Nav Links -->
                     <ul v-if="store.getters.isAuthenticated" class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                        <li ><router-link to="/" class="hover:text-gray-200">Catalogue</router-link></li>
-                        <li ><router-link to="/mybooks" class="hover:text-gray-200">My Books</router-link></li>
-                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Admin panel</router-link></li>
+                        <li ><router-link to="/" class="hover:text-gray-200">Catalogus</router-link></li>
+                        <li ><router-link to="/mybooks" class="hover:text-gray-200">Mijn Boekenoverzicht</router-link></li>
+                        <li v-if="store.getters.isAdmin"><router-link to="/admin/edit-users" class="hover:text-gray-200">Administratie Omgeving</router-link></li>
                     </ul>
+                    <!-- <router-link to="/reset-password" class="hover:text-gray-200">Change password</router-link> -->
 
                     <!-- Account, removed: class="hidden xl:flex items-center space-x-5 items-center"-->
                     <div v-if="store.getters.isAuthenticated" class="flex-nowrap">
                         <router-link to="/" @click="store.commit('logout')" class="mx-2 align-middle hover:text-gray-200">
-                            Log out
+                            Uitloggen
                         </router-link>
+
+                        <span>|</span>
                         <!-- Sign In / Register removed: My Account-->
-                        <router-link :to="{name: 'user-detail', params:{id: store.state.userId }}" class=" hover:text-gray-200">
+                        <router-link :to="{name: 'user-detail', params:{id: store.state.userId }}" class=" hover:text-gray-200 mx-2">
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg> -->
                             <span class="material-symbols-outlined align-middle">account_circle</span>
+                            Mijn Profiel
                         </router-link>
                     </div>
                     <!-- Responsive navbar -->

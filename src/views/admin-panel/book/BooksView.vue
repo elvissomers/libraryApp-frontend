@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row">
+  <div class="flex flex-row bg-white">
     <SideBar></SideBar>
     <BookTable class="my-8"></BookTable>
   </div>
